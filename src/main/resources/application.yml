@@ -16,3 +16,10 @@ server:
 
 ---
 
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+    driverClassName: org
