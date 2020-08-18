@@ -1,6 +1,7 @@
 package swc3.server;
-
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+//import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,13 +16,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-public class JPAUnitTest {
+public class IntegrationTests {
 
   @Autowired
   private TestEntityManager entityManager;
 
   @Autowired
   TutorialRepository repository;
+
+  @BeforeEach
+  public void init(){
+    repository.deleteAll();
+  }
 
   @Test
   public void should_find_no_tutorials_if_repository_is_empty() {

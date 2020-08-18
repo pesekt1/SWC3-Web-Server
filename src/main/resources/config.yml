@@ -1,0 +1,18 @@
+server:
+  port: 5555
+---
+
+spring:
+  profiles: development
+server:
+  port: 5555
+
+---
+
+spring:
+  profiles: production
+server:
+  port: 0
+
+---
+
