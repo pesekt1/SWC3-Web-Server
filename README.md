@@ -1,1 +1,9 @@
-# SWC3-Web-Server
+# Spring Boot Web Server
+
+Implemented: RestController + Model + Repository
+
+Implemented aAPIs for http communication like GET, POST, PUT, DELETE
+
+Testing: Integration tests for the databse
+
+Custom Exception Handler
