@@ -27,7 +27,6 @@
                         <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description">
                         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
                     </div>
-                    <div th:text="${tutorial.id}"></div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mt-5">
