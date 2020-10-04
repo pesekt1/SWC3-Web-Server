@@ -1,4 +1,4 @@
-package swc3.server.controller;
+package swc3.server.controller.tutorials;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

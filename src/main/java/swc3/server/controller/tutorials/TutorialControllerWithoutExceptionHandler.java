@@ -1,4 +1,4 @@
-package swc3.server.controller;
+package swc3.server.controller.tutorials;
 
 import java.util.ArrayList;
 import java.util.List;
