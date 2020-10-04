@@ -49,12 +49,14 @@ public class TutorialControllerForThymeleaf {
         return "redirect:/thymeleaf/tutorialsAdvanced";
     }
 
+    //function for updating a tutorial
     @RequestMapping("{id}/update")
     public String openTutorialForm(@PathVariable("id") long id, Model model){
         model.addAttribute("tutorial", tutorialRepository.findById(id).get());
         return "tutorials/tutorialForm";
     }
 
+    //we cannot use @PutMapping because it is not supported as thymeleaf action, there is only get and post.
     @PostMapping("tutorialsAdvanced/{id}")
     public String updateTutorial(@PathVariable("id") long id, @ModelAttribute Tutorial tutorial){
         Tutorial _tutorial = tutorialRepository.findById(id)
@@ -68,6 +70,7 @@ public class TutorialControllerForThymeleaf {
         return "redirect:/thymeleaf/tutorialsAdvanced";
     }
 
+    //create new tutorial
     @RequestMapping("create")
     public String createTutorialForm(Model model){
         model.addAttribute("tutorial", new Tutorial());

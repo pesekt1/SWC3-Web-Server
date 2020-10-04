@@ -33,12 +33,12 @@
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="title" class="col-form-label">Title</label>
-                        <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
+                        <input required type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
                         <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="description" class="col-form-label">Description</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description">
+                        <input required type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description">
                         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
                     </div>
                 </div>

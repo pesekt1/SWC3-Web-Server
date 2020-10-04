@@ -13,7 +13,7 @@ public class Tutorial {
 	@GenericGenerator(name = "native", strategy = "native")
 	private long id;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
 	@Column(name = "description")
