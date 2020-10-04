@@ -7,11 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/shards.min.css">
+    <script src="http://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $("#nav-placeholder").load("../navbar");
+        });
+    </script>
 </head>
 <body>
+
+<!--Navigation bar-->
+<div id="nav-placeholder"></div>
+<!--end of Navigation bar-->
+
 <div class="container my-5">
+    <div class="row">
+<!--        <div class="col-md-6"><a class="btn btn-primary" href="#" th:href="@{'/thymeleaf'}" role="button">Home</a></div>-->
+<!--        <div class="col-md-6"><a class="btn btn-primary" href="#" th:href="@{'/thymeleaf/tutorialsAdvanced'}" role="button">Tutorials</a></div>-->
+    </div>
     <h2 class="mb-5">Create tutorial</h2>
+
     <div class="row">
         <div class="col-md-6">
             <form th:action="@{/thymeleaf/tutorialsAdvanced}" th:object="${tutorial}" method="post">
@@ -29,7 +44,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mt-5">
-                        <input type="submit" class="btn btn-primary" value="Update tutorial">
+                        <input type="submit" class="btn btn-primary" value="Create tutorial">
                     </div>
                 </div>
             </form>

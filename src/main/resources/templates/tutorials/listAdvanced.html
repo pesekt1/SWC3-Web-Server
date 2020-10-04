@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="http://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>Tutorials</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            $("#nav-placeholder").load("/navbar");
+        });
+    </script>
 </head>
 
 <body>
 
+<!--Navigation bar-->
+<div id="nav-placeholder"></div>
+<!--end of Navigation bar-->
+
 <h1>Tutorials - list</h1>
+
+<!--<a class="btn btn-primary" href="#" th:href="@{'/thymeleaf'}" role="button">Home</a>-->
 <a class="btn btn-primary" href="#" th:href="@{'/thymeleaf/create'}" role="button">New Tutorial</a>
 
 <table class="table">
