@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tutorials</title>
+        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+    </head>
+
+    <body>
+        <h1>Tutorials - list</h1>
+
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Published</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each = "tutorial : ${tutorials}">
+                <td th:text = "${tutorial.title}"></td>
+                <td th:text = "${tutorial.description}"></td>
+                <td th:text="${tutorial.published} ? 'yes' : 'no'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
+

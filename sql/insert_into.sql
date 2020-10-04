@@ -1,0 +1,11 @@
+use `swc3_springboot`;
+insert into tutorials (description, published, title) values ("desc1", 0, "title1");
+insert into tutorials (description, published, title) values ("desc2", 0, "title2");
+insert into tutorials (description, published, title) values ("desc3", 1, "title3");
+insert into tutorials (description, published, title) values ("desc4", 0, "title4");
+insert into tutorials (description, published, title) values ("desc5", 1, "title5");
+insert into tutorials (description, published, title) values ("desc6", 1, "title6");
+insert into tutorials (description, published, title) values ("desc7", 0, "title7");
+insert into tutorials (description, published, title) values ("desc8", 1, "title8");
+insert into tutorials (description, published, title) values ("desc9", 0, "title9");
+insert into tutorials (description, published, title) values ("desc10", 1, "title10");
