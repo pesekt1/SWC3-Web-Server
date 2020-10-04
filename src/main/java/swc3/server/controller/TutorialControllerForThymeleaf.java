@@ -68,4 +68,23 @@ public class TutorialControllerForThymeleaf {
         return "redirect:/thymeleaf/tutorialsAdvanced";
     }
 
+    @RequestMapping("create")
+    public String createTutorialForm(Model model){
+        model.addAttribute("tutorial", new Tutorial());
+        return "tutorials/createTutorialForm";
+    }
+
+    @PostMapping("tutorialsAdvanced")
+    public String createTutorial(@ModelAttribute Tutorial tutorial){
+        tutorialRepository.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
+        return "redirect:/thymeleaf/tutorialsAdvanced";
+    }
+
+//    @PostMapping("/tutorials")
+//    public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
+//        Tutorial _tutorial = tutorialRepository
+//                .save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
+//        return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+//    }
+
 }

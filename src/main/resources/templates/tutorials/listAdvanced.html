@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>Tutorials</title>
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
+
 <h1>Tutorials - list</h1>
+<a class="btn btn-primary" href="#" th:href="@{'/thymeleaf/create'}" role="button">New Tutorial</a>
 
 <table class="table">
     <thead class="thead-dark">
@@ -25,7 +28,7 @@
         <td th:text = "${tutorial.title}"></td>
         <td th:text = "${tutorial.description}"></td>
         <td th:text="${tutorial.published} ? 'yes' : 'no'"></td>
-        <td><a href="#" th:href="@{'/thymeleaf/' + ${tutorial.id} + '/update'}">Update</a></td>
+        <td><a th:href="@{'/thymeleaf/' + ${tutorial.id} + '/update'}">Update</a></td>
         <td><a th:href="@{/thymeleaf/delete/{id}(id=${tutorial.id})}">Delete</a></td>
         <td>
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

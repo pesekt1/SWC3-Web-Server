@@ -15,24 +15,24 @@
     <div class="row">
         <div class="col-md-6">
                 <form th:action="@{/thymeleaf/tutorialsAdvanced/{id}(id=${tutorial.id})}" th:object="${tutorial}" method="post">
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="title" class="col-form-label">Title</label>
-                        <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
-                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="title" class="col-form-label">Title</label>
+                            <input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Title">
+                            <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="description" class="col-form-label">Description</label>
+                            <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description">
+                            <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                        </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="description" class="col-form-label">Description</label>
-                        <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Description">
-                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+                    <div class="row">
+                        <div class="col-md-6 mt-5">
+                            <input type="submit" class="btn btn-primary" value="Update tutorial">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mt-5">
-                        <input type="submit" class="btn btn-primary" value="Update tutorial">
-                    </div>
-                </div>
-            </form>
+                </form>
         </div>
     </div>
 </div>
