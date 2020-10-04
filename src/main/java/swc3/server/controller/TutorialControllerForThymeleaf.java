@@ -41,16 +41,14 @@ public class TutorialControllerForThymeleaf {
         return "tutorials/listAdvanced";
     }
 
-    @GetMapping("/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String deleteTutorial(@PathVariable("id") long id, Model model) {
         Tutorial tutorial = tutorialRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid tutorial Id:" + id));
         tutorialRepository.delete(tutorial);
         model.addAttribute("tutorials", tutorialRepository.findAll());
-        //return "tutorials/listAdvanced";
         return "redirect:/thymeleaf/tutorialsAdvanced";
     }
 
-    @GetMapping
     @RequestMapping("{id}/update")
     public String openTutorialForm(@PathVariable("id") long id, Model model){
         model.addAttribute("tutorial", tutorialRepository.findById(id).get());
