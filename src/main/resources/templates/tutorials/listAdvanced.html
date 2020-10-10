@@ -17,12 +17,13 @@
 
 <!--Navigation bar-->
 <div id="nav-placeholder"></div>
-<!--end of Navigation bar-->
 
-<h1>Tutorials - list</h1>
+<h1 class="text-center">Tutorials - list
+    <a th:href="@{'/thymeleaf/create'}" class="badge badge-primary">New</a>
+</h1>
 
 <!--<a class="btn btn-primary" href="#" th:href="@{'/thymeleaf'}" role="button">Home</a>-->
-<a class="btn btn-primary" href="#" th:href="@{'/thymeleaf/create'}" role="button">New Tutorial</a>
+<!--<a class="btn btn-primary" href="#" th:href="@{'/thymeleaf/create'}" role="button">New Tutorial</a>-->
 
 <table class="table">
     <thead class="thead-dark">

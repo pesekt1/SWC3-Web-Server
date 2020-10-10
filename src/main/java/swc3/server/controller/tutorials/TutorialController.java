@@ -1,6 +1,7 @@
 package swc3.server.controller.tutorials;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,9 @@ import java.util.List;
 import swc3.server.model.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 //REST Controller for client-side rendering
 
 @CrossOrigin(origins = {"http://localhost:8081", "https://swc3-react-frontend.herokuapp.com"})
@@ -20,6 +24,9 @@ public class TutorialController {
 
 	@Autowired
 	TutorialRepository tutorialRepository;
+
+	@Autowired
+	EntityManager em;
 
 	@GetMapping("/tutorials")
 	public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
@@ -35,6 +42,24 @@ public class TutorialController {
 			}
 
 			return new ResponseEntity<>(tutorials, HttpStatus.OK);
+	}
+
+	//testing sql injection: Hibernate does not allow ";" in the query so it is not possible to send multiple statements.
+	@GetMapping("/tutorialsVulnerable")
+	public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(@RequestParam String title) {
+		List<Tutorial> tutorials = new ArrayList<>();
+
+		//using String concatination, but it is still safe because Hibernate does not allow ";"
+		TypedQuery<Tutorial> query = em.createQuery(
+				"SELECT t FROM Tutorial t WHERE t.title = '" + title + "'", Tutorial.class);
+
+		tutorials.addAll(query.getResultList());
+
+		if (tutorials.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
+		return new ResponseEntity<>(tutorials, HttpStatus.OK);
 	}
 
 	@GetMapping("/tutorials/{id}")

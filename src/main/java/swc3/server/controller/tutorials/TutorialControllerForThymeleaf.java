@@ -1,7 +1,6 @@
 package swc3.server.controller.tutorials;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +8,14 @@ import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.model.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
+import java.util.List;
+
 //controller for server-side rendering
 @Controller
 @RequestMapping("/thymeleaf")
 public class TutorialControllerForThymeleaf {
     private final TutorialRepository tutorialRepository;
+
 
     public TutorialControllerForThymeleaf(TutorialRepository tutorialRepository) {
         this.tutorialRepository = tutorialRepository;
@@ -61,6 +63,9 @@ public class TutorialControllerForThymeleaf {
     public String updateTutorial(@PathVariable("id") long id, @ModelAttribute Tutorial tutorial){
         Tutorial _tutorial = tutorialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+
+        //native query
+        //Tutorial _tutorial = tutorialRepository.findTutorialById(id);
 
         _tutorial.setTitle(tutorial.getTitle());
         _tutorial.setDescription(tutorial.getDescription());

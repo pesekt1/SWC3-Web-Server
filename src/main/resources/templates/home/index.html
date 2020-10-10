@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>SWC3 Project</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script>
-        $(function(){
-            $("#nav-placeholder").load("/navbar");
-        });
-    </script>
-</head>
-<body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>SWC3 Project</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script>
+            $(function(){
+                $("#nav-placeholder").load("/navbar");
+            });
+        </script>
+    </head>
+    <body>
+        <!--Navigation bar-->
+        <div id="nav-placeholder"></div>
 
-<!--Navigation bar-->
-<div id="nav-placeholder"></div>
-<!--end of Navigation bar-->
+        <script>console.log("index.html page");</script>
 
-</body>
+        <div class="container">
+            <div class="row">
+                <div class="col"><img src="/SSR2.png" alt="SSR"></div>
+                <div class="w-100"></div>
+                <div class="col"><img src="/templateEngine.png" alt="Template Engine"></div>
+            </div>
+        </div>
+    </body>
 </html>
