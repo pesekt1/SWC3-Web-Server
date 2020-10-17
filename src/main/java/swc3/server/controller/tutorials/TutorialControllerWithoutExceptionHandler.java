@@ -12,7 +12,7 @@ import swc3.server.model.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 //REST Controller for client-side rendering
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"http://localhost:8081", "https://swc3-react-frontend.herokuapp.com"})
 @RestController
 @RequestMapping("/api2")
 public class TutorialControllerWithoutExceptionHandler {
