@@ -15,8 +15,8 @@ import swc3.server.repository.TutorialRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-//REST Controller for client-side rendering
 
+//REST Controller for client-side rendering
 @CrossOrigin(origins = {"http://localhost:8081", "https://swc3-react-frontend.herokuapp.com"})
 @RestController
 @RequestMapping("/api")
@@ -66,7 +66,7 @@ public class TutorialController {
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
 		Tutorial tutorial = tutorialRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
-
+				//this will be caught by our ControllerExceptionHandler
 		return new ResponseEntity<>(tutorial, HttpStatus.OK);
 	}
 

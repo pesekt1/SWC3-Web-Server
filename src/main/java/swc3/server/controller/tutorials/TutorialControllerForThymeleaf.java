@@ -1,6 +1,5 @@
 package swc3.server.controller.tutorials;
 
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +7,7 @@ import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.model.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
-import java.util.List;
+
 
 //controller for server-side rendering
 @Controller
