@@ -10,3 +10,4 @@ public class HelloControllerTest {
         assert(message).equals("Hello Tomas!");
     }
 }
+
