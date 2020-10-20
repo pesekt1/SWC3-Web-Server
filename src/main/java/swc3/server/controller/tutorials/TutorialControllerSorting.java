@@ -31,7 +31,6 @@ public class TutorialControllerSorting {
         } else if (direction.equals("desc")) {
             return Sort.Direction.DESC;
         }
-
         return Sort.Direction.ASC;
     }
 
@@ -59,7 +58,7 @@ public class TutorialControllerSorting {
         return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 
-    //retrieve paginated tutorials sorted
+    //retrieve filtered, paginated, sorted, and tutorials
     @GetMapping("/tutorials-with-sorting")
     public ResponseEntity<Map<String, Object>> getAllTutorialsPageSorting(
             @RequestParam(required = false) String title,
