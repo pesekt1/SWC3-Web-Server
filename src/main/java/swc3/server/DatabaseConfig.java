@@ -9,10 +9,12 @@ import javax.sql.DataSource;
 
 
 
-@Component
-@Profile("dev")
-//@Configuration
+//@Component
+//@Profile("dev")
+@Configuration
 public class DatabaseConfig {
+
+
 
 //    @Value("${spring.datasource.url}")
 //    private String dbUrl;
