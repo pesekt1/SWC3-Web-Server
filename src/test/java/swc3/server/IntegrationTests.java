@@ -29,8 +29,8 @@ public class IntegrationTests {
   @Test
   public void should_find_no_tutorials_if_repository_is_empty() {
     Iterable<Tutorial> tutorials = repository.findAll();
-
     assertThat(tutorials).isEmpty();
+    assertThat(tutorials).hasSize(2);
   }
 
   @Test
