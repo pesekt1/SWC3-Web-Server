@@ -1,5 +1,7 @@
 package swc3.server.models;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,16 +12,18 @@ public class Tutorial {
     private Boolean published;
     private String title;
 
-    public Tutorial(String description,String title, Boolean published) {
+    public Tutorial(String title, String description, boolean published) {
+        this.title = title;
         this.description = description;
         this.published = published;
-        this.title = title;
     }
 
     public Tutorial() {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)
     public long getId() {
         return id;
