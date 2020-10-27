@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import swc3.server.model.Tutorial;
+import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -115,7 +115,7 @@ public class IntegrationTests {
     Tutorial tut = repository.findById(tut2.getId()).get();
     tut.setTitle(updatedTut.getTitle());
     tut.setDescription(updatedTut.getDescription());
-    tut.setPublished(updatedTut.isPublished());
+    tut.setPublished(updatedTut.getPublished());
     repository.save(tut);
 
     Tutorial checkTut = repository.findById(tut2.getId()).get();
@@ -123,7 +123,7 @@ public class IntegrationTests {
     assertThat(checkTut.getId()).isEqualTo(tut2.getId());
     assertThat(checkTut.getTitle()).isEqualTo(updatedTut.getTitle());
     assertThat(checkTut.getDescription()).isEqualTo(updatedTut.getDescription());
-    assertThat(checkTut.isPublished()).isEqualTo(updatedTut.isPublished());
+    assertThat(checkTut.getPublished()).isEqualTo(updatedTut.getPublished());
   }
 
   @Test

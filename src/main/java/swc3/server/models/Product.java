@@ -1,17 +1,24 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 @Entity
-@Table(name = "products", schema = "swc3_springboot")
+@Table(name = "products")
 public class Product {
     private int productId;
     private String name;
     private int quantityInStock;
     private BigDecimal unitPrice;
+    private Collection<OrderItem> orderItemsByProductId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
@@ -73,5 +80,15 @@ public class Product {
         result = 31 * result + quantityInStock;
         result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         return result;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "productsByProductId")
+    public Collection<OrderItem> getOrderItemsByProductId() {
+        return orderItemsByProductId;
+    }
+
+    public void setOrderItemsByProductId(Collection<OrderItem> orderItemsByProductId) {
+        this.orderItemsByProductId = orderItemsByProductId;
     }
 }

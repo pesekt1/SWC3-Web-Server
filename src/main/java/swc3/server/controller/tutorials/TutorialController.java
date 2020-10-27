@@ -1,7 +1,6 @@
 package swc3.server.controller.tutorials;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +8,7 @@ import swc3.server.exception.ResourceNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import swc3.server.model.Tutorial;
+import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 import javax.persistence.EntityManager;
@@ -73,7 +72,7 @@ public class TutorialController {
 	@PostMapping("/tutorials")
 	public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
 			Tutorial _tutorial = tutorialRepository
-					.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
+					.save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
 			return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
 	}
 
@@ -84,7 +83,7 @@ public class TutorialController {
 
 		_tutorial.setTitle(tutorial.getTitle());
 		_tutorial.setDescription(tutorial.getDescription());
-		_tutorial.setPublished(tutorial.isPublished());
+		_tutorial.setPublished(tutorial.getPublished());
 
 		return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
 	}

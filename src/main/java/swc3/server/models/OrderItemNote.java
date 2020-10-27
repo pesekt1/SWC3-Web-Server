@@ -1,14 +1,21 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order_item_notes", schema = "swc3_springboot")
+@Table(name = "order_item_notes")
 public class OrderItemNote {
     private int noteId;
     private String note;
 
+    private OrderItem orderItems;
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "note_id", nullable = false)
     public int getNoteId() {
         return noteId;
@@ -46,5 +53,16 @@ public class OrderItemNote {
         int result = noteId;
         result = 31 * result + (note != null ? note.hashCode() : 0);
         return result;
+    }
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumns({@JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false), @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)})
+    public OrderItem getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(OrderItem orderItems) {
+        this.orderItems = orderItems;
     }
 }

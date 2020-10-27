@@ -1,19 +1,22 @@
-package swc3.server.model;
+package swc3.server.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
-@Table(name = "orders", schema = "swc3_springboot")
+@Table(name = "orders")
 public class Order {
     private int orderId;
     private Date orderDate;
     private String comments;
     private Date shippedDate;
-    private Customer customersByCustomerId;
-    private OrderStatus orderStatusesByStatus;
+    private Collection<OrderItem> orderItemsByOrderId;
+    private Customer customerByCustomerId;
+    private OrderStatus orderStatusByStatus;
+    private Shipper shippersByShipperId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -81,23 +84,46 @@ public class Order {
         return result;
     }
 
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "ordersByOrderId")
+    public Collection<OrderItem> getOrderItemsByOrderId() {
+        return orderItemsByOrderId;
+    }
+
+    public void setOrderItemsByOrderId(Collection<OrderItem> orderItemsByOrderId) {
+        this.orderItemsByOrderId = orderItemsByOrderId;
+    }
+
+    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     public Customer getCustomerByCustomerId() {
-        return customersByCustomerId;
+        return customerByCustomerId;
     }
 
     public void setCustomerByCustomerId(Customer customersByCustomerId) {
-        this.customersByCustomerId = customersByCustomerId;
+        this.customerByCustomerId = customersByCustomerId;
     }
 
+    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status", referencedColumnName = "order_status_id", nullable = false)
     public OrderStatus getOrderStatusByStatus() {
-        return orderStatusesByStatus;
+        return orderStatusByStatus;
     }
 
     public void setOrderStatusByStatus(OrderStatus orderStatusesByStatus) {
-        this.orderStatusesByStatus = orderStatusesByStatus;
+        this.orderStatusByStatus = orderStatusesByStatus;
+    }
+
+    //@JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "shipper_id", referencedColumnName = "shipper_id")
+    public Shipper getShippersByShipperId() {
+        return shippersByShipperId;
+    }
+
+    public void setShippersByShipperId(Shipper shippersByShipperId) {
+        this.shippersByShipperId = shippersByShipperId;
     }
 }

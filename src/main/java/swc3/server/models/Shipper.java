@@ -1,14 +1,21 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "shippers", schema = "swc3_springboot")
+@Table(name = "shippers")
 public class Shipper {
     private short shipperId;
     private String name;
+    private Collection<Order> ordersByShipperId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "shipper_id", nullable = false)
     public short getShipperId() {
         return shipperId;
@@ -46,5 +53,15 @@ public class Shipper {
         int result = (int) shipperId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "shippersByShipperId")
+    public Collection<Order> getOrdersByShipperId() {
+        return ordersByShipperId;
+    }
+
+    public void setOrdersByShipperId(Collection<Order> ordersByShipperId) {
+        this.ordersByShipperId = ordersByShipperId;
     }
 }

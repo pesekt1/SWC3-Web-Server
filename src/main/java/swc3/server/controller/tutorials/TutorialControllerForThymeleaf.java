@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import swc3.server.exception.ResourceNotFoundException;
-import swc3.server.model.Tutorial;
+import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 
@@ -68,7 +68,7 @@ public class TutorialControllerForThymeleaf {
 
         _tutorial.setTitle(tutorial.getTitle());
         _tutorial.setDescription(tutorial.getDescription());
-        _tutorial.setPublished(tutorial.isPublished());
+        _tutorial.setPublished(tutorial.getPublished());
         tutorialRepository.save(_tutorial);
 
         return "redirect:/thymeleaf/tutorialsAdvanced";
@@ -83,7 +83,7 @@ public class TutorialControllerForThymeleaf {
 
     @PostMapping("tutorialsAdvanced")
     public String createTutorial(@ModelAttribute Tutorial tutorial){
-        tutorialRepository.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
+        tutorialRepository.save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
         return "redirect:/thymeleaf/tutorialsAdvanced";
     }
 

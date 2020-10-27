@@ -1,16 +1,30 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Collection;
 
 @Entity
-@Table(name = "order_items", schema = "swc3_springboot")
+@Table(name = "order_items")
 @IdClass(OrderItemPK.class)
 public class OrderItem {
     private int orderId;
     private int productId;
     private int quantity;
     private BigDecimal unitPrice;
+    private Collection<OrderItemNote> orderItemNotes;
+    private Order ordersByOrderId;
+    private Product productsByProductId;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(int orderId, int productId) {
+        this.orderId = orderId;
+        this.productId = productId;
+    }
 
     @Id
     @Column(name = "order_id", nullable = false)
@@ -74,5 +88,37 @@ public class OrderItem {
         result = 31 * result + quantity;
         result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         return result;
+    }
+
+    //@JsonManagedReference
+    @OneToMany(mappedBy = "orderItems")
+    public Collection<OrderItemNote> getOrderItemNotes() {
+        return orderItemNotes;
+    }
+
+    public void setOrderItemNotes(Collection<OrderItemNote> orderItemNotes) {
+        this.orderItemNotes = orderItemNotes;
+    }
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable=false, updatable=false)
+    public Order getOrdersByOrderId() {
+        return ordersByOrderId;
+    }
+
+    public void setOrdersByOrderId(Order ordersByOrderId) {
+        this.ordersByOrderId = ordersByOrderId;
+    }
+
+    //@JsonManagedReference
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable=false, updatable=false)
+    public Product getProductsByProductId() {
+        return productsByProductId;
+    }
+
+    public void setProductsByProductId(Product productsByProductId) {
+        this.productsByProductId = productsByProductId;
     }
 }

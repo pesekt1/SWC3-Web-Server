@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import swc3.server.model.Customer;
+import swc3.server.models.Customer;
 import swc3.server.repository.CustomerRepository;
 
 import java.util.ArrayList;

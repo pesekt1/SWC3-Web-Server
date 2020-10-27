@@ -7,21 +7,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import swc3.server.model.Order;
+import swc3.server.models.Order;
 import swc3.server.repository.OrderRepository;
 
 //saves given order to the database
+//but not saving orderItems or OrderItemNotes
 
 @RestController
 @RequestMapping("/api")
-public class OrdersController {
+public class OrdersControllerOld {
     @Autowired
     OrderRepository ordersRepository;
 
     //not doing integrity checks....
     //if we give non existing customer id or status id it will throw an exception
     //... we will get internal server error
-    @PostMapping("/orders")
+    @PostMapping("/ordersOld")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         Order _order = ordersRepository.save(order);
         return new ResponseEntity<>(_order, HttpStatus.CREATED);

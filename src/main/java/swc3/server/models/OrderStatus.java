@@ -1,14 +1,21 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
-@Table(name = "order_statuses", schema = "swc3_springboot")
+@Table(name = "order_statuses")
 public class OrderStatus {
     private byte orderStatusId;
     private String name;
+    private Collection<Order> ordersByOrderStatusId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "order_status_id", nullable = false)
     public byte getOrderStatusId() {
         return orderStatusId;
@@ -46,5 +53,15 @@ public class OrderStatus {
         int result = (int) orderStatusId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "orderStatusByStatus")
+    public Collection<Order> getOrdersByOrderStatusId() {
+        return ordersByOrderStatusId;
+    }
+
+    public void setOrdersByOrderStatusId(Collection<Order> ordersByOrderStatusId) {
+        this.ordersByOrderStatusId = ordersByOrderStatusId;
     }
 }

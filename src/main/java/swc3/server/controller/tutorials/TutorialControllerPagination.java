@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import swc3.server.model.Tutorial;
+import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 

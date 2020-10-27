@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import swc3.server.model.Tutorial;
+import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 //REST Controller for client-side rendering
@@ -70,7 +70,7 @@ public class TutorialControllerWithoutExceptionHandler {
             Tutorial _tutorial = tutorialData.get();
             _tutorial.setTitle(tutorial.getTitle());
             _tutorial.setDescription(tutorial.getDescription());
-            _tutorial.setPublished(tutorial.isPublished());
+            _tutorial.setPublished(tutorial.getPublished());
             return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

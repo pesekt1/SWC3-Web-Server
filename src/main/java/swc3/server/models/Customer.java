@@ -1,10 +1,14 @@
-package swc3.server.model;
+package swc3.server.models;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 
 @Entity
-@Table(name = "customers", schema = "swc3_springboot")
+@Table(name = "customers")
 public class Customer {
     private int customerId;
     private String firstName;
@@ -15,8 +19,11 @@ public class Customer {
     private String city;
     private String state;
     private int points;
+    private Collection<Order> ordersByCustomerId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "customer_id", nullable = false)
     public int getCustomerId() {
         return customerId;
@@ -138,5 +145,15 @@ public class Customer {
         result = 31 * result + (state != null ? state.hashCode() : 0);
         result = 31 * result + points;
         return result;
+    }
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "customerByCustomerId")
+    public Collection<Order> getOrdersByCustomerId() {
+        return ordersByCustomerId;
+    }
+
+    public void setOrdersByCustomerId(Collection<Order> ordersByCustomerId) {
+        this.ordersByCustomerId = ordersByCustomerId;
     }
 }
