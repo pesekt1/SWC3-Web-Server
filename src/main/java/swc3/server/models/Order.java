@@ -84,7 +84,6 @@ public class Order {
         return result;
     }
 
-    //@JsonManagedReference
     @OneToMany(mappedBy = "ordersByOrderId")
     public Collection<OrderItem> getOrderItemsByOrderId() {
         return orderItemsByOrderId;
@@ -94,7 +93,6 @@ public class Order {
         this.orderItemsByOrderId = orderItemsByOrderId;
     }
 
-    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     public Customer getCustomerByCustomerId() {
@@ -105,7 +103,6 @@ public class Order {
         this.customerByCustomerId = customersByCustomerId;
     }
 
-    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "status", referencedColumnName = "order_status_id", nullable = false)
     public OrderStatus getOrderStatusByStatus() {
@@ -116,7 +113,6 @@ public class Order {
         this.orderStatusByStatus = orderStatusesByStatus;
     }
 
-    //@JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "shipper_id", referencedColumnName = "shipper_id")
     public Shipper getShippersByShipperId() {

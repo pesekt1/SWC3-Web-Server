@@ -18,13 +18,13 @@ public class OrderItem {
     private Order ordersByOrderId;
     private Product productsByProductId;
 
-    public OrderItem() {
-    }
-
-    public OrderItem(int orderId, int productId) {
-        this.orderId = orderId;
-        this.productId = productId;
-    }
+//    public OrderItem() {
+//    }
+//
+//    public OrderItem(int orderId, int productId) {
+//        this.orderId = orderId;
+//        this.productId = productId;
+//    }
 
     @Id
     @Column(name = "order_id", nullable = false)
