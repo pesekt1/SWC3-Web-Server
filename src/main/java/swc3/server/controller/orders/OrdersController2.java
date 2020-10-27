@@ -11,12 +11,9 @@ import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.model.Customer;
 import swc3.server.model.Order;
 import swc3.server.model.OrderStatus;
-import swc3.server.model.Tutorial;
 import swc3.server.repository.CustomerRepository;
 import swc3.server.repository.OrderRepository;
 import swc3.server.repository.OrderStatusRepository;
-
-import java.util.Optional;
 
 //if we needed to fill the missing fields for customer and order status:
 //we query the whole Customer object
@@ -35,6 +32,8 @@ public class OrdersController2 {
 
     @Autowired
     OrderStatusRepository orderStatusesRepository ;
+
+    //filling fields the Customer object and OrderStatus object
 
     //with integrity checks: checking id of customer and status,
     // if not exist - get Not Found http status, with a custom message.

@@ -1,5 +1,7 @@
 package swc3.server.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -14,6 +16,8 @@ public class Order {
     private OrderStatus orderStatusesByStatus;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "order_id", nullable = false)
     public int getOrderId() {
         return orderId;
