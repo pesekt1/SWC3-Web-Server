@@ -20,6 +20,7 @@ SET @@global.time_zone = '+00:00';
 
 there are many endpoints defined:
 GET:
+
 http://localhost:5557/api/tutorials
 
 http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc
