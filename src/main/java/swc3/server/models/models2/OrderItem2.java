@@ -1,4 +1,4 @@
-package swc3.server.models;
+package swc3.server.models.models2;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -7,24 +7,15 @@ import java.math.BigDecimal;
 import java.util.Collection;
 
 @Entity
-@Table(name = "order_items")
-@IdClass(OrderItemPK.class)
-public class OrderItem {
+@Table(name = "order_items", schema = "swc3_springboot")
+@IdClass(OrderItem2PK.class)
+public class OrderItem2 {
     private int orderId;
     private int productId;
     private int quantity;
     private BigDecimal unitPrice;
-    private Collection<OrderItemNote> orderItemNotes;
-    private Order ordersByOrderId;
-    private Product productsByProductId;
-
-    public OrderItem() {
-    }
-
-    public OrderItem(int orderId, int productId) {
-        this.orderId = orderId;
-        this.productId = productId;
-    }
+    private OrderWithIDs ordersByOrderId;
+    private Collection<OrderItemNote2> orderItemNotes;
 
     @Id
     @Column(name = "order_id", nullable = false)
@@ -71,12 +62,12 @@ public class OrderItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderItem orderItem = (OrderItem) o;
+        OrderItem2 that = (OrderItem2) o;
 
-        if (orderId != orderItem.orderId) return false;
-        if (productId != orderItem.productId) return false;
-        if (quantity != orderItem.quantity) return false;
-        if (unitPrice != null ? !unitPrice.equals(orderItem.unitPrice) : orderItem.unitPrice != null) return false;
+        if (orderId != that.orderId) return false;
+        if (productId != that.productId) return false;
+        if (quantity != that.quantity) return false;
+        if (unitPrice != null ? !unitPrice.equals(that.unitPrice) : that.unitPrice != null) return false;
 
         return true;
     }
@@ -91,32 +82,22 @@ public class OrderItem {
     }
 
     @OneToMany(mappedBy = "orderItems")
-    public Collection<OrderItemNote> getOrderItemNotes() {
+    public Collection<OrderItemNote2> getOrderItemNotes() {
         return orderItemNotes;
     }
 
-    public void setOrderItemNotes(Collection<OrderItemNote> orderItemNotes) {
+    public void setOrderItemNotes(Collection<OrderItemNote2> orderItemNotes) {
         this.orderItemNotes = orderItemNotes;
     }
 
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable=false, updatable=false)
-    public Order getOrdersByOrderId() {
+    public OrderWithIDs getOrdersByOrderId() {
         return ordersByOrderId;
     }
 
-    public void setOrdersByOrderId(Order ordersByOrderId) {
+    public void setOrdersByOrderId(OrderWithIDs ordersByOrderId) {
         this.ordersByOrderId = ordersByOrderId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable=false, updatable=false)
-    public Product getProductsByProductId() {
-        return productsByProductId;
-    }
-
-    public void setProductsByProductId(Product productsByProductId) {
-        this.productsByProductId = productsByProductId;
     }
 }
