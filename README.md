@@ -2,7 +2,7 @@
 
 Implemented: RestController + Model + Repository
 
-The self contained dump file for the database is in sql folder:
+The self-contained dump file for the database is in sql folder:
 swc3_springboot_dump.sql
 Create that database and make sure it is used as a data source by the web server.
 
