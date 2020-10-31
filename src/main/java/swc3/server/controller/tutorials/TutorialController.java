@@ -10,6 +10,7 @@ import java.util.List;
 
 import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
+import swc3.server.services.TutorialService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -23,6 +24,9 @@ public class TutorialController {
 
 	@Autowired
 	TutorialRepository tutorialRepository;
+
+	@Autowired
+	TutorialService tutorialService;
 
 	@Autowired
 	EntityManager em;
@@ -63,10 +67,8 @@ public class TutorialController {
 
 	@GetMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
-		Tutorial tutorial = tutorialRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
-				//this will be caught by our ControllerExceptionHandler
-		return new ResponseEntity<>(tutorial, HttpStatus.OK);
+		//example of using a service instead of directly calling the repository
+		return tutorialService.get(id);
 	}
 
 	@PostMapping("/tutorials")
