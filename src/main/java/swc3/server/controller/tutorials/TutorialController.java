@@ -17,7 +17,11 @@ import javax.persistence.TypedQuery;
 
 
 //REST Controller for client-side rendering
-@CrossOrigin(origins = {"http://localhost:8081", "https://swc3-react-frontend.herokuapp.com"})
+@CrossOrigin(origins = {
+		"http://localhost:8081",
+		"http://localhost:5000",
+		"https://swc3-react-frontend.herokuapp.com"
+})
 @RestController
 @RequestMapping("/api")
 public class TutorialController {
