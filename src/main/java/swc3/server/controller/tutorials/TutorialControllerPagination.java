@@ -8,19 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
+import swc3.server.services.TutorialService;
 
-
-@CrossOrigin(origins = {"http://localhost:8081", "https://swc3-react-frontend.herokuapp.com"})
+//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/api3")
+@RequestMapping("/api")
+@PreAuthorize("hasRole('ADMIN')")
 public class TutorialControllerPagination {
 
     @Autowired
     TutorialRepository tutorialRepository;
+
+
+    @Autowired
+    TutorialService tutorialService;
 
     //retrieve paginated tutorials
     @GetMapping("/tutorials")
@@ -73,5 +81,45 @@ public class TutorialControllerPagination {
 
             return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @GetMapping("/tutorials/{id}")
+    public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
+        //example of using a service instead of directly calling the repository
+        return tutorialService.get(id);
+    }
+
+    @PostMapping("/tutorials")
+    public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
+        Tutorial _tutorial = tutorialRepository
+                .save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
+        return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/tutorials/{id}")
+    public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
+        Tutorial _tutorial = tutorialRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+
+        _tutorial.setTitle(tutorial.getTitle());
+        _tutorial.setDescription(tutorial.getDescription());
+        _tutorial.setPublished(tutorial.getPublished());
+
+        return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/tutorials/{id}")
+    public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
+        tutorialRepository.deleteById(id);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("/tutorials")
+    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+        tutorialRepository.deleteAll();
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }

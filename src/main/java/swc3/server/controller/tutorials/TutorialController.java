@@ -3,6 +3,7 @@ package swc3.server.controller.tutorials;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import swc3.server.exception.ResourceNotFoundException;
 import java.util.ArrayList;
@@ -15,15 +16,9 @@ import swc3.server.services.TutorialService;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-
-//REST Controller for client-side rendering
-@CrossOrigin(origins = {
-		"http://localhost:8081",
-		"http://localhost:5000",
-		"https://swc3-react-frontend.herokuapp.com"
-})
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api3")
+@PreAuthorize("hasRole('ADMIN')")
 public class TutorialController {
 
 	@Autowired
