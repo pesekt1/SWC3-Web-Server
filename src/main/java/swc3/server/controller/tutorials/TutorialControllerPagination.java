@@ -20,7 +20,7 @@ import swc3.server.services.TutorialService;
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/api")
-@PreAuthorize("hasRole('ADMIN')")
+@PreAuthorize("hasRole('CUSTOMER')")
 public class TutorialControllerPagination {
 
     @Autowired
