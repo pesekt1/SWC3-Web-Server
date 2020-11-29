@@ -19,7 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
                 //.allowedMethods("PUT", "DELETE")
                 //.allowedHeaders("header1", "header2", "header3")
                 //.exposedHeaders("header1", "header2")
-                //.allowCredentials(true)
+                .allowCredentials(true)
                 .maxAge(3600);
     }
 }

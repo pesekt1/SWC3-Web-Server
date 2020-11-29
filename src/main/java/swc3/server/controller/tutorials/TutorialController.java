@@ -18,7 +18,7 @@ import javax.persistence.TypedQuery;
 
 @RestController
 @RequestMapping("/api3")
-@PreAuthorize("hasRole('ADMIN')")
+//@PreAuthorize("hasRole('ADMIN')")
 public class TutorialController {
 
 	@Autowired

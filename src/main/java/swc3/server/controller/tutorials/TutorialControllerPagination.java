@@ -16,16 +16,13 @@ import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 import swc3.server.services.TutorialService;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
-@CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/api")
-@PreAuthorize("hasRole('CUSTOMER')")
+@RequestMapping("/api4")
+@PreAuthorize("permitAll()")
 public class TutorialControllerPagination {
 
     @Autowired
     TutorialRepository tutorialRepository;
-
 
     @Autowired
     TutorialService tutorialService;
@@ -89,6 +86,7 @@ public class TutorialControllerPagination {
     }
 
     @PostMapping("/tutorials")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE')")
     public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
         Tutorial _tutorial = tutorialRepository
                 .save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
