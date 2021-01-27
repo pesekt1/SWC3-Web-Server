@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:8081",
                         "http://localhost:5000",
                         "https://swc3-react-frontend.herokuapp.com")
-                //.allowedMethods("PUT", "DELETE")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 //.allowedHeaders("header1", "header2", "header3")
                 //.exposedHeaders("header1", "header2")
                 .allowCredentials(true)
