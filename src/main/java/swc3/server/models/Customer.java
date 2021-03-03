@@ -21,16 +21,6 @@ public class Customer {
     private int points;
     private Collection<Order> ordersByCustomerId;
 
-//    public String getLevel() {
-//        return level;
-//    }
-//
-//    public void setLevel(String level) {
-//        this.level = level;
-//    }
-//
-//    private String level;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")

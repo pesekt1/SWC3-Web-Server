@@ -2,13 +2,11 @@ package swc3.server.controller.customers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import swc3.server.models.Customer;
 import swc3.server.repository.CustomerRepository;
 
@@ -36,6 +34,7 @@ public class CustomersController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
+    //stored procedure
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customers-stored-procedure")
     public ResponseEntity<List<Customer>> getAllCustomersSP() {
@@ -47,6 +46,19 @@ public class CustomersController {
         }
 
         return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
+    //stored procedure with a parameter
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/customer-by-id/{id}")
+    public ResponseEntity<Customer> getCustomerById(@PathVariable int id) {
+        Customer customer = customerRepository.findCustomerById(id);
+
+        if (customer.getCustomerId() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
 }
