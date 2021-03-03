@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import swc3.server.models.Customer;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Set;
 
@@ -30,7 +33,7 @@ public class CustomersController2 {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.DEFAULT)
     @GetMapping("/customers-update-points")
     public ResponseEntity<Customer> addPoints(
             @RequestParam(defaultValue = "0") int customerId,
@@ -47,7 +50,11 @@ public class CustomersController2 {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @Transactional
+    @Transactional(
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.DEFAULT,
+            readOnly = false,
+            timeout = 60)
     @GetMapping("/insert-customer")
     public ResponseEntity<HttpStatus> insertCustomer(
             @RequestParam(defaultValue = "-") String firstName,

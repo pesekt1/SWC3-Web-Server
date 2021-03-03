@@ -1,12 +1,16 @@
 package swc3.server.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+@Data
+@RestResource
 @Entity
 @Table(name = "products")
 public class Product {

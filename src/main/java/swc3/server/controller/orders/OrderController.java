@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import swc3.server.models.Order;
 import swc3.server.models.OrderItem;
 import swc3.server.models.OrderItemNote;
+import swc3.server.models.ShippedOrderView;
 import swc3.server.repository.OrderItemNoteRepository;
 import swc3.server.repository.OrderItemRepository;
 import swc3.server.repository.OrderRepository;
+import swc3.server.repository.ShippedOrderViewRepository;
 
 
 import java.util.ArrayList;
@@ -19,6 +21,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class OrderController {
+    @Autowired
+    ShippedOrderViewRepository shippedOrderViewRepository;
+
     @Autowired
     OrderRepository ordersRepository;
 
@@ -37,6 +42,17 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/shipped-orders")
+    public ResponseEntity<List<ShippedOrderView>> getShippedOrders() {
+        List<ShippedOrderView> shippedOrders = new ArrayList<>();
+        shippedOrders.addAll(shippedOrderViewRepository.findAll());
+
+        if (shippedOrders.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        return new ResponseEntity<>(shippedOrders, HttpStatus.OK);
     }
 
     @PostMapping("/orders")

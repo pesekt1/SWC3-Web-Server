@@ -36,4 +36,17 @@ public class CustomersController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/customers-stored-procedure")
+    public ResponseEntity<List<Customer>> getAllCustomersSP() {
+        List<Customer> customers = new ArrayList<>();
+        customers.addAll(customerRepository.findAllCustomers());
+
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
 }
