@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-@Data
-@RestResource
+//@Data
+//@RestResource
 @Entity
 @Table(name = "products")
 public class Product {
