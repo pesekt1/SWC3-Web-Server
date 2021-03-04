@@ -17,6 +17,9 @@ import swc3.server.security.jwt.AuthEntryPointJwt;
 import swc3.server.security.jwt.AuthTokenFilter;
 import swc3.server.security.services.UserDetailsServiceImpl;
 
+//to disable the security use:
+//.antMatchers("/**").permitAll()
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -60,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/**").permitAll()
 			.antMatchers("/api/test/**","/extra/**").permitAll()
+			.antMatchers("/**").permitAll() //disabling the spring authentication
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
