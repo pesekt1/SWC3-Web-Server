@@ -1,0 +1,35 @@
+### registration of a new user -> users table
+POST http://localhost:5557/api/auth/signup
+Content-Type: application/json
+
+{
+  "username": "pesekt100",
+  "email": "pesekt100@gmail.com",
+  "password": "12345678"
+}
+
+### login with credentials, we get a JWT and save it in client.global - session variable auth_token
+POST http://localhost:5557/api/auth/signin
+Content-Type: application/json
+
+{
+  "username": "pesekt",
+  "password": "12345678"
+}
+
+> {% client.global.set("auth_token", response.body.accessToken);
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
+client.test("JWT acquired successfully", function() {
+  client.assert(response.body.accessToken != null, "JWT not acquired");
+});
+%}
+
+### request with JWT authorizaton, we need to login and then use the JWT
+GET http://localhost:5557//api/tutorials HTTP/1.1
+Authorization: Bearer {{auth_token}}
+
+client.test("Request executed successfully", function() {
+  client.assert(response.status === 200, "Response status is not 200");
+});
