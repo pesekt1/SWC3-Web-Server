@@ -5,8 +5,8 @@
 
 ### Implemented:
 - RestControllers
-- Models
-- Repositories
+- Models (using javax.persistence, model classes were generated from the existing database)
+- Repositories: dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
 
 ### Database
 - Dependencies:
@@ -19,25 +19,39 @@
 
 ### application.properties
 - using environment variables: 
-    - example: spring.datasource.url=${DATABASE_URL}
+#####
+    spring.datasource.url=${DATABASE_URL}
 
 ![Environment Variables](src/main/resources/static/env.png)
 
+### Maven
+This is a Maven project:
+
+![Maven](src/main/resources/static/maven.png)
+
 ### Profiles
-- Profiles are defined by application.properties using naming conventions:
+- Profiles are defined by Maven (pom.xml):
+#####       
+    <profiles>
+            <profile>
+                <id>dev</id>...
+- Profiles are accessed by the application.properties using naming conventions:
 
 ![Profiles](src/main/resources/static/profiles.png)
 - Like this we get dev, prod, test profiles.
 - The active profile is checked by the default application.properties:
-    - spring.profiles.active=@spring.profiles.active@
+#####
+     spring.profiles.active=@spring.profiles.active@
 - We can work with the dev profile and push to the gitHub with prod profile - done via .github/workflows/maven.yml:
-run: 
-    - mvn -B package -P prod --file pom.xml 
+#####
+    run: 
+        - mvn -B package -P prod --file pom.xml 
 
 ### Logging
 - in application.properties:
-    - logging.level.org.springframework = INFO
-    - logging.level.sql = debug (we will see all the sql queries in the console)
+#####    
+    logging.level.org.springframework = INFO
+    logging.level.sql = debug (we will see all the sql queries in the console)
 
 ###Features
 - Implemented REST APIs for http communication like GET, POST, PUT, DELETE - for client-side rendering.
@@ -57,7 +71,7 @@ run:
 ### gitHub CI action
 .github/workflows/maven.yml: this allows us to create Java continuous integration with Maven,
 after pushing to gitHub, the CI action gets executed (tests), if successful, the app will be automatically deployed to heroku cloud:
-https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
+[github actions with maven](https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven)
 
 ### CORS
 - configured in the file WebConfig: allowedMethods, allowedOrigins, etc.
@@ -72,7 +86,8 @@ https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven
 
 ### local database server time zone error
 If you get an error because of the timezone, run the following command in MySQL Workbench:
-- SET @@global.time_zone = '+00:00';
+
+    SET @@global.time_zone = '+00:00';
 
 ### Endpoints
 - http://localhost:5557/api/tutorials
@@ -83,9 +98,19 @@ If you get an error because of the timezone, run the following command in MySQL 
 - etc...
 
 ### Http requests
-httpRequests.http file contains some http requests:
+httpRequests.http file:
 
-- registration: POST http://localhost:5557/api/auth/signup, provide username, password, email
-- login (getting JWT), provide username, password
+- registration: 
+    - POST http://localhost:5557/api/auth/signup, provide username, password, email
+- login (getting JWT) 
+    - POST http://localhost:5557/api/auth/signin, provide username, password
 - authorized request (using acquired JWT)
 - tests
+
+### Changing the data source
+- change the connection string in application.properties
+- change the Hibernate dialect: [hibernate.dialect](https://docs.jboss.org/hibernate/orm/5.2/javadocs/org/hibernate/dialect/package-summary.html)
+#####
+    spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
+
+### Lombok
