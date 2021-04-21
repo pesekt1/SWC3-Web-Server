@@ -48,6 +48,7 @@ run:
 - Thymeleaf server-side rendering: in TutorialControllerForThymeleaf
 - spring-boot-starter-data-rest to automatically generate the REST APIs: 
     - https://spring.io/guides/gs/accessing-data-rest/
+- 
 
 ### Testing
 - dependency: spring-boot-starter-test
