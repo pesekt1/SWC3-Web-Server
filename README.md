@@ -88,12 +88,28 @@ after pushing to gitHub, the CI action gets executed (tests), if successful, the
     - ExposedHeaders
 
 ### Spring security
+![Security](src/main/resources/static/security.png) 
+![app structure](src/main/resources/static/securityController.png)
 - dependency: spring-boot-starter-security [Spring Security reference](https://docs.spring.io/spring-security/site/docs/5.4.6/reference/html5/)
 - configuration: in the file WebSecurityConfig
 - Authentication: registration / login
 - Authorization: APIs are accessible to different roles - example: @PreAuthorize("hasRole('ADMIN')")
 - https://spring.io/guides/topicals/spring-security-architecture
 - https://spring.io/guides/gs/securing-web/ 
+
+To disable the Spring security, go to WebSecurityConfig and use permitAll() on all endpoints:
+#####
+	protected void configure(HttpSecurity http) throws Exception {
+        ...
+        .antMatchers("/**").permitAll() //disabling the spring authentication
+        ...
+
+- Authentication is using a JWT - JSON Web Token which is given to the client by the login endpoint if the credentials are correct.
+- Authorization is using roles. A user can have multiple roles. Each endpoint can be set up for specific roles:
+#####
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/customers")
+    public ResponseEntity<List<Customer>> getAllCustomers() {...
 
 ### local database server time zone error
 If you get an error because of the timezone, run the following command in MySQL Workbench:
