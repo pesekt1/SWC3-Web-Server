@@ -114,3 +114,5 @@ httpRequests.http file:
     spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
 
 ### Lombok
+
+### 
