@@ -1,12 +1,9 @@
 package swc3.server.repository;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.query.Procedure;
 import swc3.server.models.Customer;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {

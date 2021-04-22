@@ -1,9 +1,13 @@
-package swc3.server.controller.orders;
+package swc3.server.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import swc3.server.models.Order;
+import swc3.server.models.OrderItem;
+import swc3.server.models.OrderItemNote;
+import swc3.server.models.ShippedOrderView;
 import swc3.server.models.models2.OrderItem2;
 import swc3.server.models.models2.OrderItemNote2;
 import swc3.server.models.models2.OrderWithIDs;
@@ -15,19 +19,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api")
-public class OrderController_for_OrderWithIDs {
-    @Autowired
+@Service
+public class OrderServiceOrderWithIDs {
     OrderRepository2 ordersRepository;
-
-    @Autowired
     OrderItemRepository2 orderItemRepository;
-
-    @Autowired
     OrderItemNoteRepository2 orderItemNoteRepository;
 
-    @GetMapping("/ordersWithIDs")
+    public OrderServiceOrderWithIDs(OrderRepository2 ordersRepository, OrderItemRepository2 orderItemRepository, OrderItemNoteRepository2 orderItemNoteRepository) {
+        this.ordersRepository = ordersRepository;
+        this.orderItemRepository = orderItemRepository;
+        this.orderItemNoteRepository = orderItemNoteRepository;
+    }
+
     public ResponseEntity<List<OrderWithIDs>> getAllOrders() {
         List<OrderWithIDs> orders = new ArrayList<>();
         orders.addAll(ordersRepository.findAll());
@@ -38,8 +41,7 @@ public class OrderController_for_OrderWithIDs {
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @PostMapping("/ordersWithIDs")
-    public ResponseEntity<OrderWithIDs> createOrder(@RequestBody OrderWithIDs order) {
+    public ResponseEntity<OrderWithIDs> createOrder(OrderWithIDs order) {
         OrderWithIDs _order = ordersRepository.save(order);
 
         Collection<OrderItem2> orderItems = _order.getOrderItemsByOrderId();

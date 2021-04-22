@@ -2,7 +2,6 @@ package swc3.server.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -50,7 +49,7 @@ public class Shipper {
 
     @Override
     public int hashCode() {
-        int result = (int) shipperId;
+        int result = shipperId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
     }

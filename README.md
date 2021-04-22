@@ -7,6 +7,8 @@
 - RestControllers
 - Models (using javax.persistence, model classes were generated from the existing database)
 ![Import mapping](src/main/resources/static/importMapping.png)
+
+- using annotation @JsonBackReference to avoid a JSON loops.
 - Repositories: dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
 
 ### Database
