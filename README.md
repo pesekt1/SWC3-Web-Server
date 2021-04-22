@@ -103,13 +103,21 @@ To disable the Spring security, go to WebSecurityConfig and use permitAll() on a
         ...
         .antMatchers("/**").permitAll() //disabling the spring authentication
         ...
-
+- During the registration the password is encrypted. During the login, it is decrypted.
+#####
+    org.springframework.security.crypto.password.PasswordEncoder;
+    PasswordEncoder encoder.encode("mypassword");
 - Authentication is using a JWT - JSON Web Token which is given to the client by the login endpoint if the credentials are correct.
 - Authorization is using roles. A user can have multiple roles. Each endpoint can be set up for specific roles:
 #####
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {...
+
+- registration endpoint: 
+    - POST http://localhost:5557/api/auth/signup, provide username, password, email, (array of roles)
+- login endpoint (providing the JWT to the client) 
+    - POST http://localhost:5557/api/auth/signin, provide username, password 
 
 ### local database server time zone error
 If you get an error because of the timezone, run the following command in MySQL Workbench:
@@ -128,9 +136,9 @@ If you get an error because of the timezone, run the following command in MySQL 
 httpRequests.http file:
 
 - registration: 
-    - POST http://localhost:5557/api/auth/signup, provide username, password, email
+    - POST http://localhost:5557/api/auth/signup, provide username, password, email, (array of roles)
 - login (getting JWT) 
-    - POST http://localhost:5557/api/auth/signin, provide username, password
+    - POST http://localhost:5557/api/auth/signin, provide username, password 
 - authorized request (using acquired JWT)
 - tests
 
@@ -150,4 +158,5 @@ httpRequests.http file:
     @NoArgsConstructor
 Our code will be cleaner.
 
-### 
+### Docker
+- comming soon...
