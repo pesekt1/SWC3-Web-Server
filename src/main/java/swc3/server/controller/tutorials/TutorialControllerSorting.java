@@ -133,7 +133,7 @@ public class TutorialControllerSorting {
     @GetMapping("/tutorials/{id}")
     public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
         //example of using a service instead of directly calling the repository
-        return tutorialService.get(id);
+        return tutorialService.getTutorialById(id);
     }
 
     @PostMapping("/tutorials")

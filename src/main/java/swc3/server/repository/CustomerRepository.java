@@ -12,12 +12,12 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     //stored procedure in native query
     @Query(value = "CALL get_all_customers()", nativeQuery = true)
-    List<Customer> findAllCustomers();
+    List<Customer> findAllCustomersSP();
 
     //stored procedure in native query
     //with IN parameter
     @Query(value = "CALL get_customer_by_id(:id)", nativeQuery = true)
-    Customer findCustomerById(int id);
+    Customer findCustomerByIdSP(int id);
 
     //this does not work:
     //procedure reference

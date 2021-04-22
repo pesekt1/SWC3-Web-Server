@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 //controller used in the beginning of the project to make sure it works.
-
 @RestController
 @RequestMapping("/api")
 public class HelloController {
