@@ -6,6 +6,7 @@
 ### Implemented:
 - RestControllers
 - Models (using javax.persistence, model classes were generated from the existing database)
+![Import mapping](src/main/resources/static/importMapping.png)
 - Repositories: dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
 
 ### Database
@@ -59,10 +60,14 @@ This is a Maven project:
 - Pagination
 - Filtering
 - Sorting
-- Thymeleaf server-side rendering: in TutorialControllerForThymeleaf
 - spring-boot-starter-data-rest to automatically generate the REST APIs: 
     - https://spring.io/guides/gs/accessing-data-rest/
 - 
+
+### Thymeleaf [docs](https://www.thymeleaf.org/)
+- server-side template engine: in TutorialControllerForThymeleaf
+- multi-page web application, the web app sends the whole html page as a response.
+![page structure](src/main/resources/static/MPA.png)
 
 ### Testing
 - dependency: spring-boot-starter-test
@@ -74,10 +79,16 @@ after pushing to gitHub, the CI action gets executed (tests), if successful, the
 [github actions with maven](https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven)
 
 ### CORS
-- configured in the file WebConfig: allowedMethods, allowedOrigins, etc.
+- configured in the file WebConfig: [Spring CORS](https://spring.io/guides/gs/rest-service-cors/)
+    - allowedMethods 
+    - allowedOrigins
+    - allowCredentials
+    - maxAge
+    - allowedHeaders
+    - ExposedHeaders
 
 ### Spring security
-- dependency: spring-boot-starter-security
+- dependency: spring-boot-starter-security [Spring Security reference](https://docs.spring.io/spring-security/site/docs/5.4.6/reference/html5/)
 - configuration: in the file WebSecurityConfig
 - Authentication: registration / login
 - Authorization: APIs are accessible to different roles - example: @PreAuthorize("hasRole('ADMIN')")
@@ -89,7 +100,7 @@ If you get an error because of the timezone, run the following command in MySQL 
 
     SET @@global.time_zone = '+00:00';
 
-### Endpoints
+### REST APIs (Endpoints providing data as a JSON object)
 - http://localhost:5557/api/tutorials
 - http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc
 - http://localhost:5557/thymeleaf/tutorialsAdvanced
@@ -114,5 +125,13 @@ httpRequests.http file:
     spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
 
 ### Lombok
+- dependency: lombok [lombok maven](https://projectlombok.org/setup/maven)
+- We can use annotations like these:
+#####
+    @EqualsAndHashCode
+    @Setter
+    @Getter
+    @NoArgsConstructor
+Our code will be cleaner.
 
 ### 
