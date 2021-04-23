@@ -14,11 +14,11 @@
     <name>server</name>
     <description>web server for Spring Boot</description>
 
-    <!--
+
     <properties>
         <java.version>14.0.2</java.version>
     </properties>
-    -->
+
 
     <dependencies>
         <dependency>
@@ -136,10 +136,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>14</source>
-                    <target>14</target>
-                </configuration>
+<!--                <configuration>-->
+<!--                    <source>14.0.2</source>-->
+<!--                    <target>14.0.2</target>-->
+<!--                </configuration>-->
             </plugin>
         </plugins>
     </build>
