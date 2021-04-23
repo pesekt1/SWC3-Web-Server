@@ -160,5 +160,14 @@ httpRequests.http file:
     @NoArgsConstructor
 Our code will be cleaner.
 
+### HttpClient
+- Showing how to send an http request and how to handle the response
+- library: java.net.http.HttpClient
+- using a public API to get some data: https://reqres.in/api/users
+- dependency: jackson-databind: class ObjectMapper:
+    - Mapping response string into an object: 
+    #####
+        Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
+
 ### Docker
 - comming soon...
