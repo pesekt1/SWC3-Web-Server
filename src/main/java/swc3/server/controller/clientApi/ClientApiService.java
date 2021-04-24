@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import swc3.server.controller.clientApi.models.Data;
+import swc3.server.controller.clientApi.models.Post;
+import swc3.server.controller.clientApi.models.User;
 
 import java.io.IOException;
 import java.net.URI;
@@ -25,18 +28,18 @@ public class ClientApiService {
         this.client = HttpClient.newHttpClient();
     }
 
-    private HttpRequest buildRequest(){
+    private HttpRequest buildRequest(String api){
         return HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
-                .uri(URI.create(API))
+                .uri(URI.create(api))
                 .build();
     }
 
     //API with a string response
     public ResponseEntity<String> getDataAsString() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest();
+        HttpRequest request = buildRequest(API);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         return new ResponseEntity<>(response.body(), HttpStatus.OK);
@@ -45,7 +48,7 @@ public class ClientApiService {
     // API returning the Data object
     public ResponseEntity<Data> getDataAsJson() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest();
+        HttpRequest request = buildRequest(API);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         //Mapping response.body to Data class
@@ -61,7 +64,7 @@ public class ClientApiService {
     //we pick the list of users from the Data object
     public ResponseEntity<List<User>> getUsersAsJson() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest();
+        HttpRequest request = buildRequest(API);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         ObjectMapper mapper = new ObjectMapper();
@@ -71,5 +74,19 @@ public class ClientApiService {
         List<User> users = data.getData();
 
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+
+    //working with local json-server that runs on port 3000
+    //in the folder json-server
+    //it uses posts.json to generate an api with the data
+    public ResponseEntity<List<Post>> getPosts() throws IOException, InterruptedException {
+
+        HttpRequest request = buildRequest("http://localhost:3000/posts");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        ObjectMapper mapper = new ObjectMapper();
+        List<Post> posts = mapper.readValue(response.body(), new TypeReference<>() {});
+
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 }

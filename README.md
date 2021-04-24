@@ -76,9 +76,25 @@ This is a Maven project:
 - Integration tests for the database (done directly on the production database)
 
 ### gitHub CI action
-.github/workflows/maven.yml: this allows us to create Java continuous integration with Maven,
+- .github/workflows/maven.yml: 
+
+This allows us to create Java continuous integration with Maven,
 after pushing to gitHub, the CI action gets executed (tests), if successful, the app will be automatically deployed to heroku cloud:
 [github actions with maven](https://docs.github.com/en/actions/guides/building-and-testing-java-with-maven)
+- Specify Java JDK and java-version:
+
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up JDK 11
+          uses: actions/setup-java@v1
+          with:
+            java-version: 11
+
+- User environment variables on github:
+
+      env:
+        DATABASE_URL: ${{secrets.DATABASE_URL}}
+        SECRET_KEY: ${{secrets.SECRET_KEY}}
 
 ### CORS
 - configured in the file WebConfig: [Spring CORS](https://spring.io/guides/gs/rest-service-cors/)
@@ -163,11 +179,45 @@ Our code will be cleaner.
 ### HttpClient
 - Showing how to send an http request and how to handle the response
 - library: java.net.http.HttpClient
-- using a public API to get some data: https://reqres.in/api/users
+- using a public API to get some data: [regres.in](https://reqres.in/api/users)
 - dependency: jackson-databind: class ObjectMapper:
     - Mapping response string into an object: 
     #####
         Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
+
+### Json-server [json-server npm](https://www.npmjs.com/package/json-server)
+![json-server](src/main/resources/static/json-server.png)
+- Fake REST API generated from a json file.
+- Install json-server (npm install) ... this install node_modules
+- package.json:
+    
+      "scripts": {
+        "start": "json-server --watch ./posts.json"
+      },
+      
+- Run json-server (npm start): [http://localhost:3000/posts](http://localhost:3000/posts)
+
+### system.properties
+    java.runtime.version=11
+This is for Heroku cloud - it tells is to use java 11 buildpack.
+
+### Rest API documentation [springdoc](https://springdoc.org)
+- Dependencies:
+    - springdoc-openapi-data-rest
+    - springdoc-openapi-ui
+
+In application properties:
+
+    springdoc.swagger-ui.path=/swagger-ui-custom.html
+    springdoc.swagger-ui.operationsSorter=method
+    springdoc.api-docs.path=/api-docs
+
+Access the documentation: (app running on port 5557)
+- http://localhost:5557/api-docs (api-docs in JSON format)
+- http://localhost:5557/swagger-ui-custom.html (Swagger)
+
+![json-server](src/main/resources/static/swagger.png)
+![json-server](src/main/resources/static/swagger2.png)
 
 ### Docker
 - comming soon...

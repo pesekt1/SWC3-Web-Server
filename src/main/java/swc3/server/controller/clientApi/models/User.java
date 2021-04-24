@@ -1,4 +1,4 @@
-package swc3.server.controller.clientApi;
+package swc3.server.controller.clientApi.models;
 
 import lombok.Getter;
 import lombok.Setter;
