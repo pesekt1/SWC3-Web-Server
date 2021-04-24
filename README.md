@@ -34,10 +34,12 @@ This is a Maven project:
 
 ### Profiles
 - Profiles are defined by Maven (pom.xml):
-#####       
+```xml     
     <profiles>
             <profile>
                 <id>dev</id>...
+```
+
 - Profiles are accessed by the application.properties using naming conventions:
 
 ![Profiles](src/main/resources/static/profiles.png)
