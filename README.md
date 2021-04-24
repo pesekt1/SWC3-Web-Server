@@ -219,6 +219,7 @@ Our code will be cleaner.
 - Showing how to send an http request and how to handle the response
 - library: java.net.http.HttpClient
 - using a public API to get some data: [regres.in](https://reqres.in/api/users)
+- using a public API [jsonplaceholder](https://jsonplaceholder.typicode.com/)
 - dependency: jackson-databind: class ObjectMapper:
     - Mapping response string into an object: 
     #####
@@ -236,7 +237,7 @@ Our code will be cleaner.
       
 - Run json-server: **npm start**: <http://localhost:3000/posts>
 - Or run: **npx json-server data.json**
-- Generate data for json-server:
+- Generate data for json-server: (Install packages faker and lodash)
 
 
     npm install faker lodash
@@ -279,6 +280,18 @@ It will create a snapshot json file.
 
     http://localhost:3000/users?_sort=first_name&_order=desc
 
+- Add custom routes:
+    - Create routes.json
+    
+    
+        {
+          "/resources/:year": "/resources?year=:year"
+        }
+
+Run the server with routes: **npx json-server data.json --routes routes.json**
+
+Now We have an extra route: <http://localhost:3000/resources/2005>
+
 - We can also deploy our json-server app on Heroku, Azure etc. and have our public fake api running.
 
 ### system.properties
@@ -306,4 +319,19 @@ Access the documentation: (app running on port 5557)
 ### Docker
 - comming soon...
 
+### Markdown
 
+[![Markdown course](http://img.youtube.com/vi/HUBNt18RFbo/0.jpg)](https://www.youtube.com/watch?v=HUBNt18RFbo)
+
+```javascript
+function add(num1){
+    return 1;
+}
+```
+
+```Java
+    @GetMapping("jsonplaceholder/albums")
+    public ResponseEntity<List<Album>> getAlbums() throws IOException, InterruptedException {
+        return clientApiService.getAlbums();
+    }
+```

@@ -1,10 +1,12 @@
 package swc3.server.controller.clientApi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import swc3.server.controller.clientApi.models.Album;
 import swc3.server.controller.clientApi.models.Data;
 import swc3.server.controller.clientApi.models.Post;
 import swc3.server.controller.clientApi.models.User;
@@ -22,6 +24,7 @@ import java.util.List;
 public class ClientApiService {
 
     private static final String API_REGRES = "https://reqres.in/api/users"; //public api sending some data as a JSON object
+    private static final String API_JSONPLACEHOLDER = "https://jsonplaceholder.typicode.com/"; //public api sending some data as a JSON object
     private static final String API_JSON_SERVER = "http://localhost:3000/";
 
     private final HttpClient client;
@@ -129,5 +132,31 @@ public class ClientApiService {
 
         User _user = new ObjectMapper().readValue(response.body(), new TypeReference<User>() {});
         return new ResponseEntity<>(_user, HttpStatus.CREATED);
+    }
+
+    //public API returning the list of albums
+    public ResponseEntity<List<Album>> getAlbums() throws IOException, InterruptedException {
+
+        HttpRequest request = buildGetRequest(API_JSONPLACEHOLDER + "albums");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        List<Album> albums = new ObjectMapper().readValue(response.body(), new TypeReference<List<Album>>() {});
+
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+    }
+
+    //public API returning the list of albums
+    public ResponseEntity<Album> createAlbum(Album album) throws IOException, InterruptedException {
+
+        String requestBody = new ObjectMapper()
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(album);
+
+        HttpRequest request = buildPostRequest(API_JSONPLACEHOLDER + "albums", requestBody);
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        Album _album = new ObjectMapper().readValue(response.body(), new TypeReference<Album>() {});
+        return new ResponseEntity<>(_album, HttpStatus.CREATED);
     }
 }

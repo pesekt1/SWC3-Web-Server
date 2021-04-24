@@ -18,3 +18,16 @@ Content-Type: application/json
   "last_name": "Bluth2",
   "avatar": "https://reqres.in/img/faces/1-image.jpg"
 }
+
+### create new album - using the jsonplaceholder api
+POST http://localhost:5557/api/jsonplaceholder/albums HTTP/1.1
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "title": "test album"
+}
+
+###
+GET http://localhost:5557/api/jsonplaceholder/albums HTTP/1.1
+Content-Type: application/json

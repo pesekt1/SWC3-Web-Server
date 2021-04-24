@@ -2,13 +2,12 @@ package swc3.server.controller.clientApi;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import swc3.server.controller.clientApi.models.Album;
 import swc3.server.controller.clientApi.models.Data;
 import swc3.server.controller.clientApi.models.Post;
 import swc3.server.controller.clientApi.models.User;
-import swc3.server.models.Tutorial;
 
 import java.io.IOException;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 //using HttpClient:
@@ -58,5 +57,15 @@ public class ControllerWithHttpClient {
     @PostMapping("/json-server/users")
     public ResponseEntity<User> createTutorial(@RequestBody User user) throws IOException, InterruptedException {
         return clientApiService.createUser(user);
+    }
+
+    @GetMapping("jsonplaceholder/albums")
+    public ResponseEntity<List<Album>> getAlbums() throws IOException, InterruptedException {
+        return clientApiService.getAlbums();
+    }
+
+    @PostMapping("jsonplaceholder/albums")
+    public ResponseEntity<Album> createAlbum(@RequestBody Album album) throws IOException, InterruptedException {
+        return clientApiService.createAlbum(album);
     }
 }
