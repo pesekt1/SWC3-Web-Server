@@ -21,14 +21,17 @@ import java.util.List;
 @Service
 public class ClientApiService {
 
-    private static final String API = "https://reqres.in/api/users"; //public api sending some data as a JSON object
-    private HttpClient client;
+    private static final String API_REGRES = "https://reqres.in/api/users"; //public api sending some data as a JSON object
+    private static final String API_JSON_SERVER = "http://localhost:3000/";
+
+    private final HttpClient client;
 
     public ClientApiService() {
         this.client = HttpClient.newHttpClient();
     }
 
-    private HttpRequest buildRequest(String api){
+    private HttpRequest buildGetRequest(String api){
+
         return HttpRequest.newBuilder()
                 .GET()
                 .header("accept", "application/json")
@@ -36,10 +39,19 @@ public class ClientApiService {
                 .build();
     }
 
+    private HttpRequest buildPostRequest(String api, String requestBody){
+
+        return HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .uri(URI.create(api))
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+    }
+
     //API with a string response
     public ResponseEntity<String> getDataAsString() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest(API);
+        HttpRequest request = buildGetRequest(API_REGRES);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         return new ResponseEntity<>(response.body(), HttpStatus.OK);
@@ -48,30 +60,27 @@ public class ClientApiService {
     // API returning the Data object
     public ResponseEntity<Data> getDataAsJson() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest(API);
+        HttpRequest request = buildGetRequest(API_REGRES);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         //Mapping response.body to Data class
-        ObjectMapper mapper = new ObjectMapper();
-        Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
+        Data data = new ObjectMapper().readValue(response.body(), new TypeReference<Data>() {});
 
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
     //API returning the list of users
     //we get a response as a string
-    //we mapp it to a Data object which fits to the JSON structure
+    //we map it to a Data object which fits to the JSON structure
     //we pick the list of users from the Data object
     public ResponseEntity<List<User>> getUsersAsJson() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest(API);
+        HttpRequest request = buildGetRequest(API_REGRES);
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        ObjectMapper mapper = new ObjectMapper();
-        Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
+        Data data = new ObjectMapper().readValue(response.body(), new TypeReference<Data>() {});
 
-        //extracting the list of users from data instance
-        List<User> users = data.getData();
+        List<User> users = data.getData(); //extracting the list of users from data instance
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -81,12 +90,44 @@ public class ClientApiService {
     //it uses posts.json to generate an api with the data
     public ResponseEntity<List<Post>> getPosts() throws IOException, InterruptedException {
 
-        HttpRequest request = buildRequest("http://localhost:3000/posts");
+        HttpRequest request = buildGetRequest(API_JSON_SERVER + "posts");
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        ObjectMapper mapper = new ObjectMapper();
-        List<Post> posts = mapper.readValue(response.body(), new TypeReference<>() {});
+        List<Post> posts = new ObjectMapper().readValue(response.body(), new TypeReference<List<Post>>() {});
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    //sending POST request to the json-server running on port 3000
+    //data will be saved in data.json in posts array
+    public ResponseEntity<Post> createPost(Post post) throws IOException, InterruptedException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody = objectMapper
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(post);
+
+        HttpRequest request = buildPostRequest(API_JSON_SERVER + "posts", requestBody);
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        Post _post = new ObjectMapper().readValue(response.body(), new TypeReference<Post>() {});
+        return new ResponseEntity<>(_post, HttpStatus.CREATED);
+    }
+
+    //sending POST request to the json-server running on port 3000
+    //data will be saved in data.json in users array
+    public ResponseEntity<User> createUser(User user) throws IOException, InterruptedException {
+
+        String requestBody = new ObjectMapper()
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(user);
+
+        HttpRequest request = buildPostRequest(API_JSON_SERVER + "users", requestBody);
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        User _user = new ObjectMapper().readValue(response.body(), new TypeReference<User>() {});
+        return new ResponseEntity<>(_user, HttpStatus.CREATED);
     }
 }

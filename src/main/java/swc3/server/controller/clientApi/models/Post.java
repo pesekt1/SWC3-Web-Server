@@ -10,4 +10,5 @@ public class Post {
     private int userId;
     private String title;
     private String body;
+
 }

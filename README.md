@@ -56,7 +56,7 @@ This is a Maven project:
     logging.level.org.springframework = INFO
     logging.level.sql = debug (we will see all the sql queries in the console)
 
-###Features
+### Features
 - Implemented REST APIs for http communication like GET, POST, PUT, DELETE - for client-side rendering.
 - Custom Exception Handler
 - Pagination
@@ -142,12 +142,12 @@ If you get an error because of the timezone, run the following command in MySQL 
 
     SET @@global.time_zone = '+00:00';
 
-### REST APIs (Endpoints providing data as a JSON object)
-- http://localhost:5557/api/tutorials
-- http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc
-- http://localhost:5557/thymeleaf/tutorialsAdvanced
-- http://localhost:5557/api/orders
-- http://localhost:5557/api/ordersWithIDs
+### REST APIs (Endpoints providing data in JSON format)
+- <http://localhost:5557/api/tutorials>
+- <http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc>
+- <http://localhost:5557/thymeleaf/tutorialsAdvanced>
+- <http://localhost:5557/api/orders>
+- <http://localhost:5557/api/ordersWithIDs>
 - etc...
 
 ### Http requests
@@ -188,14 +188,15 @@ Our code will be cleaner.
 ### Json-server [json-server npm](https://www.npmjs.com/package/json-server)
 ![json-server](src/main/resources/static/json-server.png)
 - Fake REST API generated from a json file.
-- Install json-server (npm install) ... this install node_modules
+- Install json-server (npm install json-server) ... this will install the dependencies in node_modules
 - package.json:
     
       "scripts": {
         "start": "json-server --watch ./posts.json"
       },
       
-- Run json-server (npm start): [http://localhost:3000/posts](http://localhost:3000/posts)
+- Run json-server (npm start): <http://localhost:3000/posts>
+- You can also start it manually using any json file: json-server posts.json.
 
 ### system.properties
     java.runtime.version=11
@@ -221,3 +222,5 @@ Access the documentation: (app running on port 5557)
 
 ### Docker
 - comming soon...
+
+

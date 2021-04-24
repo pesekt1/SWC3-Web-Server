@@ -1,14 +1,14 @@
 package swc3.server.controller.clientApi;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import swc3.server.controller.clientApi.models.Data;
 import swc3.server.controller.clientApi.models.Post;
 import swc3.server.controller.clientApi.models.User;
+import swc3.server.models.Tutorial;
 
 import java.io.IOException;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 //using HttpClient:
@@ -26,6 +26,8 @@ public class ControllerWithHttpClient {
         this.clientApiService = clientApiService;
     }
 
+    //endpoints for public API reques.in
+
     @GetMapping("/reqres.in/clientApiString")
     public ResponseEntity<String> getDataAsString() throws IOException, InterruptedException {
         return clientApiService.getDataAsString();
@@ -41,8 +43,20 @@ public class ControllerWithHttpClient {
         return clientApiService.getUsersAsJson();
     }
 
+    //endpoints for local json-server running on port 3000
+
     @GetMapping("json-server/posts")
     public ResponseEntity<List<Post>> getPosts() throws IOException, InterruptedException {
         return clientApiService.getPosts();
+    }
+
+    @PostMapping("/json-server/posts")
+    public ResponseEntity<Post> createTutorial(@RequestBody Post post) throws IOException, InterruptedException {
+        return clientApiService.createPost(post);
+    }
+
+    @PostMapping("/json-server/users")
+    public ResponseEntity<User> createTutorial(@RequestBody User user) throws IOException, InterruptedException {
+        return clientApiService.createUser(user);
     }
 }
