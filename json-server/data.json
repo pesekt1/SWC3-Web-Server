@@ -1,4 +1,11 @@
 {
+  "people": [
+    {
+      "id": 1,
+      "name": "John",
+      "avatar": "dddsdd"
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -696,6 +703,12 @@
     },
     {
       "id": 102,
+      "userId": 10,
+      "title": "test",
+      "body": "bla bla"
+    },
+    {
+      "id": 103,
       "userId": 10,
       "title": "test",
       "body": "bla bla"
