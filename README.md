@@ -22,8 +22,9 @@
 
 ### application.properties
 - using environment variables: 
-#####
+```java
     spring.datasource.url=${DATABASE_URL}
+```
 
 ![Environment Variables](src/main/resources/static/env.png)
 
@@ -45,7 +46,7 @@ This is a Maven project:
 ![Profiles](src/main/resources/static/profiles.png)
 - Like this we get dev, prod, test profiles.
 - The active profile is checked by the default application.properties:
-```text
+```java
      spring.profiles.active=@spring.profiles.active@
 ```
 
@@ -57,7 +58,7 @@ This is a Maven project:
 
 ### Logging
 - in application.properties:
-```text   
+```java   
     logging.level.org.springframework = INFO
     logging.level.sql = debug (we will see all the sql queries in the console)
 ```
@@ -216,7 +217,7 @@ httpRequests.http file:
 ### Changing the data source
 - change the connection string in application.properties
 - change the Hibernate dialect: [hibernate.dialect](https://docs.jboss.org/hibernate/orm/5.2/javadocs/org/hibernate/dialect/package-summary.html)
-```text
+```java
     spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
@@ -320,7 +321,7 @@ This is for Heroku cloud - it tells is to use java 11 buildpack.
     - springdoc-openapi-ui
 
 In application properties:
-```text
+```java
     springdoc.swagger-ui.path=/swagger-ui-custom.html
     springdoc.swagger-ui.operationsSorter=method
     springdoc.api-docs.path=/api-docs
