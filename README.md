@@ -124,7 +124,7 @@ after pushing to gitHub, the CI action gets executed (tests), if successful, the
 - <https://spring.io/guides/gs/securing-web> 
 
 To disable the Spring security, go to WebSecurityConfig and use permitAll() on all endpoints:
-```java
+```
 	protected void configure(HttpSecurity http) throws Exception {
         ...
         .antMatchers("/**").permitAll() //disabling the spring authentication
