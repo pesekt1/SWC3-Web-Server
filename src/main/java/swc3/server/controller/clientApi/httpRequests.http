@@ -31,3 +31,14 @@ Content-Type: application/json
 ###
 GET http://localhost:5557/api/jsonplaceholder/albums HTTP/1.1
 Content-Type: application/json
+
+### create new photo - using the jsonplaceholder api
+POST http://localhost:5557/api/jsonplaceholder/photos HTTP/1.1
+Content-Type: application/json
+
+{
+  "albumId": 1,
+  "title": "test",
+  "url": "https://via.placeholder.com/600/92c952",
+  "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+}

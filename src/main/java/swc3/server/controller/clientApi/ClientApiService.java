@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import swc3.server.controller.clientApi.models.Album;
-import swc3.server.controller.clientApi.models.Data;
-import swc3.server.controller.clientApi.models.Post;
-import swc3.server.controller.clientApi.models.User;
+import swc3.server.controller.clientApi.models.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -145,7 +142,7 @@ public class ClientApiService {
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
-    //public API returning the list of albums
+    //public API - create a new album
     public ResponseEntity<Album> createAlbum(Album album) throws IOException, InterruptedException {
 
         String requestBody = new ObjectMapper()
@@ -158,5 +155,19 @@ public class ClientApiService {
 
         Album _album = new ObjectMapper().readValue(response.body(), new TypeReference<Album>() {});
         return new ResponseEntity<>(_album, HttpStatus.CREATED);
+    }
+
+    //public API - create a new photo
+    public Photo createPhoto(Photo photo) throws IOException, InterruptedException {
+
+        String requestBody = new ObjectMapper()
+                .writerWithDefaultPrettyPrinter()
+                .writeValueAsString(photo);
+
+        HttpRequest request = buildPostRequest(API_JSONPLACEHOLDER + "photos", requestBody);
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        return new ObjectMapper().readValue(response.body(), new TypeReference<Photo>() {});
     }
 }

@@ -1,11 +1,9 @@
 package swc3.server.controller.clientApi;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import swc3.server.controller.clientApi.models.Album;
-import swc3.server.controller.clientApi.models.Data;
-import swc3.server.controller.clientApi.models.Post;
-import swc3.server.controller.clientApi.models.User;
+import swc3.server.controller.clientApi.models.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,5 +65,12 @@ public class ControllerWithHttpClient {
     @PostMapping("jsonplaceholder/albums")
     public ResponseEntity<Album> createAlbum(@RequestBody Album album) throws IOException, InterruptedException {
         return clientApiService.createAlbum(album);
+    }
+
+    //REST controller done differently
+    @RequestMapping(value = "jsonplaceholder/photos", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Photo createPhoto(@RequestBody Photo photo) throws IOException, InterruptedException {
+        return clientApiService.createPhoto(photo);
     }
 }

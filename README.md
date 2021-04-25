@@ -334,9 +334,14 @@ Access the documentation: (app running on port 5557)
 ![swagger](src/main/resources/static/swagger.png)
 ![swagger](src/main/resources/static/swagger2.png)
 
+### JDBC example - db connection without the ORM, just using POJOs
+
+
+
 ### Docker
 - comming soon...
 
 ### Markdown tutorial
 
 [![Markdown course](http://img.youtube.com/vi/HUBNt18RFbo/0.jpg)](https://www.youtube.com/watch?v=HUBNt18RFbo)
+
