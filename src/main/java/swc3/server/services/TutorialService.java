@@ -9,6 +9,7 @@ import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,14 @@ import java.util.List;
 @Service
 public class TutorialService {
     TutorialRepository tutorialRepository;
-    EntityManager em;
+
+//    @PersistenceContext(name = "entityManagerFactory")
+//    EntityManager em;
 
     @Autowired
-    public TutorialService(TutorialRepository tutorialRepository, EntityManager em){
+    public TutorialService(TutorialRepository tutorialRepository){
         this.tutorialRepository = tutorialRepository;
-        this.em = em;
+//        this.em = em;
     }
 
     public ResponseEntity<Tutorial> getTutorialById(long id) {
@@ -46,20 +49,20 @@ public class TutorialService {
     }
 
     //trying to create a vulnerable query
-    public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(String title) {
-        List<Tutorial> tutorials = new ArrayList<>();
-        //using String concatenation, but it is still safe because Hibernate does not allow ";"
-        TypedQuery<Tutorial> query = em.createQuery(
-                "SELECT t FROM Tutorial t WHERE t.title = '" + title + "' AND t.published = true", Tutorial.class);
-
-        tutorials.addAll(query.getResultList());
-
-        if (tutorials.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(tutorials, HttpStatus.OK);
-    }
+//    public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(String title) {
+//        List<Tutorial> tutorials = new ArrayList<>();
+//        //using String concatenation, but it is still safe because Hibernate does not allow ";"
+//        TypedQuery<Tutorial> query = em.createQuery(
+//                "SELECT t FROM Tutorial t WHERE t.title = '" + title + "' AND t.published = true", Tutorial.class);
+//
+//        tutorials.addAll(query.getResultList());
+//
+//        if (tutorials.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }
+//
+//        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+//    }
 
     public ResponseEntity<Tutorial> createTutorial(Tutorial tutorial) {
         Tutorial _tutorial = tutorialRepository

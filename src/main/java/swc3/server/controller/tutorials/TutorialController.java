@@ -29,10 +29,11 @@ public class TutorialController {
 	//testing sql injection: Hibernate does not allow ";" in the query so it is not possible to send multiple statements.
 	// for example if we try: http://localhost:5557/api3/tutorialsVulnerable?title=title4'; -- +
 	// it does not work: org.hibernate.QueryException: unexpected char: ';'
-	@GetMapping("/tutorialsVulnerable")
-	public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(@RequestParam String title) {
-		return tutorialService.getAllTutorialsVulnerable(title);
-	}
+
+//	@GetMapping("/tutorialsVulnerable")
+//	public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(@RequestParam String title) {
+//		return tutorialService.getAllTutorialsVulnerable(title);
+//	}
 
 	@GetMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
