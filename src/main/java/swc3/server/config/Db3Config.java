@@ -21,40 +21,40 @@ import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryDb2",
-        basePackages = {"swc3.server.Db2.repo"})
-public class Db2Config {
+@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryDb3",
+        basePackages = {"swc3.server.Db3.repo"})
+public class Db3Config {
 
     @Autowired
     private Environment env;
 
-    @Bean(name = "dataSourceDb2")
-    @ConfigurationProperties(prefix = "db2.datasource")
+    @Bean(name = "dataSourceDb3")
+    @ConfigurationProperties(prefix = "db3.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "entityManagerFactoryDb2")
+    @Bean(name = "entityManagerFactoryDb3")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb2") DataSource dataSource) {
+            EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb3") DataSource dataSource) {
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("db2.jpa.hibernate.ddl-auto"));
+                env.getProperty("db3.jpa.hibernate.ddl-auto"));
         properties.put("hibernate.dialect",
-                env.getProperty("db2.jpa.properties.hibernate.dialect"));
+                env.getProperty("db3.jpa.properties.hibernate.dialect"));
 
         return builder
                 .dataSource(dataSource)
-                .packages("swc3.server.Db2.models")
-                .persistenceUnit("db2")
+                .packages("swc3.server.Db3.models")
+                .persistenceUnit("db3")
                 .properties(properties)
                 .build();
     }
 
-    @Bean(name = "transactionManagerDb2")
+    @Bean(name = "transactionManagerDb3")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("entityManagerFactoryDb2") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("entityManagerFactoryDb3") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }

@@ -14,5 +14,70 @@
       "name": "db1.datasource.jdbc-url",
       "type": "java.lang.String",
       "description": "Description for db1.datasource.jdbc-url."
+    },
+    {
+      "name": "db2.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "Description for db2.datasource.jdbc-url."
+    },
+    {
+      "name": "db2.datasource.username",
+      "type": "java.lang.String",
+      "description": "Description for db2.datasource.username."
+    },
+    {
+      "name": "db2.datasource.password",
+      "type": "java.lang.String",
+      "description": "Description for db2.datasource.password."
+    },
+    {
+      "name": "db1.datasource.hikari.maximum-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for db1.datasource.hikari.maximum-pool-size."
+    },
+    {
+      "name": "db2.datasource.hikari.maximum-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for db2.datasource.hikari.maximum-pool-size."
+    },
+    {
+      "name": "app.secretkey",
+      "type": "java.lang.String",
+      "description": "Description for app.secretkey."
+    },
+    {
+      "name": "app.jwtExpirationMs",
+      "type": "java.lang.String",
+      "description": "Description for app.jwtExpirationMs."
+    },
+    {
+      "name": "db1.jpa.properties.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for db1.jpa.properties.hibernate.dialect."
+    },
+    {
+      "name": "db2.jpa.properties.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for db2.jpa.properties.hibernate.dialect."
+    },
+    {
+      "name": "db3.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "Description for db3.datasource.jdbc-url."
+    },
+    {
+      "name": "db3.datasource.password",
+      "type": "java.lang.String",
+      "description": "Description for db3.datasource.password."
+    },
+    {
+      "name": "db3.datasource.hikari.maximum-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for db3.datasource.hikari.maximum-pool-size."
+    },
+    {
+      "name": "db3.jpa.properties.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for db3.jpa.properties.hibernate.dialect."
     }
   ] }
