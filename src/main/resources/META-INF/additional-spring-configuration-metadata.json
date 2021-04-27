@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "db1.datasource.username",
+      "type": "java.lang.String",
+      "description": "Description for db1.datasource.username."
+    },
+    {
+      "name": "db1.datasource.password",
+      "type": "java.lang.String",
+      "description": "Description for db1.datasource.password."
+    },
+    {
+      "name": "db1.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "Description for db1.datasource.jdbc-url."
+    }
+  ] }

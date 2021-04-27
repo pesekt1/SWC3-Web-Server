@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 //@Component
 //@Profile("dev")
-@Configuration
+//@Configuration
 public class DatabaseConfig {
 
 
