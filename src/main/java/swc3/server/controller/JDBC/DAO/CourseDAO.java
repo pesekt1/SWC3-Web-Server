@@ -28,7 +28,7 @@ public class CourseDAO implements DAO<Course> {
         return jdbcTemplate.query(sql, new CourseRowMapper());
     }
 
-    //This enpoint is vulnerable, it allows SQL injection
+    //This endpoint is vulnerable, it allows SQL injection
     //use this as an argument: "http://google.com" OR 1 = 1
     @Override
     public List<Course> listVulnerable(String filter) {

@@ -335,13 +335,32 @@ Access the documentation: (app running on port 5557)
 ![swagger](src/main/resources/static/swagger2.png)
 
 ### JDBC example - db connection without the ORM, just using POJOs
+![jdbc](src/main/resources/static/jdbc.png)
+- Model Course is a POJO - not a mapping class of a table.
+- DAO interface - a generic interface defining how an implementing class should look like
+- CourseDAO - A class implementing DAO interface contains CRUD methods which use sql queries to query from courses table.
+- CourseRowMapper is used to build the Course object from the result set.
 
+### SQL injection
+- One endpoint in CourseDAO is vulnerable to SQL injections (it uses string concatenation):
+```java
+    public List<Course> listVulnerable(String filter) {
+        String sql = "SELECT course_id,title,description,link from courses WHERE link =" + filter;
+        return jdbcTemplate.query(sql, new CourseRowMapper());
+    }
+```
 
+- Example of SQL injections are in httpRequests.http:
+    - .../courses/vulnerable?filter="http://google.com" OR 1 = 1
+    - .../courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DELETE from courses
+    - .../courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DROP table courses
+
+- For this to work, the database must allow multiple queries. In this project it is done by adding this to the database connection string:
+        
+        ?allowMultiQueries=true
+
+- [SQL injection demo website1](https://www.hacksplaining.com/exercises/sql-injection#/start)
+- [SQL injection demo website2](https://www.codingame.com/playgrounds/154/sql-injection-demo/sql-injection)
 
 ### Docker
 - comming soon...
-
-### Markdown tutorial
-
-[![Markdown course](http://img.youtube.com/vi/HUBNt18RFbo/0.jpg)](https://www.youtube.com/watch?v=HUBNt18RFbo)
-
