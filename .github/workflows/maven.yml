@@ -23,5 +23,6 @@ jobs:
     - name: Build with Maven
       env:
         DATABASE_URL: ${{secrets.DATABASE_URL}}
+        DB2_URL: ${{secrets.DB2_URL}}
         SECRET_KEY: ${{secrets.SECRET_KEY}}
       run: mvn -B package -P prod --file pom.xml
