@@ -24,5 +24,8 @@ jobs:
       env:
         DATABASE_URL: ${{secrets.DATABASE_URL}}
         DB2_URL: ${{secrets.DB2_URL}}
+        DB3_URL: ${{secrets.DB3_URL}}
+        DB3_USERNAME: ${{secrets.DB3_USERNAME}}
+        DB3_PASSWORD: ${{secrets.DB3_PASSWORD}}
         SECRET_KEY: ${{secrets.SECRET_KEY}}
       run: mvn -B package -P prod --file pom.xml

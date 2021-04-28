@@ -79,5 +79,10 @@
       "name": "db3.jpa.properties.hibernate.dialect",
       "type": "java.lang.String",
       "description": "Description for db3.jpa.properties.hibernate.dialect."
+    },
+    {
+      "name": "db3.datasource.username",
+      "type": "java.lang.String",
+      "description": "Description for db3.datasource.username."
     }
   ] }
