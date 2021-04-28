@@ -364,7 +364,7 @@ Access the documentation: (app running on port 5557)
 
 ### Multiple data sources
 
-- Adding different database technologies:
+- Adding different database technologies
 
 ### Docker
 - comming soon...
