@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@RunWith(SpringRunner.class)
 //@DataJpaTest
 //@AutoConfigureTestEntityManager
-@SpringBootTest(classes = {ServerApplication.class, Db1Config.class})
+@SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class IntegrationTests {
 
