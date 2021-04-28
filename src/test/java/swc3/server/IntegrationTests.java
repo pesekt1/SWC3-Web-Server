@@ -33,27 +33,27 @@ public class IntegrationTests {
   //@Autowired
   //private TestEntityManager entityManager;
 
-  @Autowired
-  TutorialRepository repository;
-
-  @BeforeEach
-  public void init(){
-    repository.deleteAll();
-  }
-
-  @Test
-  public void should_find_no_tutorials_if_repository_is_empty() {
-    Iterable<Tutorial> tutorials = repository.findAll();
-    assertThat(tutorials).isEmpty();
-  }
-
-  @Test
-  public void should_store_a_tutorial() {
-    Tutorial tutorial = repository.save(new Tutorial("Tut title", "Tut desc", true));
-    assertThat(tutorial).hasFieldOrPropertyWithValue("title", "Tut title");
-    assertThat(tutorial).hasFieldOrPropertyWithValue("description", "Tut desc");
-    assertThat(tutorial).hasFieldOrPropertyWithValue("published", true);
-  }
+//  @Autowired
+//  TutorialRepository repository;
+//
+//  @BeforeEach
+//  public void init(){
+//    repository.deleteAll();
+//  }
+//
+//  @Test
+//  public void should_find_no_tutorials_if_repository_is_empty() {
+//    Iterable<Tutorial> tutorials = repository.findAll();
+//    assertThat(tutorials).isEmpty();
+//  }
+//
+//  @Test
+//  public void should_store_a_tutorial() {
+//    Tutorial tutorial = repository.save(new Tutorial("Tut title", "Tut desc", true));
+//    assertThat(tutorial).hasFieldOrPropertyWithValue("title", "Tut title");
+//    assertThat(tutorial).hasFieldOrPropertyWithValue("description", "Tut desc");
+//    assertThat(tutorial).hasFieldOrPropertyWithValue("published", true);
+//  }
 
 //  @Test
 //  public void should_find_all_tutorials() {
