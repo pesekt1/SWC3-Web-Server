@@ -5,8 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.context.SpringBootTest;
 import swc3.server.config.Db1Config;
 import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
@@ -15,8 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 //@RunWith(SpringRunner.class)
 @DataJpaTest
-@Import(Db1Config.class)
-@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
+@SpringBootTest(classes = {ServerApplication.class, Db1Config.class})
+@AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.ANY)
 public class IntegrationTests {
 
   @Autowired
