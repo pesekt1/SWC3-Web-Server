@@ -15,7 +15,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tutorials", schema= "dbo", catalog = "swc3_springboot_mssql")
+//@Table(name = "tutorials", schema= "dbo", catalog = "swc3_springboot_mssql")
+@Table(name = "tutorials", schema = "dbo", catalog = "azureSqlDb")
 public class Tutorial_db3 {
 
     @Id
