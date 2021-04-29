@@ -151,6 +151,7 @@ This is a Maven project:
 ### Thymeleaf [docs](https://www.thymeleaf.org/)
 - server-side template engine: in TutorialControllerForThymeleaf
 - multi-page web application, the web app sends the whole html page as a response.
+- This is different from the Rest Controllers which send data in JSON format to the client.
 
 ![page structure](src/main/resources/static/MPA.png)
 
@@ -170,7 +171,7 @@ public class TutorialControllerForThymeleaf {
     }
 ```
 
-listAdvanced.html:
+listAdvanced.html: we can access the data provided by the controller:
 ```html
 <table class="table">
     <thead class="thead-dark">
@@ -193,9 +194,17 @@ listAdvanced.html:
         <td><a th:href="@{/thymeleaf/delete/{id}(id=${tutorial.id})}">Delete</a></td>
 ```
 
+- Result:
+
+![Thymeleaf](src/main/resources/static/thymeleaf.png)
+
 ### Testing
 - dependency: spring-boot-starter-test
 - Integration tests for the database (done directly on the production database)
+
+```java
+
+```
 
 ### gitHub CI action
 - .github/workflows/maven.yml: 
