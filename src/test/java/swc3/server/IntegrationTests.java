@@ -27,28 +27,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 //Tests work fine in the development environment
 
 //@RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
 //@AutoConfigureTestEntityManager
-//@SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
+@SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class IntegrationTests {
 
-  @Autowired
-  private TestEntityManager entityManager;
-
-  @Autowired
-  TutorialRepository repository;
-
-  @BeforeEach
-  public void init(){
-    repository.deleteAll();
-  }
-
-  @Test
-  public void should_find_no_tutorials_if_repository_is_empty() {
-    Iterable<Tutorial> tutorials = repository.findAll();
-    assertThat(tutorials).isEmpty();
-  }
+//  @Autowired
+//  private TestEntityManager entityManager;
+//
+//  @Autowired
+//  TutorialRepository repository;
+//
+//  @BeforeEach
+//  public void init(){
+//    repository.deleteAll();
+//  }
+//
+//  @Test
+//  public void should_find_no_tutorials_if_repository_is_empty() {
+//    Iterable<Tutorial> tutorials = repository.findAll();
+//    assertThat(tutorials).isEmpty();
+//  }
 //
 //  @Test
 //  public void should_store_a_tutorial() {

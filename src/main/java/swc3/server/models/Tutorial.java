@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tutorials", schema = "swc3_springboot")
+@Table(name = "tutorials")
 public class Tutorial {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
