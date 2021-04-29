@@ -84,5 +84,20 @@
       "name": "db3.datasource.username",
       "type": "java.lang.String",
       "description": "Description for db3.datasource.username."
+    },
+    {
+      "name": "db4.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "Description for db4.datasource.jdbc-url."
+    },
+    {
+      "name": "db4.datasource.hikari.maximum-pool-size",
+      "type": "java.lang.String",
+      "description": "Description for db4.datasource.hikari.maximum-pool-size."
+    },
+    {
+      "name": "db4.jpa.properties.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for db4.jpa.properties.hibernate.dialect."
     }
   ] }
