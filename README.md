@@ -3,13 +3,14 @@
 ### App structure
 ![app structure](src/main/resources/static/appStructure.png)
 
-### Implemented:
-- RestControllers
-- Models (using javax.persistence, model classes were generated from the existing database)
+### Model Classes (Domain):
+- Using javax.persistence, model classes were generated from the existing database)
 ![Import mapping](src/main/resources/static/importMapping.png)
 
 - using annotation @JsonBackReference to avoid a JSON loops.
-- Repositories: dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
+
+### Repository pattern
+- Dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
 
 ### Database
 - Dependencies:
@@ -157,13 +158,63 @@ If you get an error because of the timezone, run the following command in MySQL 
     SET @@global.time_zone = '+00:00';
 ```
 
-### REST APIs (Endpoints providing data in JSON format)
+### Rest Controllers: REST APIs (Endpoints providing data in JSON format)
 - <http://localhost:5557/api/tutorials>
 - <http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc>
 - <http://localhost:5557/thymeleaf/tutorialsAdvanced>
 - <http://localhost:5557/api/orders>
 - <http://localhost:5557/api/ordersWithIDs>
 - etc...
+
+- Example: endpoint at .../api3/tutorials
+    - Using a service layer to have clean Rest Controllers without the data source dependency.
+    - Rest Controllers use ResponseEntity class.
+    - The service is injected via constructor.
+```java
+@RestController
+@RequestMapping("/api3")
+public class TutorialController {
+	TutorialService tutorialService;
+
+	@Autowired
+	public TutorialController(TutorialService tutorialService){
+		this.tutorialService = tutorialService;
+	}
+
+	@GetMapping("/tutorials")
+	public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
+		return tutorialService.getAllTutorials(title);
+	}
+```
+
+### Service Layer
+- Business logic, working with the repository pattern - constructor dependency injection.
+- Example:
+
+```java
+@Service
+public class TutorialService {
+    TutorialRepository tutorialRepository;
+
+    @Autowired
+    public TutorialService(TutorialRepository tutorialRepository){
+        this.tutorialRepository = tutorialRepository;
+    }
+
+    public ResponseEntity<List<Tutorial>> getAllTutorials(String title) {
+        List<Tutorial> tutorials = new ArrayList<>();
+
+        if (title == null)
+            tutorials.addAll(tutorialRepository.findAll());
+        else
+            tutorials.addAll(tutorialRepository.findByTitleContaining(title));
+
+        if (tutorials.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+    }
+```
 
 ### Http requests [IntelliJ documentation](https://www.jetbrains.com/help/idea/exploring-http-syntax.html)
 httpRequests.http file:
