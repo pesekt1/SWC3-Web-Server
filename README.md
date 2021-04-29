@@ -171,7 +171,7 @@ public class TutorialControllerForThymeleaf {
 ```
 
 listAdvanced.html:
-```thymeleafexpressions
+```html
 <table class="table">
     <thead class="thead-dark">
     <tr>
