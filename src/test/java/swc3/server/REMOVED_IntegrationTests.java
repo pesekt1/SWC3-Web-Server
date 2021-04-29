@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@AutoConfigureTestEntityManager
 @SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
-public class IntegrationTests {
+public class REMOVED_IntegrationTests {
 
 //  @Autowired
 //  private TestEntityManager entityManager;
