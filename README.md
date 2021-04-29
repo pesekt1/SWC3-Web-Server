@@ -549,6 +549,12 @@ Adding different database technologies as data sources to our project.
 
 ![data sources](src/main/resources/static/dataSources.png)
 
+- Set up the connection settings:
+
+![connection settings](src/main/resources/static/connectionSettings.png)
+
+- Create the configurations for persistence units for each datasource:
+
 
 
 ![persistence](src/main/resources/static/persistence.png)

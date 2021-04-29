@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Primary
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactory",
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager",
         basePackages = {"swc3.server.repository", "swc3.server.nativequeries"})
 public class Db1Config {
 
