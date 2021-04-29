@@ -62,15 +62,12 @@ public class IntegrationTests {
 //  public void should_find_all_tutorials() {
 //    Tutorial tut1 = new Tutorial("Tut#1", "Desc#1", true);
 //
-//    entityManagerFactory.createEntityManager().persist(tut1);
 //    //entityManager.persist(tut1);
 //
 //    Tutorial tut2 = new Tutorial("Tut#2", "Desc#2", false);
-//    entityManagerFactory.createEntityManager().persist(tut2);
 //    //entityManager.persist(tut2);
 //
 //    Tutorial tut3 = new Tutorial("Tut#3", "Desc#3", true);
-//    entityManagerFactory.createEntityManager().persist(tut3);
 //    //entityManager.persist(tut3);
 //
 //    Iterable<Tutorial> tutorials = repository.findAll();
