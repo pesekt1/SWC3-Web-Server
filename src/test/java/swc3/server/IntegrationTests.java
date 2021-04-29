@@ -33,19 +33,19 @@ public class IntegrationTests {
   //@Autowired
   //private TestEntityManager entityManager;
 
-//  @Autowired
-//  TutorialRepository repository;
-//
-//  @BeforeEach
-//  public void init(){
-//    repository.deleteAll();
-//  }
-//
-//  @Test
-//  public void should_find_no_tutorials_if_repository_is_empty() {
-//    Iterable<Tutorial> tutorials = repository.findAll();
-//    assertThat(tutorials).isEmpty();
-//  }
+  @Autowired
+  TutorialRepository repository;
+
+  @BeforeEach
+  public void init(){
+    repository.deleteAll();
+  }
+
+  @Test
+  public void should_find_no_tutorials_if_repository_is_empty() {
+    Iterable<Tutorial> tutorials = repository.findAll();
+    assertThat(tutorials).isEmpty();
+  }
 //
 //  @Test
 //  public void should_store_a_tutorial() {
