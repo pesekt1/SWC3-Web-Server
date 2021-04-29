@@ -23,15 +23,18 @@ import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//I deactivated the tests because of the production environment - the cloud databases have a limit of connections which causes an error.
+//Tests work fine in the development environment
+
 //@RunWith(SpringRunner.class)
-//@DataJpaTest
+@DataJpaTest
 //@AutoConfigureTestEntityManager
-@SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
+//@SpringBootTest(classes = {ServerApplication.class, Db1Config.class, Db2Config.class, Db3Config.class})
 @AutoConfigureTestDatabase(replace= AutoConfigureTestDatabase.Replace.NONE)
 public class IntegrationTests {
 
-  //@Autowired
-  //private TestEntityManager entityManager;
+  @Autowired
+  private TestEntityManager entityManager;
 
   @Autowired
   TutorialRepository repository;
