@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc //this did not work - static content from thymeleaf was not served...
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
