@@ -3,6 +3,15 @@
 ### App structure
 ![app structure](src/main/resources/static/appStructure.png)
 
+### Features
+- REST APIs for http communication like GET, POST, PUT, DELETE - for client-side rendering.
+- Custom Exception Handler
+- Pagination, Filtering, Sorting
+- spring-boot-starter-data-rest to automatically generate the REST APIs: 
+    - https://spring.io/guides/gs/accessing-data-rest/
+- Multiple data sources
+- Security - registration / login
+
 ### Model Classes (Domain):
 - Using javax.persistence, model classes were generated from the existing database)
 ![Import mapping](src/main/resources/static/importMapping.png)
@@ -42,7 +51,17 @@ public class Tutorial {
 }
 ```
 
-- using annotation @JsonBackReference to avoid a JSON loops.
+- using annotation @JsonBackReference to avoid a JSON loops. 
+- Example: This collection of orders will be omitted in the JSON response.
+
+```java
+    //part of the model class
+    @JsonBackReference
+    @OneToMany(mappedBy = "customerByCustomerId")
+    public Collection<Order> getOrdersByCustomerId() {
+        return ordersByCustomerId;
+    }
+```
 
 ### Repository pattern
 - Dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
@@ -61,17 +80,22 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 }
 ```
 
-### Database
-- Dependencies:
+### Database (MySQL)
+- Maven Dependencies:
     - spring-boot-starter-data-jpa
     - mysql-connector-java 
 - The self-contained dump file for the database is in sql folder: swc3_springboot_dump.sql
-- Create that database and make sure it is used as a data source by the web server - via application.properties
+- Create that database and make sure it is used as a data source by the web server - via application.properties.
+- Generate the model classes as shown above.
 - Database EER:
 ![database EER](src/main/resources/static/databaseEER.png)
 
 ### application.properties
 - using environment variables: ${ENV_VARIABLE}
+- Now for the development we set the DATABASE_URL for our local db server.
+- For the production in the cloud, we set the DATABASE_URL to the cloud db resource.
+- When we deploy, the production app in the cloud will use the cloud db resource.
+
 ```java
     server.port=5557
     spring.datasource.url=${DATABASE_URL}
@@ -81,10 +105,16 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 
 ![Environment Variables](src/main/resources/static/env.png)
 
-### Maven
+### Maven - [Getting Started](https://maven.apache.org/guides/getting-started/)
 This is a Maven project:
 
 ![Maven](src/main/resources/static/maven.png)
+
+- The Maven setting is in the file pom.xml:
+    - dependencies
+    - plugins
+    - profiles
+    - ...
 
 ### Profiles
 - Profiles are defined by Maven (pom.xml):
@@ -115,16 +145,6 @@ This is a Maven project:
     logging.level.org.springframework = INFO
     logging.level.sql = debug (we will see all the sql queries in the console)
 ```
-
-### Features
-- Implemented REST APIs for http communication like GET, POST, PUT, DELETE - for client-side rendering.
-- Custom Exception Handler
-- Pagination
-- Filtering
-- Sorting
-- spring-boot-starter-data-rest to automatically generate the REST APIs: 
-    - https://spring.io/guides/gs/accessing-data-rest/
-- 
 
 ### Thymeleaf [docs](https://www.thymeleaf.org/)
 - server-side template engine: in TutorialControllerForThymeleaf
