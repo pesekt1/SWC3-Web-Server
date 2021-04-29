@@ -10,7 +10,6 @@ import swc3.server.models.Tutorial;
 import java.util.List;
 
 public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
-
 	//The implementation is plugged in by Spring Data JPA automatically.
 	List<Tutorial> findByPublished(boolean published);
 	List<Tutorial> findByTitleContaining(String title);
@@ -24,5 +23,4 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 	//native query
 	@Query(value = "SELECT * FROM tutorials t WHERE t.id = ?1", nativeQuery = true)
 	Tutorial findTutorialById(long id);
-
 }

@@ -7,10 +7,59 @@
 - Using javax.persistence, model classes were generated from the existing database)
 ![Import mapping](src/main/resources/static/importMapping.png)
 
+- Example of a model class mapping tutorials table:
+- There are different ways to auto-generate the id by setting the GenerationType.
+```java
+@EqualsAndHashCode
+@Setter
+@Getter
+@NoArgsConstructor
+
+@Entity
+@Table(name = "tutorials", schema = "swc3_springboot")
+public class Tutorial {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    @GenericGenerator(name = "native", strategy = "native")
+    @Column(name = "id", nullable = false)
+    private long id;
+
+    @Basic@Column(name = "description")
+    private String description;
+
+    @Basic@Column(name = "published")
+    private Boolean published;
+
+    @Basic@Column(name = "title", nullable = false)
+    private String title;
+
+    public Tutorial(String title, String description, boolean published) {
+        this.title = title;
+        this.description = description;
+        this.published = published;
+    }
+}
+```
+
 - using annotation @JsonBackReference to avoid a JSON loops.
 
 ### Repository pattern
 - Dependency: spring-boot-starter-data-jpa: [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html)
+- Example: Implementation class is plugged-in by Spring Data JPA automatically - we can call the methods directly on the interface.
+- We can also use native queries - note that this goes against the original idea of the interfaces which says that they should not contain the method implementation.
+
+```java
+public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
+	//The implementation is plugged in by Spring Data JPA automatically.
+	List<Tutorial> findByPublished(boolean published);
+	List<Tutorial> findByTitleContaining(String title);
+
+	//native query
+	@Query(value = "SELECT * FROM tutorials t WHERE t.id = ?1", nativeQuery = true)
+	Tutorial findTutorialById(long id);
+}
+```
 
 ### Database
 - Dependencies:
@@ -22,9 +71,12 @@
 ![database EER](src/main/resources/static/databaseEER.png)
 
 ### application.properties
-- using environment variables: 
+- using environment variables: ${ENV_VARIABLE}
 ```java
+    server.port=5557
     spring.datasource.url=${DATABASE_URL}
+    spring.datasource.hikari.maximum-pool-size=3
+    spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
 ```
 
 ![Environment Variables](src/main/resources/static/env.png)
@@ -189,7 +241,7 @@ public class TutorialController {
 
 ### Service Layer
 - Business logic, working with the repository pattern - constructor dependency injection.
-- Example:
+- Example: Notice that we can call the methods directly on the interface - the implementation class is generated automatically.
 
 ```java
 @Service
@@ -265,11 +317,17 @@ httpRequests.http file:
 
 ![json-server](src/main/resources/static/httpReqPostman.png)
 
+### spring-boot-starter-data-rest
+- <https://spring.io/guides/gs/accessing-data-rest/>
+- Spring Data REST takes the features of Spring [HATEOAS](https://spring.io/projects/spring-hateoas) and Spring Data JPA and automatically combines them together.
+
 ### Changing the data source
 - change the connection string in application.properties
 - change the Hibernate dialect: [hibernate.dialect](https://docs.jboss.org/hibernate/orm/5.2/javadocs/org/hibernate/dialect/package-summary.html)
 ```java
     spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.MySQL5InnoDBDialect
+    spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.SQLServerDialect
+    spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQL10Dialect
 ```
 
 ### Lombok
