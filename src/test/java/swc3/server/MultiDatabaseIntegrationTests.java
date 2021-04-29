@@ -3,12 +3,7 @@ package swc3.server;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.ContextHierarchy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
@@ -18,11 +13,10 @@ import swc3.server.Db2.models.Tutorial_db2;
 import swc3.server.Db2.repo.TutorialRepository_db2;
 import swc3.server.Db3.models.Tutorial_db3;
 import swc3.server.Db3.repo.TutorialRepository_db3;
+import swc3.server.models.Customer;
 import swc3.server.models.Tutorial;
+import swc3.server.repository.CustomerRepository;
 import swc3.server.repository.TutorialRepository;
-
-import javax.annotation.sql.DataSourceDefinition;
-import javax.persistence.*;
 
 // integration tests for persistence unit db1 - first data source,
 // transactionManager name comes from Db1Config class.

@@ -198,13 +198,6 @@ listAdvanced.html: we can access the data provided by the controller:
 
 ![Thymeleaf](src/main/resources/static/thymeleaf.png)
 
-### Testing
-- dependency: spring-boot-starter-test
-- Integration tests for the database (done directly on the production database)
-
-```java
-
-```
 
 ### gitHub CI action
 - .github/workflows/maven.yml: 
@@ -562,6 +555,40 @@ Adding different database technologies as data sources to our project.
 ![assign data sources](src/main/resources/static/assignDataSources.png)
 
 - We need to configure the persistence units for each data source.
+
+### Testing
+- dependency: spring-boot-starter-test
+- Integration tests for the database (done directly on the production database)
+- We specify 
+
+```java
+@SpringBootTest
+@EnableTransactionManagement
+class MultiDatabaseIntegrationTests {
+
+    //...autowire the repositories
+
+    @BeforeEach
+    public void init(){
+        repository.deleteAll();
+        repositoryDb2.deleteAll();
+        repositoryDb3.deleteAll();
+    }
+
+    @Transactional("transactionManager")
+    @Test
+    void should_find_no_tutorials_if_repository_is_empty() {
+        Iterable<Tutorial> tutorials = repository.findAll();
+        assertThat(tutorials).isEmpty();
+    }
+
+    @Transactional("transactionManagerDb2")
+    @Test
+    void should_find_no_tutorials_if_repositoryDb2_is_empty() {
+        Iterable<Tutorial_db2> tutorials = repositoryDb2.findAll();
+        assertThat(tutorials).isEmpty();
+    }
+```
 
 ### Docker
 - Docker allows us to containerize our application - We will have a docker image or our app.
