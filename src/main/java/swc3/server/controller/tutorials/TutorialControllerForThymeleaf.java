@@ -7,8 +7,6 @@ import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
-
-
 //controller for server-side rendering
 @Controller
 @RequestMapping("/thymeleaf")
@@ -19,7 +17,6 @@ public class TutorialControllerForThymeleaf {
     public TutorialControllerForThymeleaf(TutorialRepository tutorialRepository) {
         this.tutorialRepository = tutorialRepository;
     }
-
 
     //html without Bootstrap
     @RequestMapping("/tutorialsBasic")

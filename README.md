@@ -11,6 +11,8 @@
     - https://spring.io/guides/gs/accessing-data-rest/
 - Multiple data sources
 - Security - registration / login
+- Using ORM mapping tool (Hibernate) to map the tables in the database by java classes.
+- Using JDBC driver to communicate with the database directly - without ORM.
 
 ### Model Classes (Domain):
 - Using javax.persistence, model classes were generated from the existing database)
@@ -149,7 +151,47 @@ This is a Maven project:
 ### Thymeleaf [docs](https://www.thymeleaf.org/)
 - server-side template engine: in TutorialControllerForThymeleaf
 - multi-page web application, the web app sends the whole html page as a response.
+
 ![page structure](src/main/resources/static/MPA.png)
+
+- Controllers - Responsible for sending an html page as a response:
+- Example: Returning listAdvanced.html with the data from tutorial table (using the repository)
+
+```java
+@Controller
+@RequestMapping("/thymeleaf")
+public class TutorialControllerForThymeleaf {
+    //...
+    //html - advanced web page with update and delete
+    @RequestMapping("/tutorialsAdvanced")
+    public String getTutorialsAdvanced(Model model){
+        model.addAttribute("tutorials", tutorialRepository.findAll());
+        return "tutorials/listAdvanced";
+    }
+```
+
+listAdvanced.html:
+```thymeleafexpressions
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Published</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Like</th>
+        <th scope="col">Photo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "tutorial : ${tutorials}">
+        <td th:text = "${tutorial.title}"></td>
+        <td th:text = "${tutorial.description}"></td>
+        <td th:text="${tutorial.published} ? 'yes' : 'no'"></td>
+        <td><a th:href="@{'/thymeleaf/' + ${tutorial.id} + '/update'}">Update</a></td>
+        <td><a th:href="@{/thymeleaf/delete/{id}(id=${tutorial.id})}">Delete</a></td>
+```
 
 ### Testing
 - dependency: spring-boot-starter-test
@@ -335,7 +377,7 @@ httpRequests.http file:
 
 - **HttpRequests in Postman:**:
 
-![json-server](src/main/resources/static/httpReqPostman.png)
+![Postman](src/main/resources/static/httpReqPostman.png)
 
 ### spring-boot-starter-data-rest
 - <https://spring.io/guides/gs/accessing-data-rest/>
@@ -493,7 +535,20 @@ Access the documentation: (app running on port 5557)
 
 ### Multiple data sources
 
-- Adding different database technologies
+Adding different database technologies as data sources to our project.
+- First we need to connect to the database servers from IntelliJ:
+
+![data sources](src/main/resources/static/dataSources.png)
+
+
+
+![persistence](src/main/resources/static/persistence.png)
+
+![assign data sources](src/main/resources/static/assignDataSources.png)
+
+- We need to configure the persistence units for each data source.
 
 ### Docker
-- coming soon.......
+- Docker allows us to containerize our application - We will have a docker image or our app.
+- This is useful for scaling - We can use Kubernetes orchestration tool to run our containerized app in the cloud.
+- more info coming soon...
