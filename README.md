@@ -559,20 +559,19 @@ Adding different database technologies as data sources to our project.
 ### Integration tests
 - dependency: spring-boot-starter-test
 - Integration tests for the database (done directly on the production database)
-- We must specify the transactionManager which we defined for each persistence unit (in Db1Config, Db2Config etc.)  
-
+- We use @AutoConfigureDataJpa + @ContextConfiguration because we only want to use the context for the primary datasource.
 ```java
 @SpringBootTest
-@EnableTransactionManagement
-class MultiDatabaseIntegrationTests {
+@AutoConfigureDataJpa
+@ContextConfiguration (classes = {Db1Config.class, TutorialRepository.class})
+@Transactional("transactionManager")
+class PrimaryDatasourceIntegrationTests {
 
     //...autowire the repositories
 
     @BeforeEach
     public void init(){
         repository.deleteAll();
-        repositoryDb2.deleteAll();
-        repositoryDb3.deleteAll();
     }
 
     @Transactional("transactionManager")
@@ -581,18 +580,11 @@ class MultiDatabaseIntegrationTests {
         Iterable<Tutorial> tutorials = repository.findAll();
         assertThat(tutorials).isEmpty();
     }
-
-    @Transactional("transactionManagerDb2")
-    @Test
-    void should_find_no_tutorials_if_repositoryDb2_is_empty() {
-        Iterable<Tutorial_db2> tutorials = repositoryDb2.findAll();
-        assertThat(tutorials).isEmpty();
-    }
 ```
 
 ### Unit tests
 
-
+### API tests
 
 
 ### Docker
