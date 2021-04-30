@@ -674,6 +674,18 @@ class PrimaryDatasourceIntegrationTests {
 
 ### API tests
 
+### Deployment to Heroku Cloud
+- We need to create a new app on Heroku and deploy our code from GitHub.
+- We need to provision database resources for our data sources - for the development we were using local servers.
+- Either we can provision databases on Heroku or elsewhere.
+- We can get MySQL, Postgres and SQL Server on Heroku.
+- Then we can get MongoDB on MongoDB Atlas and Azure SQL Database on Azure.
+
+- Now we need to set up the configuration variables (config vars): After deployment the app will connect to these data sources:
+
+![config vars](src/main/resources/static/configvars.png)
+
+
 
 ### Docker
 - Docker allows us to containerize our application - We will have a docker image or our app.
