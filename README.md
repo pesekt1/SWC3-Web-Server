@@ -678,13 +678,31 @@ class PrimaryDatasourceIntegrationTests {
 - We need to create a new app on Heroku and deploy our code from GitHub.
 - We need to provision database resources for our data sources - for the development we were using local servers.
 - Either we can provision databases on Heroku or elsewhere.
-- We can get MySQL, Postgres and SQL Server on Heroku.
-- Then we can get MongoDB on MongoDB Atlas and Azure SQL Database on Azure.
+- We can get MySQL, Postgres and SQL Server on Heroku: <https://elements.heroku.com/addons>
 
-- Now we need to set up the configuration variables (config vars): After deployment the app will connect to these data sources:
+- We can get MongoDB on MongoDB Atlas and Azure SQL Database on Azure:
+    - <https://www.mongodb.com/cloud/atlas>
+    - <https://azure.microsoft.com/en-us/services/sql-database/>
+
+- Now we need to set up the configuration variables (config vars) on Heroku for all data sources: 
+After deployment the app will connect to these data sources:
 
 ![config vars](src/main/resources/static/configvars.png)
 
+Note: Our development is done with environment variables in IntelliJ, after deploying the app Heroku takes over, 
+and the application will use the config vars.
+
+- Max connections limit: The free database resources have usually small connections limit which can be easily exceeded 
+by our spring boot app. Solution: Limit the thread pool size for each data source.
+
+```java
+db1.datasource.hikari.maximum-pool-size=5
+```
+
+- We can set up a deployment pipeline:
+    - Push code to GitHub repository
+    - GitHub will run an Action (Java CI with Maven)
+    - If it succeeds it will deploy to Heroku
 
 
 ### Docker
