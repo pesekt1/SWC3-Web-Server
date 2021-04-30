@@ -556,10 +556,10 @@ Adding different database technologies as data sources to our project.
 
 - We need to configure the persistence units for each data source.
 
-### Testing
+### Integration tests
 - dependency: spring-boot-starter-test
 - Integration tests for the database (done directly on the production database)
-- We specify 
+- We must specify the transactionManager which we defined for each persistence unit (in Db1Config, Db2Config etc.)  
 
 ```java
 @SpringBootTest
@@ -589,6 +589,11 @@ class MultiDatabaseIntegrationTests {
         assertThat(tutorials).isEmpty();
     }
 ```
+
+### Unit tests
+
+
+
 
 ### Docker
 - Docker allows us to containerize our application - We will have a docker image or our app.

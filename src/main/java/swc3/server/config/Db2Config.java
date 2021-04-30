@@ -21,7 +21,8 @@ import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryDb2",
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactoryDb2",
         basePackages = {"swc3.server.Db2.repo"})
 public class Db2Config {
 
