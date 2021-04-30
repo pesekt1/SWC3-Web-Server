@@ -540,21 +540,109 @@ Access the documentation: (app running on port 5557)
 Adding different database technologies as data sources to our project.
 - First we need to connect to the database servers from IntelliJ:
 
-![data sources](src/main/resources/static/dataSources.png)
+    ![data sources](src/main/resources/static/dataSources.png)
 
 - Set up the connection settings:
 
-![connection settings](src/main/resources/static/connectionSettings.png)
+    ![connection settings](src/main/resources/static/connectionSettings.png)
 
 - Create the configurations for persistence units for each datasource:
 
+    ![db config](src/main/resources/static/dbConfig.png)
 
+Example: Primary data source uses @Primary annotations:
+```java
+@Primary
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactory",
+        transactionManagerRef = "transactionManager",
+        basePackages = {"swc3.server.repository", "swc3.server.nativequeries"})
+public class Db1Config {
 
-![persistence](src/main/resources/static/persistence.png)
+    @Primary
+    @Bean(name = "dataSource")
+    @ConfigurationProperties(prefix = "db1.datasource")
+    public DataSource dataSource() {
+        return DataSourceBuilder.create().build();
+    }
 
-![assign data sources](src/main/resources/static/assignDataSources.png)
+    @Primary
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+            EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
+        return builder.dataSource(dataSource).packages("swc3.server.models", "swc3.server.nativequeries").persistenceUnit("db1")
+                .build();
+    }
 
-- We need to configure the persistence units for each data source.
+    @Primary
+    @Bean(name = "transactionManager")
+    public PlatformTransactionManager transactionManager(
+            @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
+    }
+}
+```
+
+- From this configuration we will get persistence units:
+
+    ![persistence](src/main/resources/static/persistence.png)
+
+- Assign data sources to the persistence units:
+
+    ![assign data sources](src/main/resources/static/assignDataSources.png)
+
+Now our application is working with multiple data sources, we can create services and rest controllers for each data source.
+
+### Working with MongoDB - Document database
+
+```java
+############ MongoDB data source ###############
+spring.data.mongodb.uri=mongodb://localhost:27017/swc3_db
+```
+
+- Model: @Document(collection = "tutorials") - Assign to the data source
+
+```java
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Getter
+@Setter
+@ToString
+@Document(collection = "tutorials")
+public class Tutorial_mongo {
+
+    @Id
+    private String id;
+    private String title;
+    private String description;
+    private boolean published;
+
+    public Tutorial_mongo(String title, String description, boolean published) {
+        this.title = title;
+        this.description = description;
+        this.published = published;
+    }
+}
+```
+
+- Repository: MongoRepository
+
+```java
+import org.springframework.data.mongodb.repository.MongoRepository;
+import swc3.server.Db5.models.Tutorial_mongo;
+
+import java.util.List;
+
+public interface TutorialRepository_mongo extends MongoRepository<Tutorial_mongo, String> {
+    List<Tutorial_mongo> findByPublished(boolean published);
+    List<Tutorial_mongo> findByTitleContaining(String title);
+}
+```
+
+- Controller: The same as the other controllers.
 
 ### Integration tests
 - dependency: spring-boot-starter-test
