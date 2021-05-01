@@ -1,7 +1,9 @@
 package swc3.server.exception;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -22,6 +24,17 @@ public class ControllerExceptionHandler {
     return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler({ AccessDeniedException.class })
+  public ResponseEntity<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+    ErrorMessage message = new ErrorMessage(
+            HttpStatus.FORBIDDEN.value(),
+            new Date(),
+            ex.getMessage(),
+            request.getDescription(false));
+
+    return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+  }
+
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request) {
     ErrorMessage message = new ErrorMessage(
@@ -29,7 +42,7 @@ public class ControllerExceptionHandler {
         new Date(),
         ex.getMessage(),
         request.getDescription(false));
-    
+
     return new ResponseEntity<>(message, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }
