@@ -332,6 +332,57 @@ public interface TutorialRepository_mongo extends MongoRepository<Tutorial_mongo
     spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.PostgreSQL10Dialect
 ```
 
+### Spring Data
+- [Spring Data docs](https://spring.io/projects/spring-data)
+- Spring Data provide models for different data stores:
+    - Spring Data JPA: Relational databases
+    - Spring Data MongoDB: MongoDB document database
+    - Spring Data Neo4j - Neo4j graph database
+    - Spring Data Redis - Redis key-value database
+
+- Spring data uses the repository pattern: - repository + model.
+- Examples:
+
+```java
+public interface TutorialRepository extends JpaRepository<Tutorial, Long> {...
+
+@Entity
+@Table(name = "tutorials")
+public class Tutorial {
+    @Id@GeneratedValue(...)
+    private long id;
+    ...
+
+public interface TutorialRepository extends MongoRepository<Tutorial, String> {...
+
+@Document(collection = "tutorials")
+public class Tutorial {
+    @Id
+    private String id;
+    ...
+
+public interface MovieRepositoryNeo4j extends Neo4jRepository<Movie, String> {...
+
+@Node
+public class Movie {
+    @Id
+    private final String title;
+    @Property("tagline")
+    private final String description;
+    @Relationship(type = "ACTED_IN", direction = Direction.INCOMING)
+    private List<Actor> actors = new ArrayList<>();
+    ...
+
+public interface ProductRepository extends CrudRepository<Product, String> {}
+
+@RedisHash("products") productRepository.findAll()
+public class Product {
+@Id
+private String id;
+private String description;
+private BigDecimal price;
+private String imageUrl;
+```
 
 ## APIs
 
@@ -515,7 +566,7 @@ it will assume that those classes should be served as RESTful resources.
 or not serving the resource at all:
 
 ```java
-@RepositoryRestResource(exported = false, path = "tutorialsCustom")
+@RepositoryRestResource(exported = true, path = "tutorialsCustom")
 public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 ```
 
@@ -578,6 +629,23 @@ To disable the Spring security, go to WebSecurityConfig and use permitAll() on a
     - POST <http://localhost:5557/api/auth/signup>, provide username, password, email, (array of roles)
 - login endpoint (providing the JWT to the client) 
     - POST <http://localhost:5557/api/auth/signin>, provide username, password 
+
+After successful registration or login, the client gets a JWT:
+
+```json
+{
+  "id": 1,
+  "username": "pesekt",
+  "email": "pesekt@gmail.com",
+  "roles": [
+    "ROLE_ADMIN"
+  ],
+  "tokenType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwZXNla3QiLCJqdGkiOiIxIiwiaWF0IjoxNjE5ODkwNjE5LCJleHAiOjE2MTk5NzcwMTl9.C69pAPHEekfuAuYjjVCC7lYvUcg3OW8CGEgYY0GP2GoKWtZpFYdhl02XwNnSIorXFJnV1MJSWMHJaFMLE8SnMg"
+}
+```
+
+JWT is saved in the browser - 
 
 ### JDBC example - db connection without the ORM, just using POJOs
 ![jdbc](src/main/resources/static/jdbc.png)
@@ -859,3 +927,12 @@ This is for Heroku cloud - it tells is to use java 11 buildpack.
 - Docker allows us to containerize our application - We will have a docker image or our app.
 - This is useful for scaling - We can use Kubernetes orchestration tool to run our containerized app in the cloud.
 - more info coming soon....
+
+## Web client app
+
+- See the React.js web client app for this server here on gitHub: [SWC3-React-Frontend](https://github.com/pesekt1/SWC3-React-Frontend)
+- It has limited features:
+    - Login / Logout
+    - Show tutorials (from MySQL DB tutorials table)
+    - Show customers (from MySQL DB customers table) - only for users with ADMIN role
+- Communication is done using axios library.

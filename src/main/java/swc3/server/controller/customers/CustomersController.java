@@ -20,21 +20,18 @@ public class CustomersController {
         this.customerService = customerService;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 
     //stored procedure
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customers-stored-procedure")
     public ResponseEntity<List<Customer>> getAllCustomersSP() {
         return customerService.getAllCustomersSP();
     }
 
     //stored procedure with a parameter
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customer-by-id/{id}")
     public ResponseEntity<Customer> getCustomerByIdSP(@PathVariable int id) {
         return customerService.getCustomerByIdSP(id);
