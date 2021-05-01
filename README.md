@@ -4,7 +4,7 @@
     + [Model Classes (Domain):](#model-classes--domain--)
     + [Repository pattern](#repository-pattern)
     + [application.properties](#applicationproperties)
-    + [Maven - [Getting Started](https://maven.apache.org/guides/getting-started/)](#maven----getting-started--https---mavenapacheorg-guides-getting-started--)
+    + [Maven](#maven----getting-started--https---mavenapacheorg-guides-getting-started--)
     + [Profiles](#profiles)
     + [Logging](#logging)
     + [Lombok](#lombok)
@@ -15,20 +15,20 @@
     + [Working with MongoDB - Document database](#working-with-mongodb---document-database)
     + [Changing the data source](#changing-the-data-source)
   * [APIs](#apis)
-    + [Thymeleaf [docs](https://www.thymeleaf.org/)](#thymeleaf--docs--https---wwwthymeleaforg--)
+    + [Thymeleaf](#thymeleaf--docs--https---wwwthymeleaforg--)
     + [Rest Controllers: REST APIs (Endpoints providing data in JSON format)](#rest-controllers--rest-apis--endpoints-providing-data-in-json-format-)
     + [Service Layer](#service-layer)
     + [CORS](#cors)
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
-    + [Rest API documentation [springdoc](https://springdoc.org)](#rest-api-documentation--springdoc--https---springdocorg-)
+    + [Rest API documentation](#rest-api-documentation--springdoc--https---springdocorg-)
   * [Security](#security)
     + [Spring security](#spring-security)
     + [JDBC example - db connection without the ORM, just using POJOs](#jdbc-example---db-connection-without-the-orm--just-using-pojos)
     + [SQL injection](#sql-injection)
   * [Http communication](#http-communication)
     + [HttpClient](#httpclient)
-    + [Json-server [json-server npm](https://www.npmjs.com/package/json-server)](#json-server--json-server-npm--https---wwwnpmjscom-package-json-server-)
-    + [Http requests [IntelliJ documentation](https://www.jetbrains.com/help/idea/exploring-http-syntax.html)](#http-requests--intellij-documentation--https---wwwjetbrainscom-help-idea-exploring-http-syntaxhtml-)
+    + [Json-server](https://www.npmjs.com/package/json-server)
+    + [Http requests](https://www.jetbrains.com/help/idea/exploring-http-syntax.html)
   * [Testing](#testing)
     + [Integration tests](#integration-tests)
     + [Unit tests](#unit-tests)
@@ -143,8 +143,8 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 
 ![Environment Variables](src/main/resources/static/env.png)
 
-### Maven - [Getting Started](https://maven.apache.org/guides/getting-started/)
-This is a Maven project:
+### Maven 
+Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
 
 ![Maven](src/main/resources/static/maven.png)
 
@@ -335,7 +335,8 @@ public interface TutorialRepository_mongo extends MongoRepository<Tutorial_mongo
 
 ## APIs
 
-### Thymeleaf [docs](https://www.thymeleaf.org/)
+### Thymeleaf 
+- [docs](https://www.thymeleaf.org/)
 - server-side template engine: in TutorialControllerForThymeleaf
 - multi-page web application, the web app sends the whole html page as a response.
 - This is different from the Rest Controllers which send data in JSON format to the client.
@@ -474,7 +475,8 @@ public class TutorialService {
 - <https://spring.io/guides/gs/accessing-data-rest/>
 - Spring Data REST takes the features of Spring [HATEOAS](https://spring.io/projects/spring-hateoas) and Spring Data JPA and automatically combines them together.
 
-### Rest API documentation [springdoc](https://springdoc.org)
+### Rest API documentation
+- [springdoc](https://springdoc.org)
 - Dependencies:
     - springdoc-openapi-data-rest
     - springdoc-openapi-ui
@@ -575,7 +577,9 @@ To disable the Spring security, go to WebSecurityConfig and use permitAll() on a
         Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
 ```
 
-### Json-server [json-server npm](https://www.npmjs.com/package/json-server)
+### Json-server
+- [json-server npm](https://www.npmjs.com/package/json-server)
+
 ![json-server](src/main/resources/static/json-server.png)
 - Fake REST API generated from a json file.
 - Install json-server (npm install json-server) ... this will install the dependencies in node_modules
@@ -644,7 +648,9 @@ Now We have an extra route: <http://localhost:3000/resources/2005>
 - We can also deploy our json-server app on Heroku, Azure etc. and have our public fake api running.
 
 
-### Http requests [IntelliJ documentation](https://www.jetbrains.com/help/idea/exploring-http-syntax.html)
+### Http requests
+- [IntelliJ documentation](https://www.jetbrains.com/help/idea/exploring-http-syntax.html)
+
 httpRequests.http file:
 
 - registration: 
