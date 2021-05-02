@@ -232,7 +232,7 @@ Example: Primary data source uses @Primary annotations:
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager",
-        basePackages = {"swc3.server.repository", "swc3.server.nativequeries"})
+        basePackages = {"swc3.server.PrimaryDatasource.repository", "swc3.server.PrimaryDatasource.nativequeries"})
 public class Db1Config {
 
     @Primary
@@ -246,7 +246,7 @@ public class Db1Config {
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
-        return builder.dataSource(dataSource).packages("swc3.server.models", "swc3.server.nativequeries").persistenceUnit("db1")
+        return builder.dataSource(dataSource).packages("swc3.server.PrimaryDatasource.models", "swc3.server.PrimaryDatasource.nativequeries").persistenceUnit("db1")
                 .build();
     }
 

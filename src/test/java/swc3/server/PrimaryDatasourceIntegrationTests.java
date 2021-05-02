@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import swc3.server.config.Db1Config;
-import swc3.server.models.Tutorial;
-import swc3.server.repository.TutorialRepository;
+import swc3.server.PrimaryDatasource.models.Tutorial;
+import swc3.server.PrimaryDatasource.repository.TutorialRepository;
 
 // integration tests for persistence unit db1 - first data source,
 // transactionManager name comes from Db1Config class.

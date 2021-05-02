@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager",
-        basePackages = {"swc3.server.repository", "swc3.server.nativequeries"})
+        basePackages = {"swc3.server.PrimaryDatasource.repository", "swc3.server.PrimaryDatasource.nativequeries"})
 public class Db1Config {
 
     @Primary
@@ -38,7 +38,7 @@ public class Db1Config {
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
         return builder
                 .dataSource(dataSource)
-                .packages("swc3.server.models", "swc3.server.nativequeries")
+                .packages("swc3.server.PrimaryDatasource.models", "swc3.server.PrimaryDatasource.nativequeries")
                 .persistenceUnit("db1")
                 .build();
     }
