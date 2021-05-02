@@ -129,5 +129,10 @@
       "name": "db6.jpa.hibernate.ddl-auto",
       "type": "java.lang.String",
       "description": "Description for db6.jpa.hibernate.ddl-auto."
+    },
+    {
+      "name": "db6.jpa.properties.hibernate.dialect",
+      "type": "java.lang.String",
+      "description": "Description for db6.jpa.properties.hibernate.dialect."
     }
   ] }

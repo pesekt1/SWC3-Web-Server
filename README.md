@@ -143,17 +143,6 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 
 ![Environment Variables](src/main/resources/static/env.png)
 
-### Maven 
-Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
-
-![Maven](src/main/resources/static/maven.png)
-
-- The Maven setting is in the file pom.xml:
-    - dependencies
-    - plugins
-    - profiles
-    - ...
-
 ### Profiles
 - Profiles are defined by Maven (pom.xml):
 ```xml     
@@ -625,6 +614,20 @@ Access the documentation: (app running on port 5557)
 ![swagger](src/main/resources/static/swagger.png)
 ![swagger](src/main/resources/static/swagger2.png)
 
+## Maven
+
+Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
+
+![Maven](src/main/resources/static/maven.png)
+
+- The Maven setting is in the file pom.xml:
+    - dependencies
+    - plugins
+    - profiles
+    - ...
+
+- Maven keeps separate configuration for different set-ups for example:
+    - f
 
 ## Security
 
