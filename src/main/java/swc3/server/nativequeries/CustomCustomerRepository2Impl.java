@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-
 @Service
 public class CustomCustomerRepository2Impl implements CustomCustomerRepository2{
 

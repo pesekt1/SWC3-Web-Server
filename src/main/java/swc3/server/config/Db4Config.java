@@ -39,17 +39,10 @@ public class Db4Config {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb4") DataSource dataSource) {
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("db4.jpa.hibernate.ddl-auto"));
-        properties.put("hibernate.dialect",
-                env.getProperty("db4.jpa.properties.hibernate.dialect"));
-
         return builder
                 .dataSource(dataSource)
                 .packages("swc3.server.Db4.models")
                 .persistenceUnit("db4")
-                .properties(properties)
                 .build();
     }
 

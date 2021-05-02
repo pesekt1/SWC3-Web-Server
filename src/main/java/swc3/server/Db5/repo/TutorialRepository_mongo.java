@@ -6,7 +6,7 @@ import swc3.server.Db5.models.Tutorial_mongo;
 
 import java.util.List;
 
-@RepositoryRestResource(path = "tutorialsMongoDB")
+@RepositoryRestResource(path = "tutorialsMongoDB") //overriding the auto-generated api path
 public interface TutorialRepository_mongo extends MongoRepository<Tutorial_mongo, String> {
     List<Tutorial_mongo> findByPublished(boolean published);
     List<Tutorial_mongo> findByTitleContaining(String title);

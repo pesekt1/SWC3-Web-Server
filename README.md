@@ -736,6 +736,17 @@ This is handled in our exception handler:
   }
 ```
 
+Our exception handler uses our custom ErrorMessage:
+
+```java
+public class ErrorMessage {
+    private int statusCode;
+    private Date timestamp;
+    private String message;
+    private String description;
+...
+```
+
 The response will look like this:
 
 ```json

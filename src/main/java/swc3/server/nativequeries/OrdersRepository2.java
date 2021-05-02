@@ -9,7 +9,6 @@ import swc3.server.models.Order;
 
 import java.util.Collection;
 
-
 public interface OrdersRepository2 extends JpaRepository<Order, Integer>{
 
     //JPQL - Java Persistence Query Language
@@ -37,5 +36,4 @@ public interface OrdersRepository2 extends JpaRepository<Order, Integer>{
     //collection as a parameter
     @Query(value = "SELECT o FROM Order o WHERE o.customerByCustomerId.lastName IN :names")
     Collection<Order> findOrdersByCustomerNameList(@Param("names") Collection<String> names);
-
 }

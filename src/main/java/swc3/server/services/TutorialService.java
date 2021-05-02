@@ -8,9 +8,6 @@ import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.models.Tutorial;
 import swc3.server.repository.TutorialRepository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -36,7 +36,10 @@ public class Db1Config {
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
-        return builder.dataSource(dataSource).packages("swc3.server.models", "swc3.server.nativequeries").persistenceUnit("db1")
+        return builder
+                .dataSource(dataSource)
+                .packages("swc3.server.models", "swc3.server.nativequeries")
+                .persistenceUnit("db1")
                 .build();
     }
 

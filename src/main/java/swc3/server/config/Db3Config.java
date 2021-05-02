@@ -38,17 +38,17 @@ public class Db3Config {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb3") DataSource dataSource) {
 
-        Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("db3.jpa.hibernate.ddl-auto"));
-        properties.put("hibernate.dialect",
-                env.getProperty("db3.jpa.properties.hibernate.dialect"));
+//        Map<String, Object> properties = new HashMap<>();
+//        properties.put("hibernate.hbm2ddl.auto",
+//                env.getProperty("db3.jpa.hibernate.ddl-auto"));
+//        properties.put("hibernate.dialect",
+//                env.getProperty("db3.jpa.properties.hibernate.dialect"));
 
         return builder
                 .dataSource(dataSource)
                 .packages("swc3.server.Db3.models")
                 .persistenceUnit("db3")
-                .properties(properties)
+                //.properties(properties)
                 .build();
     }
 
