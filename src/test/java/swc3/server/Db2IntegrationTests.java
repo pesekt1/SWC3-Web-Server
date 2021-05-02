@@ -1,15 +1,13 @@
 package swc3.server;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import swc3.server.Db2.models.Tutorial_db2;
-import swc3.server.Db2.repo.TutorialRepository_db2;
+import swc3.server.Datasources.Db2.repo.TutorialRepository_db2;
 import swc3.server.config.Db1Config;
 import swc3.server.config.Db2Config;
 

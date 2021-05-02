@@ -1,37 +1,18 @@
 package swc3.server;
 
-import lombok.Data;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.util.Platform;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-import swc3.server.Db2.models.Tutorial_db2;
-import swc3.server.Db2.repo.TutorialRepository_db2;
-import swc3.server.Db3.models.Tutorial_db3;
-import swc3.server.Db3.repo.TutorialRepository_db3;
 import swc3.server.config.Db1Config;
-import swc3.server.config.Db2Config;
-import swc3.server.models.Customer;
 import swc3.server.models.Tutorial;
-import swc3.server.repository.CustomerRepository;
 import swc3.server.repository.TutorialRepository;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 
 // integration tests for persistence unit db1 - first data source,
 // transactionManager name comes from Db1Config class.

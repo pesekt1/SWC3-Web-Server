@@ -1,1 +1,7 @@
 Add Neo4j datasource
+
+Refactor packages structure - Db1-6 put into one package
+
+Create tests:
+- api tests
+- unit tests

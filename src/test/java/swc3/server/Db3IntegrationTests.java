@@ -1,22 +1,16 @@
 package swc3.server;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import swc3.server.Db3.models.Tutorial_db3;
-import swc3.server.Db3.repo.TutorialRepository_db3;
+import swc3.server.Datasources.Db3.repo.TutorialRepository_db3;
 import swc3.server.config.Db1Config;
 import swc3.server.config.Db3Config;
-
-import javax.persistence.PersistenceContext;
 
 // This does not work correctly. I dont know how to avoid @AutoConfigureDataJpa and how to apply the right datasource
 

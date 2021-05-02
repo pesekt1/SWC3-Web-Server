@@ -9,8 +9,8 @@ import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-import swc3.server.Db5.models.Tutorial_mongo;
-import swc3.server.Db5.repo.TutorialRepository_mongo;
+import swc3.server.Datasources.Db5.models.Tutorial_mongo;
+import swc3.server.Datasources.Db5.repo.TutorialRepository_mongo;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest

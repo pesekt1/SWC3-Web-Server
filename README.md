@@ -306,7 +306,7 @@ public class Tutorial_mongo {
 
 ```java
 import org.springframework.data.mongodb.repository.MongoRepository;
-import swc3.server.Db5.models.Tutorial_mongo;
+import swc3.server.Datasources.Db5.models.Tutorial_mongo;
 
 import java.util.List;
 
@@ -343,7 +343,7 @@ public class SQLiteDialect extends Dialect {
 ```java
 db6.datasource.jdbc-url= ${DB6_URL}
 #hibernate dialect must be set up programmatically because there is none for sqlite
-db6.jpa.properties.hibernate.dialect= swc3.server.Db6.Dialect.SQLiteDialect
+db6.jpa.properties.hibernate.dialect= swc3.server.Datasources.Db6.Dialect.SQLiteDialect
 ```
 
 - Path to the database file:

@@ -16,13 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryDb3",
-        basePackages = {"swc3.server.Db3.repo"})
+        basePackages = {"swc3.server.Datasources.Db3.repo"})
 public class Db3Config {
 
     @Autowired
@@ -46,7 +44,7 @@ public class Db3Config {
 
         return builder
                 .dataSource(dataSource)
-                .packages("swc3.server.Db3.models")
+                .packages("swc3.server.Datasources.Db3.models")
                 .persistenceUnit("db3")
                 //.properties(properties)
                 .build();
