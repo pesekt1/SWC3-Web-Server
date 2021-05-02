@@ -27,5 +27,6 @@ jobs:
         DB3_URL: ${{secrets.DB3_URL}}
         DB4_URL: ${{secrets.DB4_URL}}
         MONGO_URL: ${{secrets.MONGO_URL}}
+        DB6_URL: ${{secrets.DB6_URL}}
         SECRET_KEY: ${{secrets.SECRET_KEY}}
       run: mvn -B package -P prod --file pom.xml
