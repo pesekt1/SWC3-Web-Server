@@ -39,4 +39,4 @@ build/
 /json-server/node_modules/
 
 ### todo list ###
-toDoList.txt
+!/toDoList.txt
