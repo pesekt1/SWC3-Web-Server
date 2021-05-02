@@ -23,7 +23,7 @@
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
     + [Rest API documentation](#rest-api-documentation)
   * [Maven](#maven)
-    + [Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)](#maven-project---getting-started--https---mavenapacheorg-guides-getting-started--)
+    + [Maven project](#maven-project)
     + [Configuration](#configuration)
     + [Maven Profiles](#maven-profiles)
   * [Security](#security)
@@ -622,7 +622,9 @@ Access the documentation: (app running on port 5557)
 
 ## Maven
 
-### Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
+### Maven project: 
+
+[Getting Started](https://maven.apache.org/guides/getting-started/)
 
 ![Maven](src/main/resources/static/maven.png)
 
