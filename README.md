@@ -705,6 +705,7 @@ After successful registration or login, the client gets a JWT:
 ```
 
 - A web client app can save the token and use it to access different endpoints.
+    - See the React.js web client app for this server here on gitHub: [SWC3-React-Frontend](https://github.com/pesekt1/SWC3-React-Frontend)
 - We can use Postman as well:
     - Create POST http request - request body will contain user credentials
     - Create an Environment in Postman with authToken variable
@@ -718,6 +719,33 @@ pm.environment.set("authToken", token);
 - Each request just needs Authorization key value pair: Token : {{authToken}}
 - It will read the value from the Environment variable.
 - [Postman variables docs](https://learning.postman.com/docs/sending-requests/variables/)
+
+If authorization or authentication fails, AccessDeniedException will be raised, 
+and the server will respond with http status 403 - forbidden. 
+This is handled in our exception handler:
+
+```java
+  @ExceptionHandler({ AccessDeniedException.class })
+  public ResponseEntity<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
+    ErrorMessage message = new ErrorMessage(
+            HttpStatus.FORBIDDEN.value(),
+            new Date(),
+            ex.getMessage(),
+            request.getDescription(false));
+    return new ResponseEntity<>(message, HttpStatus.FORBIDDEN);
+  }
+```
+
+The response will look like this:
+
+```json
+{
+    "statusCode": 403,
+    "timestamp": "2021-05-01T20:48:36.269+00:00",
+    "message": "Access is denied",
+    "description": "uri=/api/customers"
+}
+```
 
 ### JDBC example - db connection without the ORM, just using POJOs
 ![jdbc](src/main/resources/static/jdbc.png)
@@ -953,6 +981,10 @@ the app will be automatically deployed to Heroku cloud (this has to be set up on
 
 ## Cloud Deployment
 
+### Git and gitHub
+- Set up Git version control in IntelliJ.
+- Set up remote repository on gitHub where you want to have your code.
+- Commit changes, push to the remote repository.
 
 
 ### Deployment to Heroku Cloud
