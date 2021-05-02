@@ -616,7 +616,7 @@ Access the documentation: (app running on port 5557)
 
 ## Maven
 
-Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
+### Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)
 
 ![Maven](src/main/resources/static/maven.png)
 
@@ -626,8 +626,21 @@ Maven project: [Getting Started](https://maven.apache.org/guides/getting-started
     - profiles
     - ...
 
-- Maven keeps separate configuration for different set-ups for example:
-    - f
+### Configuration
+- Maven keeps separate configurations:
+
+![Configuration](src/main/resources/static/runDebugConfig.png)
+
+- This allows us to set up different setting for each configuration: We can use different sets of environment variables.
+    - We can use local database URIs for running the app in development.
+    - We can set up production database URIs for running integration tests.
+    - We can set up database URIs for tests
+
+### Maven Profiles
+- We can set up different profiles with different configurations:
+    - dev
+    - prod
+    - test...
 
 ## Security
 
