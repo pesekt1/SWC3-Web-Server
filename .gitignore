@@ -37,3 +37,6 @@ build/
 
 ### npm ###
 /json-server/node_modules/
+
+### todo list ###
+toDoList.txt
