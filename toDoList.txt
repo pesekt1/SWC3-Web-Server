@@ -1,6 +1,11 @@
-Add Neo4j datasource
+Add Neo4j datasource:
+There will be a free resource: https://neo4j.com/cloud/aura/free/
 
-Refactor packages structure - Db1-6 put into one package
+
+Add Redis resource:
+There is a free resource on Heroku
+The problem is to get it to work locally on Windows 10. I need to use WSL2 (Linux)
+
 
 Create tests:
 - api tests
