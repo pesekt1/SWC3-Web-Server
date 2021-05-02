@@ -22,40 +22,56 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "entityManagerFactoryDb4",
-        basePackages = {"swc3.server.Db4.repo"})
-public class Db4Config {
+        entityManagerFactoryRef = "entityManagerFactoryDb6",
+        basePackages = {"swc3.server.Db6.repo"})
+//@PropertySource("persistence-sqlite.properties")
+public class Db6Config {
 
     @Autowired
     private Environment env;
 
-    @Bean(name = "dataSourceDb4")
-    @ConfigurationProperties(prefix = "db4.datasource")
+    @Bean(name = "dataSourceDb6")
+    @ConfigurationProperties(prefix = "db6.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean(name = "entityManagerFactoryDb4")
+    @Bean(name = "entityManagerFactoryDb6")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-            EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb4") DataSource dataSource) {
+            EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb6") DataSource dataSource) {
 
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.hbm2ddl.auto",
-                env.getProperty("db4.jpa.hibernate.ddl-auto"));
+                env.getProperty("db6.jpa.hibernate.ddl-auto"));
         properties.put("hibernate.dialect",
-                env.getProperty("db4.jpa.properties.hibernate.dialect"));
+                env.getProperty("db6.jpa.properties.hibernate.dialect"));
 
         return builder
                 .dataSource(dataSource)
-                .packages("swc3.server.Db4.models")
-                .persistenceUnit("db4")
+                .packages("swc3.server.Db6.models")
+                .persistenceUnit("db6")
                 .properties(properties)
                 .build();
     }
 
-    @Bean(name = "transactionManagerDb4")
+    @Bean(name = "transactionManagerDb6")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("entityManagerFactoryDb4") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("entityManagerFactoryDb6") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
+
+//    final Properties additionalProperties() {
+//        final Properties hibernateProperties = new Properties();
+//        if (env.getProperty("hibernate.hbm2ddl.auto") != null) {
+//            hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+//        }
+//        if (env.getProperty("hibernate.dialect") != null) {
+//            hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+//        }
+//        if (env.getProperty("hibernate.show_sql") != null) {
+//            hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+//        }
+//        return hibernateProperties;
+//    }
+
 }

@@ -99,5 +99,10 @@
       "name": "db4.jpa.properties.hibernate.dialect",
       "type": "java.lang.String",
       "description": "Description for db4.jpa.properties.hibernate.dialect."
+    },
+    {
+      "name": "db6.datasource.jdbc-url",
+      "type": "java.lang.String",
+      "description": "Description for db6.datasource.jdbc-url."
     }
   ] }
