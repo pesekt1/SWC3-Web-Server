@@ -4,7 +4,6 @@
     + [Model Classes (Domain):](#model-classes--domain--)
     + [Repository pattern](#repository-pattern)
     + [application.properties](#applicationproperties)
-    + [Maven](#maven)
     + [Profiles](#profiles)
     + [Logging](#logging)
     + [Lombok](#lombok)
@@ -13,7 +12,9 @@
     + [local database server time zone error](#local-database-server-time-zone-error)
     + [Multiple data sources](#multiple-data-sources)
     + [Working with MongoDB - Document database](#working-with-mongodb---document-database)
+    + [Working with SQLite](#working-with-sqlite)
     + [Changing the data source](#changing-the-data-source)
+    + [Spring Data](#spring-data)
   * [APIs](#apis)
     + [Thymeleaf](#thymeleaf)
     + [Rest Controllers: REST APIs (Endpoints providing data in JSON format)](#rest-controllers--rest-apis--endpoints-providing-data-in-json-format-)
@@ -21,6 +22,10 @@
     + [CORS](#cors)
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
     + [Rest API documentation](#rest-api-documentation)
+  * [Maven](#maven)
+    + [Maven project: [Getting Started](https://maven.apache.org/guides/getting-started/)](#maven-project---getting-started--https---mavenapacheorg-guides-getting-started--)
+    + [Configuration](#configuration)
+    + [Maven Profiles](#maven-profiles)
   * [Security](#security)
     + [Spring security](#spring-security)
     + [JDBC example - db connection without the ORM, just using POJOs](#jdbc-example---db-connection-without-the-orm--just-using-pojos)
@@ -38,6 +43,7 @@
     + [Deployment to Heroku Cloud](#deployment-to-heroku-cloud)
     + [system.properties](#systemproperties)
     + [Docker](#docker)
+  * [Web client app](#web-client-app)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -696,7 +702,20 @@ After successful registration or login, the client gets a JWT:
 }
 ```
 
-JWT is saved in the browser - 
+- A web client app can save the token and use it to access different endpoints.
+- We can use Postman as well:
+    - Create POST http request - request body will contain user credentials
+    - Create an Environment in Postman with authToken variable
+    - Create Tests script - this script will run after the request is executed:
+```javascript
+var token = pm.response.json().accessToken;
+pm.environment.set("authToken", token);
+```
+
+- JWT token will be stored in the Environment variable in the Postman, so we can reuse it in all other requests.:
+- Each request just needs Authorization key value pair: Token : {{authToken}}
+- It will read the value from the Environment variable.
+- [Postman variables docs](https://learning.postman.com/docs/sending-requests/variables/)
 
 ### JDBC example - db connection without the ORM, just using POJOs
 ![jdbc](src/main/resources/static/jdbc.png)
@@ -716,8 +735,8 @@ JWT is saved in the browser -
 
 - Example of SQL injections are in httpRequests.http:
     - .../courses/vulnerable?filter="http://google.com" OR 1 = 1
-    - .../courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DELETE from courses
-    - .../courses/vulnerable?filter="https://courses.danvega.dev/p/jhipster"; DROP table courses
+    - .../courses/vulnerable?filter="http://google.com"; DELETE from courses
+    - .../courses/vulnerable?filter="http://google.com"; DROP table courses
 
 - For this to work, the database must allow multiple queries. In this project it is done by adding this to the database connection string:
         
