@@ -323,6 +323,41 @@ public interface TutorialRepository_mongo extends MongoRepository<Tutorial_mongo
 
 - Controller: The same as the other controllers.
 
+### Working with SQLite
+
+- SQLite is a relational, self-contained, serverless, zero-configuration, transactional database.
+- There is no database server - just a file containing the database.
+- Hibernate does not come with the dialect for SQLite, so we need to do some extra configuration.
+    - SQLiteDialect.java:
+    
+```java
+import org.hibernate.dialect.Dialect;
+import java.sql.Types;
+
+public class SQLiteDialect extends Dialect {
+
+    public SQLiteDialect() {
+        registerColumnType(Types.BIT, "integer");
+        registerColumnType(Types.TINYINT, "tinyint");
+        registerColumnType(Types.SMALLINT, "smallint");
+        ...
+```
+
+- application.properties: We refer to our custom dialect class:
+
+```java
+db6.datasource.jdbc-url= ${DB6_URL}
+#hibernate dialect must be set up programmatically because there is none for sqlite
+db6.jpa.properties.hibernate.dialect= swc3.server.Db6.Dialect.SQLiteDialect
+```
+
+- Path to the database file:
+    - In our case the path from the project root folder to the database file is sql/sqlite.
+    - Connection string using the relative path looks like this: jdbc:sqlite:sql/sqlite/swc3_sqlite.db
+    - We will use the same string for the production - because there is no production database, we will use the same db file.
+
+
+
 ### Changing the data source
 - change the connection string in application.properties
 - change the Hibernate dialect: [hibernate.dialect](https://docs.jboss.org/hibernate/orm/5.2/javadocs/org/hibernate/dialect/package-summary.html)

@@ -104,5 +104,30 @@
       "name": "db6.datasource.jdbc-url",
       "type": "java.lang.String",
       "description": "Description for db6.datasource.jdbc-url."
+    },
+    {
+      "name": "db1.jpa.hibernate.ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for db1.jpa.hibernate.ddl-auto."
+    },
+    {
+      "name": "db2.jpa.hibernate.ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for db2.jpa.hibernate.ddl-auto."
+    },
+    {
+      "name": "db3.jpa.hibernate.ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for db3.jpa.hibernate.ddl-auto."
+    },
+    {
+      "name": "db4.jpa.hibernate.ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for db4.jpa.hibernate.ddl-auto."
+    },
+    {
+      "name": "db6.jpa.hibernate.ddl-auto",
+      "type": "java.lang.String",
+      "description": "Description for db6.jpa.hibernate.ddl-auto."
     }
   ] }
