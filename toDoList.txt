@@ -10,3 +10,4 @@ The problem is to get it to work locally on Windows 10. I need to use WSL2 (Linu
 Create tests:
 - api tests
 - unit tests
+- set up testing database - H2

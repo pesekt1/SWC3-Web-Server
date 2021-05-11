@@ -25,6 +25,11 @@ public class CustomersController {
         return customerService.getAllCustomers();
     }
 
+    @GetMapping("/customersSP")
+    public ResponseEntity<List<Customer>> getAllCustomersSP2() {
+        return customerService.getAllCustomers();
+    }
+
     //stored procedure
     @GetMapping("/customers-stored-procedure")
     public ResponseEntity<List<Customer>> getAllCustomersSP() {

@@ -2,6 +2,7 @@ package swc3.server.PrimaryDatasource.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import swc3.server.PrimaryDatasource.models.Customer;
 
 import java.util.List;
@@ -18,6 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
     //this does not work:
     //procedure reference
-//    @Procedure(name = "get_all_customers()")
-//    List<Customer> get_all_customers();
+    @Procedure("get_all_customers()")
+    List<Customer> get_all_customers();
 }

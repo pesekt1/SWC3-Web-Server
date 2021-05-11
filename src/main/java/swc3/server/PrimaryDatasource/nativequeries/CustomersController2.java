@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import swc3.server.PrimaryDatasource.models.Customer;
 
-
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -38,9 +38,14 @@ public class CustomersController2 {
     public ResponseEntity<Customer> addPoints(
             @RequestParam(defaultValue = "0") int customerId,
             @RequestParam(defaultValue = "0") int points) {
-        int numberOfRows = customersRepository2.addCustomerPoints(customerId,points);
-        Customer updatedCustomer = customersRepository2.findById(customerId).get();
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+
+        Optional<Customer> customer = customersRepository2.findById(customerId);
+        if (customer.isPresent()){
+            customersRepository2.addCustomerPoints(customerId,points); //returns number of rows
+            Customer updatedCustomer = customer.get();
+            return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/customers-by-cities")
@@ -53,7 +58,7 @@ public class CustomersController2 {
     @Transactional(
             propagation = Propagation.REQUIRED,
             isolation = Isolation.DEFAULT,
-            readOnly = false,
+            readOnly = false, //default
             timeout = 60)
     @GetMapping("/insert-customer")
     public ResponseEntity<HttpStatus> insertCustomer(

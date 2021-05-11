@@ -65,10 +65,9 @@ public class OrderController2 {
     @GetMapping("/orders-by-customer-names")
     public ResponseEntity<Collection<Order>> getOrdersByCustomerNameList(
             @RequestParam(defaultValue = "") Collection<String> names) {
-        Collection<Order> orders = ordersRepository2.findOrdersByCustomerNameList(names);
-        return new ResponseEntity<>(orders, HttpStatus.OK);
+        return new ResponseEntity<>(
+                ordersRepository2.findOrdersByCustomerNameList(names),
+                HttpStatus.OK
+        );
     }
-
-
-
 }
