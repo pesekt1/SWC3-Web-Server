@@ -306,7 +306,7 @@ public class Tutorial_mongo {
 
 ```java
 import org.springframework.data.mongodb.repository.MongoRepository;
-import swc3.server.Datasources.Db5.models.Tutorial_mongo;
+import swc3.server.Datasources.Db5.models.TutorialMongo;
 
 import java.util.List;
 
@@ -953,6 +953,11 @@ class PrimaryDatasourceIntegrationTests {
 
 ### Unit tests
 
+- dependencies:
+    - junit-jupiter
+    - assertj-core
+    - mockito-all
+    
 
 ### API tests
 

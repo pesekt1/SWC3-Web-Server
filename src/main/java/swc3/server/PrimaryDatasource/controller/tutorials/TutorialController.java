@@ -61,8 +61,8 @@ public class TutorialController {
 	}
 
 	@GetMapping("/tutorials/published")
-	public ResponseEntity<List<Tutorial>> findByPublished() {
-		return tutorialService.findByPublished();
+	public ResponseEntity<List<Tutorial>> findByPublished(@RequestBody boolean published) {
+		return tutorialService.findByPublished(published);
 	}
 
 }

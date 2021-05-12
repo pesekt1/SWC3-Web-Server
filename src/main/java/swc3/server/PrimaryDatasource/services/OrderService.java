@@ -51,20 +51,20 @@ public class OrderService {
     }
 
     public ResponseEntity<Order> createOrder(Order order) {
-        Order _order = ordersRepository.save(order);
+        Order savedOrder = ordersRepository.save(order);
 
-        Collection<OrderItem> orderItems = _order.getOrderItemsByOrderId();
+        Collection<OrderItem> orderItems = savedOrder.getOrderItemsByOrderId();
         for (OrderItem orderItem:orderItems) {
-            orderItem.setOrderId(_order.getOrderId());
+            orderItem.setOrderId(savedOrder.getOrderId());
             Collection<OrderItemNote> orderItemNotes = orderItem.getOrderItemNotes();
 
-            OrderItem _orderItem = orderItemRepository.save(orderItem);
+            OrderItem savedOrderItem = orderItemRepository.save(orderItem);
 
             for (OrderItemNote orderItemNote:orderItemNotes) {
-                orderItemNote.setOrderItems(_orderItem);
+                orderItemNote.setOrderItems(savedOrderItem);
                 orderItemNoteRepository.save(orderItemNote);
             }
         }
-        return new ResponseEntity<>(_order, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 }

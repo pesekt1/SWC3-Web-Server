@@ -26,8 +26,8 @@ public class TutorialService {
 
     public ResponseEntity<Tutorial> getTutorialById(long id) {
         Tutorial tutorial = tutorialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
-        //this will be caught by our ControllerExceptionHandler
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id)); //this will be caught by our ControllerExceptionHandler
+
         return new ResponseEntity<>(tutorial, HttpStatus.OK);
     }
 
@@ -45,7 +45,47 @@ public class TutorialService {
         return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 
-    //trying to create a vulnerable query
+    public ResponseEntity<Tutorial> createTutorial(Tutorial tutorial) {
+        Tutorial newTutorial = tutorialRepository
+                .save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
+        return new ResponseEntity<>(newTutorial, HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Tutorial> updateTutorial(long id, Tutorial tutorial) {
+        Tutorial updatedTutorial = tutorialRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+
+        updatedTutorial.setTitle(tutorial.getTitle());
+        updatedTutorial.setDescription(tutorial.getDescription());
+        updatedTutorial.setPublished(tutorial.getPublished());
+
+        return new ResponseEntity<>(tutorialRepository.save(updatedTutorial), HttpStatus.OK);
+    }
+
+    public ResponseEntity<HttpStatus> deleteTutorial(long id) {
+        if (!tutorialRepository.existsById(id)) throw new ResourceNotFoundException("Not found Tutorial with id = " + id);
+
+        tutorialRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT); //status could be also 200 or 202
+        //we could return the deleted object
+    }
+
+    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+        tutorialRepository.deleteAll();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    public ResponseEntity<List<Tutorial>> findByPublished(boolean published) {
+        List<Tutorial> tutorials = tutorialRepository.findByPublished(published);
+
+        if (tutorials.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(tutorials, HttpStatus.OK);
+    }
+
+//trying to create a vulnerable query
 //    public ResponseEntity<List<Tutorial>> getAllTutorialsVulnerable(String title) {
 //        List<Tutorial> tutorials = new ArrayList<>();
 //        //using String concatenation, but it is still safe because Hibernate does not allow ";"
@@ -60,41 +100,4 @@ public class TutorialService {
 //
 //        return new ResponseEntity<>(tutorials, HttpStatus.OK);
 //    }
-
-    public ResponseEntity<Tutorial> createTutorial(Tutorial tutorial) {
-        Tutorial _tutorial = tutorialRepository
-                .save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
-        return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
-    }
-
-    public ResponseEntity<Tutorial> updateTutorial(long id, Tutorial tutorial) {
-        Tutorial _tutorial = tutorialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
-
-        _tutorial.setTitle(tutorial.getTitle());
-        _tutorial.setDescription(tutorial.getDescription());
-        _tutorial.setPublished(tutorial.getPublished());
-
-        return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
-    }
-
-    public ResponseEntity<HttpStatus> deleteTutorial(long id) {
-        tutorialRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
-        tutorialRepository.deleteAll();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    public ResponseEntity<List<Tutorial>> findByPublished() {
-        List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
-
-        if (tutorials.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-
-        return new ResponseEntity<>(tutorials, HttpStatus.OK);
-    }
 }
