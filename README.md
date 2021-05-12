@@ -953,11 +953,112 @@ class PrimaryDatasourceIntegrationTests {
 
 ### Unit tests
 
-- dependencies:
+- Dependencies:
     - junit-jupiter
     - assertj-core
     - mockito-all
-    
+- Excluded dependencies:
+    - junit-vintage-engine
+    - junit
+
+Test class structure:
+```java
+class TutorialServiceTest {
+    @Mock private TutorialRepository tutorialRepository;
+    private TutorialService tutorialService;
+
+    @BeforeAll
+    static void beforeAll() { }
+
+    @AfterAll
+    static void afterAll() { }
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this); //we need to initialize mocks
+        tutorialService = new TutorialService(tutorialRepository); //using tutorialRepository mock
+    }
+
+    @AfterEach
+    void tearDown() { }
+```
+
+Nesting of the test classes:
+
+```java
+class TutorialServiceTest {
+
+    @Nested //grouping tests together
+    class GetAllTutorialsTest{
+        @Test
+        @DisplayName("should get all tutorials")
+        void should_get_all_tutorials_if_title_not_provided() {...}
+
+        @Test
+        @DisplayName("should respond with status NOT_FOUND if there are no tutorials")
+        void status_not_found_if_no_tutorials_found(){...}
+    }
+
+    @Nested
+    class GetTutorialByIdTest{
+        @Test
+        @DisplayName("should get tutorial with given id")
+        void should_get_tutorial_by_Id() {...}
+
+        @Test
+        @DisplayName("should throw ResourceNotFoundException if tutorial with given id not exists")
+        void should_throw_ResourceNotFoundException_if_no_tutorial_with_given_id(){...}
+    }
+```
+
+Unit test structure: given - when - then
+
+```java
+@Test
+@DisplayName("should respond with status NOT_FOUND if there are no tutorials")
+void status_not_found_if_no_tutorials_found(){
+    //given
+    Mockito.when(tutorialRepository.findAll()).thenReturn(new ArrayList<>()); //empty list
+
+    //when
+    var response = tutorialService.getAllTutorials(null);
+
+    //then
+    Assertions.assertThat(response).isEqualTo(new ResponseEntity<>(HttpStatus.NO_CONTENT));
+}
+```
+
+Testing features:
+```java
+//private final TutorialRepository tutorialRepository = Mockito.mock(TutorialRepository.class);
+@Mock private TutorialRepository tutorialRepository; //mock the dependency
+
+MockitoAnnotations.initMocks(this); //initialize mocks
+
+//mock the behavior of methods
+Mockito.when(tutorialRepository.findByTitleContaining(title1)).thenReturn(listFilteredTutorials);
+```
+
+Assertions:
+
+```java
+Assertions.assertThat(response.getBody()).isEqualTo(listFilteredTutorials);
+
+Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+//throws an exception
+Assertions.assertThatThrownBy(
+        () -> tutorialService.getTutorialById(FAKE_TUTORIAL_ID) //when
+).isInstanceOf(ResourceNotFoundException.class);
+
+//does not throw an exception
+org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> tutorialService.deleteTutorial(FAKE_TUTORIAL_ID));
+
+Assertions.assertThat(response.getBody()).isNull(); // .isEqualTo(null)
+
+//verify that deleteById method was called once
+Mockito.verify(tutorialRepository, Mockito.times(1)).deleteById(FAKE_TUTORIAL_ID);
+```
 
 ### API tests
 
