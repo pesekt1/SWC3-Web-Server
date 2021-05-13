@@ -1060,6 +1060,33 @@ Assertions.assertThat(response.getBody()).isNull(); // .isEqualTo(null)
 Mockito.verify(tutorialRepository, Mockito.times(1)).deleteById(FAKE_TUTORIAL_ID);
 ```
 
+How to compare objects in the tests:
+
+- isEqualTo() is by default comparing the object addresses - not the content!
+    - To use it, we must override equals() for the compared object class.
+- Alternatively, we can use Objects.equals(o1,o2)
+- We can also iterate over the fields and compare them one by one - not a good solution
+
+```java
+        @Test
+        void should_send_response_with_updated_tutorial() {
+            var response = tutorialMongoService.update(FAKE_TUTORIAL_ID, updatedTutorial); //when
+
+            //if we have overridden equals method for that class
+            Assertions.assertThat(response.getBody()).isEqualTo(updatedTutorial);
+
+            // if we dont have overridden equals method for that class
+            Assertions.assertThat(Objects.equals(response.getBody(), updatedTutorial));
+            
+            // if we want to iterate over the fields and check them one by one - better to use Objects.equals(o1,o2)
+            for(int i = 0; i < 3; i++){
+                Assertions.assertThat(
+                        Objects.requireNonNull(response.getBody()).getClass().getDeclaredFields()[i])
+                        .isEqualTo(updatedTutorial.getClass().getDeclaredFields()[i]);
+            }
+        }
+```
+
 ### API tests
 
 

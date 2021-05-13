@@ -14,6 +14,9 @@ import java.util.*;
 // unit tests - isolate the methods from their dependencies
 // ...using mocks instead of the dependencies
 
+//NOTE: We can use Assertions.assertThat(response.getBody()).isEqualTo(updatedTutorial) because we have overriden equals method for Tutorial class.
+//otherwise it would compare the object addresses and it would fail.
+
 class TutorialServiceTest {
 
 //    private final ApplicationContextRunner runner = new ApplicationContextRunner()
@@ -103,6 +106,7 @@ class TutorialServiceTest {
         }
 
     }
+
     @Nested // grouping related tests together
     class GetTutorialByIdTest{
 
@@ -138,6 +142,7 @@ class TutorialServiceTest {
         }
 
     }
+
     @Nested
     class CreateTutorialTest{
 
@@ -172,8 +177,8 @@ class TutorialServiceTest {
             var response = tutorialService.createTutorial(newTutorial); //when
             Assertions.assertThat(response).isEqualTo(new ResponseEntity<>(newTutorial, HttpStatus.CREATED)); //then
         }
-
     }
+
     @Nested
     class UpdateTutorialTest{
 
@@ -187,27 +192,27 @@ class TutorialServiceTest {
             fakeTutorial.setId(FAKE_TUTORIAL_ID);
 
             updatedTutorial = new Tutorial("updatedTitle", "updatedDescription", !fakeTutorial.getPublished());
-            updatedTutorial.setId(fakeTutorial.getId());
+            updatedTutorial.setId(FAKE_TUTORIAL_ID);
 
-            Mockito.when(tutorialRepository.findById(fakeTutorial.getId())).thenReturn(Optional.of(fakeTutorial)); //mock the method
+            Mockito.when(tutorialRepository.findById(FAKE_TUTORIAL_ID)).thenReturn(Optional.of(fakeTutorial)); //mock the method
             Mockito.when(tutorialRepository.save(ArgumentMatchers.any(Tutorial.class))).then(AdditionalAnswers.returnsFirstArg()); //mock the method
         }
 
         @Test
         void should_call_TutorialRepository_save_method() {
-            tutorialService.updateTutorial(fakeTutorial.getId(), updatedTutorial); //when
+            tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Mockito.verify(tutorialRepository, Mockito.times(1)).save(ArgumentMatchers.any(Tutorial.class)); //then
         }
 
         @Test
         void should_send_response_with_updated_tutorial() {
-            var response = tutorialService.updateTutorial(fakeTutorial.getId(), updatedTutorial); //when
+            var response = tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Assertions.assertThat(response.getBody()).isEqualTo(updatedTutorial); //then
         }
 
         @Test
         void should_send_response_with_statusOK() {
-            var response = tutorialService.updateTutorial(fakeTutorial.getId(), updatedTutorial); //when
+            var response = tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK); //then
         }
 
@@ -216,15 +221,15 @@ class TutorialServiceTest {
         void should_throw_ResourceNotFoundException_if_no_tutorial_with_given_id(){
             //given
             Optional<Tutorial> empty = Optional.empty();
-            Mockito.when(tutorialRepository.findById(fakeTutorial.getId())).thenReturn(empty); //mock the method
+            Mockito.when(tutorialRepository.findById(FAKE_TUTORIAL_ID)).thenReturn(empty); //mock the method
 
             //then
             Assertions.assertThatThrownBy(
-                    () -> tutorialService.updateTutorial(fakeTutorial.getId(), updatedTutorial) //when
+                    () -> tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial) //when
             ).isInstanceOf(ResourceNotFoundException.class);
         }
-
     }
+
     @Nested
     class DeleteTutorialTest{
 
@@ -265,8 +270,8 @@ class TutorialServiceTest {
 
             org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> tutorialService.deleteTutorial(FAKE_TUTORIAL_ID));
         }
-
     }
+
     @Nested
     class DeleteAllTutorials{
 

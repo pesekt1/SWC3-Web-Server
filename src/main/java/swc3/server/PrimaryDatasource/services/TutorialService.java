@@ -52,7 +52,7 @@ public class TutorialService {
     }
 
     public ResponseEntity<Tutorial> updateTutorial(long id, Tutorial tutorial) {
-        Tutorial updatedTutorial = tutorialRepository.findById(id)
+        var updatedTutorial = tutorialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
 
         updatedTutorial.setTitle(tutorial.getTitle());

@@ -11,3 +11,5 @@ Create tests:
 - api tests
 - unit tests
 - set up testing database - H2
+
+Add DTO classes - dont use entity classes directly in the controllers, instead, use DTO classes.
