@@ -16,6 +16,7 @@ import swc3.server.PrimaryDatasource.repository.TutorialRepository;
 
 // integration tests for persistence unit db1 - first data source,
 // transactionManager name comes from Db1Config class.
+// most of the tests are commented out because of the cloud database resource has low max connections limit
 
 @SpringBootTest
 @AutoConfigureDataJpa

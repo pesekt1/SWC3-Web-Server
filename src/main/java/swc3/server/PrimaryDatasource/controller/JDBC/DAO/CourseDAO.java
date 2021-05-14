@@ -16,14 +16,14 @@ import java.util.Optional;
 public class CourseDAO implements DAO<Course> {
 
     private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public CourseDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public List<Course> list() {
+    public List<Course> getAll() {
         String sql = "SELECT course_id,title,description,link from courses";
         return jdbcTemplate.query(sql, new CourseRowMapper());
     }
@@ -31,7 +31,7 @@ public class CourseDAO implements DAO<Course> {
     //This endpoint is vulnerable, it allows SQL injection
     //use this as an argument: "http://google.com" OR 1 = 1
     @Override
-    public List<Course> listVulnerable(String filter) {
+    public List<Course> getAllVulnerable(String filter) {
         String sql = "SELECT course_id,title,description,link from courses WHERE link =" + filter;
         return jdbcTemplate.query(sql, new CourseRowMapper());
     }
@@ -46,7 +46,7 @@ public class CourseDAO implements DAO<Course> {
     }
 
     @Override
-    public Optional<Course> get(int id) throws DataAccessException {
+    public Optional<Course> getById(int id) throws DataAccessException {
         String sql = "SELECT course_id,title,description,link from courses where course_id = ?";
         Course course = null;
         try {
@@ -71,7 +71,7 @@ public class CourseDAO implements DAO<Course> {
         String sql = "delete from courses where course_id = ?";
         int delete = jdbcTemplate.update(sql,id);
         if(delete == 1) {
-            log.info("Course Deleted: " + id);
+            log.info( "Course Deleted: {}", id);
         }
     }
 

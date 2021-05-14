@@ -15,7 +15,7 @@ import java.util.Optional;
 @RequestMapping("api/courses")
 public class CourseController {
 
-    private DAO<Course> dao;
+    private final DAO<Course> dao;
 
     public CourseController(DAO<Course> dao) {
         this.dao = dao;
@@ -23,18 +23,18 @@ public class CourseController {
 
     @GetMapping
     public List<Course> list() {
-        return dao.list();
+        return dao.getAll();
     }
 
     @GetMapping("/vulnerable")
     public List<Course> listVulnerable(@RequestParam String filter) {
-        return dao.listVulnerable(filter);
+        return dao.getAllVulnerable(filter);
     }
 
     @GetMapping("/{id}")
     public Course get(@PathVariable int id) {
-        Optional<Course> course = dao.get(id);
-        if(!course.isPresent()) {
+        Optional<Course> course = dao.getById(id);
+        if(course.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course Not Found.");
         }
         return course.get();

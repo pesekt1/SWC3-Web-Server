@@ -5,13 +5,13 @@ import java.util.Optional;
 
 public interface DAO<T> {
 
-    List<T> list();
+    List<T> getAll();
 
-    List<T> listVulnerable(String filter);
+    List<T> getAllVulnerable(String filter);
 
     void create(T t);
 
-    Optional<T> get(int id);
+    Optional<T> getById(int id);
 
     void update(T t, int id);
 

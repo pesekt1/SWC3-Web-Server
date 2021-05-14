@@ -14,6 +14,7 @@ import swc3.server.config.Db2Config;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // This does not work correctly. I dont know how to avoid @AutoConfigureDataJpa and how to apply the right datasource
+// I want to only include the db3 datasource but SpringBootTest will initialize all
 
 // integration tests for persistence unit db2,
 // transactionManagerDb2 name comes from Db2Config class.

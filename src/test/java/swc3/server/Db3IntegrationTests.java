@@ -13,6 +13,7 @@ import swc3.server.config.Db1Config;
 import swc3.server.config.Db3Config;
 
 // This does not work correctly. I dont know how to avoid @AutoConfigureDataJpa and how to apply the right datasource
+// I want to only include the db3 datasource but SpringBootTest will initialize all
 
 // integration tests for persistence unit db3,
 // transactionManagerDb3 name comes from Db3Config class.
