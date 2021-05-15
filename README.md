@@ -23,7 +23,7 @@
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
     + [Rest API documentation](#rest-api-documentation)
   * [Maven](#maven)
-    + [Maven project](#maven-project)
+    + [Maven project:](#maven-project-)
     + [Configuration](#configuration)
     + [Maven Profiles](#maven-profiles)
   * [Security](#security)
@@ -40,10 +40,14 @@
     + [API tests](#api-tests)
     + [gitHub CI action](#github-ci-action)
   * [Cloud Deployment](#cloud-deployment)
+    + [Git and gitHub](#git-and-github)
     + [Deployment to Heroku Cloud](#deployment-to-heroku-cloud)
     + [system.properties](#systemproperties)
     + [Docker](#docker)
   * [Web client app](#web-client-app)
+  * [DAO - Data Access Object](#dao---data-access-object)
+  * [Multiple implementation classes](#multiple-implementation-classes)
+  * [JDBC - Java Database Connectivity](#jdbc---java-database-connectivity)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
