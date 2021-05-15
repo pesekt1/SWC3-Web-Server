@@ -62,7 +62,7 @@ class Db2IntegrationTests {
 
     @Test
     void should_find_all_tutorials() {
-        //not a good way to test it - saveAll() is affecting the objects... it should be decoupled
+        //not a good way to test it - saveAll() is affecting the objects... it should be decoupled.
         var tut1 = new Tutorial_db2("Tut#1", "Desc#1", true);
         var tut2 = new Tutorial_db2("Tut#2", "Desc#2", false);
         var tut3 = new Tutorial_db2("Tut#3", "Desc#3", true);
