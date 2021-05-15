@@ -37,21 +37,21 @@ public class OrderServiceOrderWithIDs {
     }
 
     public ResponseEntity<OrderWithIDs> createOrder(OrderWithIDs order) {
-        OrderWithIDs _order = ordersRepository.save(order);
+        OrderWithIDs savedOrder = ordersRepository.save(order);
 
-        Collection<OrderItem2> orderItems = _order.getOrderItemsByOrderId();
+        Collection<OrderItem2> orderItems = savedOrder.getOrderItemsByOrderId();
         for (OrderItem2 orderItem:orderItems) {
-            orderItem.setOrderId(_order.getOrderId());
+            orderItem.setOrderId(savedOrder.getOrderId());
             Collection<OrderItemNote2> orderItemNotes = orderItem.getOrderItemNotes();
 
-            OrderItem2 _orderItem = orderItemRepository.save(orderItem);
+            OrderItem2 savedOrderItem = orderItemRepository.save(orderItem);
 
             for (OrderItemNote2 orderItemNote:orderItemNotes) {
-                orderItemNote.setOrderItems(_orderItem);
+                orderItemNote.setOrderItems(savedOrderItem);
                 orderItemNoteRepository.save(orderItemNote);
             }
         }
 
-        return new ResponseEntity<>(_order, HttpStatus.CREATED);
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 }

@@ -1,10 +1,12 @@
 package swc3.server.PrimaryDatasource.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode
 @Entity
 @Table(name = "order_item_notes")
 public class OrderItemNote {
@@ -33,26 +35,6 @@ public class OrderItemNote {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderItemNote that = (OrderItemNote) o;
-
-        if (noteId != that.noteId) return false;
-        if (note != null ? !note.equals(that.note) : that.note != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = noteId;
-        result = 31 * result + (note != null ? note.hashCode() : 0);
-        return result;
     }
 
     @JsonBackReference

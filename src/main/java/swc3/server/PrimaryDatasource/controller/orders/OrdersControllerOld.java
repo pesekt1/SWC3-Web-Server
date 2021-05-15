@@ -24,7 +24,7 @@ public class OrdersControllerOld {
     //... we will get internal server error
     @PostMapping("/ordersOld")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order _order = ordersRepository.save(order);
-        return new ResponseEntity<>(_order, HttpStatus.CREATED);
+        Order savedOrder = ordersRepository.save(order);
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 }

@@ -21,12 +21,15 @@ public class TutorialService {
     @Autowired
     public TutorialService(TutorialRepository tutorialRepository){
         this.tutorialRepository = tutorialRepository;
-//        this.em = em;
+    }
+
+    private String errorMessage(long id){
+        return "Not found Tutorial with id = " + id;
     }
 
     public ResponseEntity<Tutorial> getTutorialById(long id) {
         Tutorial tutorial = tutorialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id)); //this will be caught by our ControllerExceptionHandler
+                .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id))); //this will be caught by our ControllerExceptionHandler
 
         return new ResponseEntity<>(tutorial, HttpStatus.OK);
     }
@@ -53,7 +56,7 @@ public class TutorialService {
 
     public ResponseEntity<Tutorial> updateTutorial(long id, Tutorial tutorial) {
         var updatedTutorial = tutorialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id)));
 
         updatedTutorial.setTitle(tutorial.getTitle());
         updatedTutorial.setDescription(tutorial.getDescription());
@@ -63,7 +66,7 @@ public class TutorialService {
     }
 
     public ResponseEntity<HttpStatus> deleteTutorial(long id) {
-        if (!tutorialRepository.existsById(id)) throw new ResourceNotFoundException("Not found Tutorial with id = " + id);
+        if (!tutorialRepository.existsById(id)) throw new ResourceNotFoundException(errorMessage(id));
 
         tutorialRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); //status could be also 200 or 202

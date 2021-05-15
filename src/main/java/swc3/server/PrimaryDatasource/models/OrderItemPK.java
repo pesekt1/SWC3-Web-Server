@@ -1,9 +1,12 @@
 package swc3.server.PrimaryDatasource.models;
 
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+@EqualsAndHashCode
 public class OrderItemPK implements Serializable {
     private int orderId;
     private int productId;
@@ -28,23 +31,4 @@ public class OrderItemPK implements Serializable {
         this.productId = productId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderItemPK that = (OrderItemPK) o;
-
-        if (orderId != that.orderId) return false;
-        if (productId != that.productId) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = orderId;
-        result = 31 * result + productId;
-        return result;
-    }
 }

@@ -1,6 +1,7 @@
 package swc3.server.PrimaryDatasource.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.Collection;
 
 //@Data
 //@RestResource
+@EqualsAndHashCode
 @Entity
 @Table(name = "products")
 public class Product {
@@ -58,30 +60,6 @@ public class Product {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Product product = (Product) o;
-
-        if (productId != product.productId) return false;
-        if (quantityInStock != product.quantityInStock) return false;
-        if (name != null ? !name.equals(product.name) : product.name != null) return false;
-        if (unitPrice != null ? !unitPrice.equals(product.unitPrice) : product.unitPrice != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = productId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + quantityInStock;
-        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
-        return result;
     }
 
     @JsonBackReference

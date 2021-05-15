@@ -1,11 +1,13 @@
 package swc3.server.PrimaryDatasource.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+@EqualsAndHashCode
 @Entity
 @Table(name = "order_items")
 @IdClass(OrderItemPK.class)
@@ -17,14 +19,6 @@ public class OrderItem {
     private Collection<OrderItemNote> orderItemNotes;
     private Order ordersByOrderId;
     private Product productsByProductId;
-
-//    public OrderItem() {
-//    }
-//
-//    public OrderItem(int orderId, int productId) {
-//        this.orderId = orderId;
-//        this.productId = productId;
-//    }
 
     @Id
     @Column(name = "order_id", nullable = false)
@@ -64,30 +58,6 @@ public class OrderItem {
 
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderItem orderItem = (OrderItem) o;
-
-        if (orderId != orderItem.orderId) return false;
-        if (productId != orderItem.productId) return false;
-        if (quantity != orderItem.quantity) return false;
-        if (unitPrice != null ? !unitPrice.equals(orderItem.unitPrice) : orderItem.unitPrice != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = orderId;
-        result = 31 * result + productId;
-        result = 31 * result + quantity;
-        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
-        return result;
     }
 
     @OneToMany(mappedBy = "orderItems")
