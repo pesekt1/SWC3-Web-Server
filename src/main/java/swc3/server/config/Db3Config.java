@@ -19,7 +19,9 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "entityManagerFactoryDb3",
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "entityManagerFactoryDb3",
+        transactionManagerRef = "transactionManagerDb3",
         basePackages = {"swc3.server.Datasources.Db3.repo"})
 public class Db3Config {
 

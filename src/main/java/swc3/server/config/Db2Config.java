@@ -9,10 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -21,6 +23,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryDb2",
+        transactionManagerRef = "transactionManagerDb2",
         basePackages = {"swc3.server.Datasources.Db2.repo"})
 public class Db2Config {
 
@@ -48,5 +51,10 @@ public class Db2Config {
     public PlatformTransactionManager transactionManager(
             @Qualifier("entityManagerFactoryDb2") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+
+    @Bean(name = "jdbcTemplateDb2")
+    public JdbcTemplate jdbcTemplateDb2(@Qualifier("dataSourceDb2") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 }

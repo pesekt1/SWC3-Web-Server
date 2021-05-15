@@ -133,6 +133,9 @@ public interface TutorialRepository extends JpaRepository<Tutorial, Long> {
 }
 ```
 
+Now we have access to data from tutorials table which is mapped by Tutorial class. 
+JpaRepository works for relational databases - the mapping class should have @Entity annotation.
+
 
 ### application.properties
 - using environment variables: ${ENV_VARIABLE}
@@ -1184,3 +1187,86 @@ This is for Heroku cloud - it tells is to use java 11 buildpack.
     - Show tutorials (from MySQL DB tutorials table)
     - Show customers (from MySQL DB customers table) - only for users with ADMIN role
 - Communication is done using axios library..
+
+## DAO - Data Access Object
+
+The Data Access Object (DAO) pattern is a structural pattern that allows us to isolate the application/business layer 
+from the persistence layer (database) using an abstract API.
+
+The functionality of this API is to hide from the application all the complexities involved in performing CRUD operations 
+in the underlying storage mechanism. This allows both layers to evolve separately without knowing anything about each other.
+
+## Multiple implementation classes
+
+If we have multiple implementing classes we need to specify which implementation should be injected. 
+Example:
+
+Interface:
+```java
+public interface DAO<T> {
+    List<T> getAll();
+    ...
+}
+```
+
+Implementing classes:
+
+```java
+@Component
+public class CourseDAO implements DAO<Course> {...
+
+@Component
+public class CourseDAO2 implements DAO<Course> {...
+```
+
+We use @Qualifier annotation to select the implementation class:
+
+```java
+@RestController
+@RequestMapping("/api/courses")
+public class CourseController implements CourseOperations{
+
+    private final DAO<Course> dao;
+
+    @Autowired
+    public CourseController(@Qualifier("courseDAO") DAO<Course> dao) {
+        this.dao = dao;
+    }
+```
+
+## JDBC - Java Database Connectivity
+
+[tutorial](https://www.baeldung.com/spring-jdbc-jdbctemplate)
+
+Example: Multiple data sources. We need to specify which jdbcTemplate we want to use. 
+If not specified, the primary data source will be used.
+
+```java
+@Component
+public class CourseDAO implements DAO<Course> {
+
+    private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
+
+    @Qualifier("jdbcTemplateDb2")
+    private final JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public CourseDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public List<Course> getAll() {
+        String sql = "SELECT course_id,title,description,link from courses";
+        return jdbcTemplate.query(sql, new CourseRowMapper());
+    }
+```
+
+jdbcTemplate is defined in a config file with the data source:
+
+```java
+    @Bean(name = "jdbcTemplateDb2")
+    public JdbcTemplate jdbcTemplateDb2(@Qualifier("dataSourceDb2") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+```

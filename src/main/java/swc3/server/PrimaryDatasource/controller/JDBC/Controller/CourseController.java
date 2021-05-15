@@ -1,38 +1,42 @@
 package swc3.server.PrimaryDatasource.controller.JDBC.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-
 import swc3.server.PrimaryDatasource.controller.JDBC.DAO.DAO;
 import swc3.server.PrimaryDatasource.controller.JDBC.Model.Course;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/courses")
-public class CourseController {
+@RequestMapping("/api/courses")
+public class CourseController implements CourseOperations{
 
     private final DAO<Course> dao;
 
-    public CourseController(DAO<Course> dao) {
+    @Autowired
+    public CourseController(@Qualifier("courseDAO") DAO<Course> dao) {
         this.dao = dao;
     }
 
-    @GetMapping
-    public List<Course> list() {
-        return dao.getAll();
-    }
-
     @GetMapping("/vulnerable")
-    public List<Course> listVulnerable(@RequestParam String filter) {
+    public List<Course> getAllVulnerable(@RequestParam String filter) {
         return dao.getAllVulnerable(filter);
     }
 
-    @GetMapping("/{id}")
-    public Course get(@PathVariable int id) {
+    @Override
+    public List<Course> getAll() {
+        return dao.getAll();
+    }
+
+    @Override
+    public Course getById(int id) {
         Optional<Course> course = dao.getById(id);
         if(course.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course Not Found.");
@@ -40,21 +44,18 @@ public class CourseController {
         return course.get();
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void create(@Valid @RequestBody Course course) {
+    @Override
+    public void create(Course course) {
         dao.create(course);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody Course course, @PathVariable int id) {
+    @Override
+    public void update(Course course, int id) {
         dao.update(course,id);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id) {
+    @Override
+    public void delete(int id) {
         dao.delete(id);
     }
 }
