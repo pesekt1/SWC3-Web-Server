@@ -7,25 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import swc3.server.Datasources.Db4.models.Tutorial_db4;
-import swc3.server.Datasources.Db4.repo.TutorialRepository_db4;
+import swc3.server.Datasources.Db4.models.TutorialDb4;
+import swc3.server.Datasources.Db4.repo.TutorialRepositoryDb4;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/db4")
-public class TutorialController_Db4 {
+public class TutorialControllerDb4 {
 
-    TutorialRepository_db4 tutorialRepository_db4;
+    TutorialRepositoryDb4 tutorialRepositoryDb4;
 
     @Autowired
-    public TutorialController_Db4(TutorialRepository_db4 tutorialRepository_db4){
-        this.tutorialRepository_db4 = tutorialRepository_db4;
+    public TutorialControllerDb4(TutorialRepositoryDb4 tutorialRepositoryDb4){
+        this.tutorialRepositoryDb4 = tutorialRepositoryDb4;
     }
 
     @GetMapping("/tutorials")
-    public ResponseEntity<List<Tutorial_db4>> getAllTutorials() {
-        List<Tutorial_db4> tutorials = tutorialRepository_db4.findAll();
+    public ResponseEntity<List<TutorialDb4>> getAllTutorials() {
+        List<TutorialDb4> tutorials = tutorialRepositoryDb4.findAll();
         return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 }

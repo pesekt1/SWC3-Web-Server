@@ -1,5 +1,6 @@
 package swc3.server.PrimaryDatasource.controller.clientApi.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,11 @@ import lombok.Setter;
 public class User {
     private int id;
     private String email;
-    private String first_name;
-    private String last_name;
+
+    @JsonProperty("first_name")
+    private String firstName;
+
+    @JsonProperty("last_name")
+    private String lastName;
     private String avatar;
 }

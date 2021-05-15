@@ -22,20 +22,20 @@ public class ControllerExceptionHandler {
 
   @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<ErrorMessage> resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-      HttpStatus httpStatus = HttpStatus.NOT_FOUND;
+      var httpStatus = HttpStatus.NOT_FOUND;
       return new ResponseEntity<>(createErrorMessage(httpStatus, ex, request), httpStatus);
   }
 
   @ExceptionHandler({ AccessDeniedException.class })
   public ResponseEntity<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
-      HttpStatus httpStatus = HttpStatus.FORBIDDEN;
+      var httpStatus = HttpStatus.FORBIDDEN;
       return new ResponseEntity<>(createErrorMessage(httpStatus, ex, request), httpStatus);
   }
 
   //any other exceptions will be handled by this handler and status 500 will be returned
   @ExceptionHandler(Exception.class)
   public ResponseEntity<ErrorMessage> globalExceptionHandler(Exception ex, WebRequest request) {
-      HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+      var httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
       return new ResponseEntity<>(createErrorMessage(httpStatus, ex, request), httpStatus);
   }
 }

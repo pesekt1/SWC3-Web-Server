@@ -49,9 +49,9 @@ public class ClientApiService {
 
     //API with a string response
     public ResponseEntity<String> getDataAsString() throws IOException, InterruptedException {
-
-        HttpRequest request = buildGetRequest(API_REGRES);
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> response = client.send(
+                buildGetRequest(API_REGRES), //request
+                HttpResponse.BodyHandlers.ofString());
 
         return new ResponseEntity<>(response.body(), HttpStatus.OK);
     }
@@ -79,7 +79,7 @@ public class ClientApiService {
 
         Data data = new ObjectMapper().readValue(response.body(), new TypeReference<Data>() {});
 
-        List<User> users = data.getData(); //extracting the list of users from data instance
+        List<User> users = data.getUsers(); //extracting the list of users from data instance
 
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
@@ -110,8 +110,8 @@ public class ClientApiService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        Post _post = new ObjectMapper().readValue(response.body(), new TypeReference<Post>() {});
-        return new ResponseEntity<>(_post, HttpStatus.CREATED);
+        Post savedPost = new ObjectMapper().readValue(response.body(), new TypeReference<Post>() {});
+        return new ResponseEntity<>(savedPost, HttpStatus.CREATED);
     }
 
     //sending POST request to the json-server running on port 3000
@@ -126,8 +126,8 @@ public class ClientApiService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        User _user = new ObjectMapper().readValue(response.body(), new TypeReference<User>() {});
-        return new ResponseEntity<>(_user, HttpStatus.CREATED);
+        User savedUser = new ObjectMapper().readValue(response.body(), new TypeReference<User>() {});
+        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
     //public API returning the list of albums
@@ -152,8 +152,8 @@ public class ClientApiService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        Album _album = new ObjectMapper().readValue(response.body(), new TypeReference<Album>() {});
-        return new ResponseEntity<>(_album, HttpStatus.CREATED);
+        Album savedAlbum = new ObjectMapper().readValue(response.body(), new TypeReference<Album>() {});
+        return new ResponseEntity<>(savedAlbum, HttpStatus.CREATED);
     }
 
     //public API - create a new photo

@@ -17,8 +17,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "CALL get_customer_by_id(:id)", nativeQuery = true)
     Customer findCustomerByIdSP(int id);
 
-    //this does not work:
-    //procedure reference
+    //procedure reference - instead of using native query
     @Procedure("get_all_customers()")
-    List<Customer> get_all_customers();
+    List<Customer> findAllCustomersSP2();
 }

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import swc3.server.Datasources.Db5.models.TutorialMongo;
 import swc3.server.Datasources.Db5.repo.TutorialMongoRepository;
-import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.exception.ResourceNotFoundException;
 
 import java.util.List;
@@ -21,9 +20,13 @@ public class TutorialMongoService {
         this.tutorialMongoRepository = tutorialRepository;
     }
 
+    private String errorMessage(ObjectId id){
+        return "Not found Tutorial with id = " + id;
+    }
+
     public ResponseEntity<TutorialMongo> getById(ObjectId id) {
         var tutorial = tutorialMongoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id)); //this will be caught by our ControllerExceptionHandler
+                .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id))); //this will be caught by our ControllerExceptionHandler
 
         return new ResponseEntity<>(tutorial, HttpStatus.OK);
     }
@@ -45,7 +48,7 @@ public class TutorialMongoService {
 
     public ResponseEntity<TutorialMongo> update(ObjectId id, TutorialMongo tutorial) {
         var updatedTutorial = tutorialMongoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+                .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id)));
 
         updatedTutorial.setTitle(tutorial.getTitle());
         updatedTutorial.setDescription(tutorial.getDescription());
@@ -55,7 +58,7 @@ public class TutorialMongoService {
     }
 
     public ResponseEntity<HttpStatus> deleteById(ObjectId id) {
-        if (!tutorialMongoRepository.existsById(id)) throw new ResourceNotFoundException("Not found Tutorial with id = " + id);
+        if (!tutorialMongoRepository.existsById(id)) throw new ResourceNotFoundException(errorMessage(id));
 
         tutorialMongoRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT); //status could be also 200 or 202

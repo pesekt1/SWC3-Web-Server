@@ -1,4 +1,4 @@
-package swc3.server.Datasources.Db4.models;
+package swc3.server.Datasources.Db2.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,14 +15,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tutorials", schema = "public", catalog = "swc3Postgres")
-public class Tutorial_db4 {
+@Table(name = "tutorials", schema = "swc3_springboot2")
+public class TutorialDb2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)
-    private int id;
+    private long id;
 
     @Basic
     @Column(name = "description")
@@ -36,7 +36,7 @@ public class Tutorial_db4 {
     @Column(name = "title", nullable = false)
     private String title;
 
-    public Tutorial_db4(String title, String description, boolean published) {
+    public TutorialDb2(String title, String description, boolean published) {
         this.title = title;
         this.description = description;
         this.published = published;

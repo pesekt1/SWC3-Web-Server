@@ -27,7 +27,7 @@ public class CustomersController {
 
     @GetMapping("/customersSP")
     public ResponseEntity<List<Customer>> getAllCustomersSP2() {
-        return customerService.getAllCustomers();
+        return customerService.getAllCustomersSP2();
     }
 
     //stored procedure

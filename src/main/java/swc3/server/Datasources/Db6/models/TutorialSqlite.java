@@ -12,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity
 @Table(name = "tutorials")
-public class Tutorial_sqlite {
+public class TutorialSqlite {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")

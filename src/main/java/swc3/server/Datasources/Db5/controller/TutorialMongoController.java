@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import swc3.server.Datasources.Db5.models.TutorialMongo;
 import swc3.server.Datasources.Db5.services.TutorialMongoService;
-import swc3.server.PrimaryDatasource.models.Tutorial;
 
 import java.util.List;
 

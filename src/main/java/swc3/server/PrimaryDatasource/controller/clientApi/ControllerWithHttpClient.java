@@ -68,6 +68,7 @@ public class ControllerWithHttpClient {
     }
 
     //REST controller done differently
+    //We dont need to use ResponseEntity - we can annotate @Response status and return the object
     @RequestMapping(value = "jsonplaceholder/photos", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Photo createPhoto(@RequestBody Photo photo) throws IOException, InterruptedException {

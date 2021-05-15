@@ -18,8 +18,7 @@ public class CustomerService {
     }
 
     public ResponseEntity<List<Customer>> getAllCustomers() {
-        List<Customer> customers = new ArrayList<Customer>();
-        customers.addAll(customerRepository.findAll());
+        List<Customer> customers = new ArrayList<>(customerRepository.findAll());
 
         if (customers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -28,8 +27,16 @@ public class CustomerService {
     }
 
     public ResponseEntity<List<Customer>> getAllCustomersSP() {
-        List<Customer> customers = new ArrayList<>();
-        customers.addAll(customerRepository.findAllCustomersSP());
+        List<Customer> customers = new ArrayList<>(customerRepository.findAllCustomersSP());
+
+        if (customers.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<Customer>> getAllCustomersSP2() {
+        List<Customer> customers = new ArrayList<>(customerRepository.findAllCustomersSP2());
 
         if (customers.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

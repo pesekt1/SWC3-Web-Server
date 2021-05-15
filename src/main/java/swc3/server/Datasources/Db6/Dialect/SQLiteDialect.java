@@ -6,12 +6,13 @@ import org.hibernate.dialect.identity.IdentityColumnSupport;
 import java.sql.Types;
 
 public class SQLiteDialect extends Dialect {
+    private static final String INTEGER = "integer"; // because it is used for 3 different types
 
     public SQLiteDialect() {
-        registerColumnType(Types.BIT, "integer");
+        registerColumnType(Types.BIT, INTEGER);
         registerColumnType(Types.TINYINT, "tinyint");
         registerColumnType(Types.SMALLINT, "smallint");
-        registerColumnType(Types.INTEGER, "integer");
+        registerColumnType(Types.INTEGER, INTEGER);
         registerColumnType(Types.BIGINT, "bigint");
         registerColumnType(Types.FLOAT, "float");
         registerColumnType(Types.REAL, "real");
@@ -29,9 +30,10 @@ public class SQLiteDialect extends Dialect {
         registerColumnType(Types.LONGVARBINARY, "blob");
         registerColumnType(Types.BLOB, "blob");
         registerColumnType(Types.CLOB, "clob");
-        registerColumnType(Types.BOOLEAN, "integer");
+        registerColumnType(Types.BOOLEAN, INTEGER);
     }
 
+    @Override // overriding all these methods
     public IdentityColumnSupport getIdentityColumnSupport() {
         return new SQLiteIdentityColumnSupport();
     }

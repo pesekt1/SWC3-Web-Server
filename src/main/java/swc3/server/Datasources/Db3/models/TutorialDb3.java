@@ -1,4 +1,4 @@
-package swc3.server.Datasources.Db2.models;
+package swc3.server.Datasources.Db3.models;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,14 +15,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tutorials", schema = "swc3_springboot2")
-public class Tutorial_db2 {
+//@Table(name = "tutorials", schema= "dbo", catalog = "swc3_springboot_mssql")
+@Table(name = "tutorials", schema = "dbo", catalog = "azureSqlDb")
+public class TutorialDb3 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)
-    private long id;
+    private int id;
 
     @Basic
     @Column(name = "description")
@@ -36,7 +37,7 @@ public class Tutorial_db2 {
     @Column(name = "title", nullable = false)
     private String title;
 
-    public Tutorial_db2(String title, String description, boolean published) {
+    public TutorialDb3(String title, String description, boolean published) {
         this.title = title;
         this.description = description;
         this.published = published;
