@@ -1129,6 +1129,12 @@ the app will be automatically deployed to Heroku cloud (this has to be set up on
         SECRET_KEY: ${{secrets.SECRET_KEY}}
 ```
 
+- Specify the task:
+```yaml
+    run: 
+        - mvn -B package -P prod --file pom.xml 
+```
+
 
 ## Cloud Deployment
 
@@ -1190,7 +1196,7 @@ This is for Heroku cloud - it tells is to use java 11 buildpack.
     - Login / Logout
     - Show tutorials (from MySQL DB tutorials table)
     - Show customers (from MySQL DB customers table) - only for users with ADMIN role
-- Communication is done using axios library..
+- Communication is done using axios library.
 
 ## DAO - Data Access Object
 

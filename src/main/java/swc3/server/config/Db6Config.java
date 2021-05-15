@@ -23,6 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryDb6",
+        transactionManagerRef = "transactionManagerDb6",
         basePackages = {"swc3.server.Datasources.Db6.repo"})
 //@PropertySource("persistence-sqlite.properties")
 public class Db6Config {

@@ -21,6 +21,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryDb4",
+        transactionManagerRef = "transactionManagerDb4",
         basePackages = {"swc3.server.Datasources.Db4.repo"})
 public class Db4Config {
 

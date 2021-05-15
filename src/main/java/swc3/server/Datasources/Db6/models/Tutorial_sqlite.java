@@ -17,7 +17,7 @@ public class Tutorial_sqlite {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)
-    private short id;
+    private int id;
 
     @Basic@Column(name = "description", nullable = false, length = -1)
     private String description;
@@ -26,6 +26,6 @@ public class Tutorial_sqlite {
     private String title;
 
     @Basic@Column(name = "published", nullable = false)
-    private short published;
+    private int published;
 
 }
