@@ -1280,3 +1280,4 @@ jdbcTemplate is defined in a config file with the data source:
         return new JdbcTemplate(dataSource);
     }
 ```
+
