@@ -24,16 +24,17 @@ public interface OrdersRepository2 extends JpaRepository<Order, Integer>{
     Page<Order> findAllOrdersWithPagination(Pageable pageable);
 
     //indexed parameters in JPQL:
-    @Query("SELECT o FROM Order o WHERE o.customerByCustomerId.customerId = ?1 and o.shippersByShipperId.shipperId = ?2")
+    @Query("SELECT o FROM Order o WHERE o.customerId = ?1 and o.shipperId = ?2")
     Collection<Order> findOrderByCustomerAndShipper(Integer customerId, Short shipperId);
 
     //named parameters
-    @Query("SELECT o FROM Order o WHERE o.customerByCustomerId.customerId = :customerId and o.shippersByShipperId.shipperId = :shipperId")
+    @Query("SELECT o FROM Order o WHERE o.customerId = :customerId and o.shipperId = :shipperId")
     Collection<Order> findOrderByCustomerAndShipperNamedParams(
             @Param("customerId") Integer customerId,
             @Param("shipperId") Short shipperId);
 
+    //TODO is this correct?
     //collection as a parameter
-    @Query(value = "SELECT o FROM Order o WHERE o.customerByCustomerId.lastName IN :names")
+    @Query(value = "SELECT o FROM Order o JOIN Customer c WHERE c.lastName IN :names")
     Collection<Order> findOrdersByCustomerNameList(@Param("names") Collection<String> names);
 }

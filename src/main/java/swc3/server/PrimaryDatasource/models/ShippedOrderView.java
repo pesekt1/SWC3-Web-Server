@@ -18,16 +18,20 @@ import java.sql.Date;
 @Table(name = "shipped_orders", schema = "swc3_springboot") //@Table but it is a view
 public class ShippedOrderView {
 
-    @Basic@Column(name = "order_id", nullable = false)
+    @Basic
+    @Column(name = "order_id", nullable = false)
     @Id
     private int orderId;
 
-    @Basic@Column(name = "shipped_date")
+    @Basic
+    @Column(name = "shipped_date")
     private Date shippedDate;
 
-    @Basic@Column(name = "customer", length = 101)
+    @Basic
+    @Column(name = "customer", length = 101)
     private String customer;
 
-    @Basic@Column(name = "shipper", nullable = false, length = 50)
+    @Basic
+    @Column(name = "shipper", nullable = false, length = 50)
     private String shipper;
 }

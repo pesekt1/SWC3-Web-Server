@@ -9,11 +9,11 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 
+@EqualsAndHashCode
 @Setter
 @Getter
-@EqualsAndHashCode
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", schema = "swc3_springboot")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -22,8 +22,16 @@ public class Order {
     private int orderId;
 
     @Basic
+    @Column(name = "customer_id", nullable = false)
+    private int customerId;
+
+    @Basic
     @Column(name = "order_date", nullable = false)
     private Date orderDate;
+
+    @Basic
+    @Column(name = "status", nullable = false)
+    private byte status;
 
     @Basic
     @Column(name = "comments", nullable = true, length = 2000)
@@ -33,19 +41,10 @@ public class Order {
     @Column(name = "shipped_date", nullable = true)
     private Date shippedDate;
 
+    @Basic
+    @Column(name = "shipper_id", nullable = true)
+    private Short shipperId;
+
     @OneToMany(mappedBy = "ordersByOrderId")
-    private Collection<OrderItem> orderItemsByOrderId;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
-    private Customer customerByCustomerId;
-
-    @ManyToOne
-    @JoinColumn(name = "status", referencedColumnName = "order_status_id", nullable = false)
-    private OrderStatus orderStatusByStatus;
-
-    @ManyToOne
-    @JoinColumn(name = "shipper_id", referencedColumnName = "shipper_id")
-    private Shipper shippersByShipperId;
-
+    private Collection<OrderItem> orderItems;
 }

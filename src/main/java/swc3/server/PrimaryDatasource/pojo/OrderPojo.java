@@ -9,6 +9,6 @@ import java.util.Collection;
 @Getter
 public class OrderPojo {
     private String comments;
-    private Collection<OrderItem> orderItemsByOrderId;
-    private Customer customerByCustomerId;
+    private Collection<OrderItem> orderItems;
+    private int customerId;
 }

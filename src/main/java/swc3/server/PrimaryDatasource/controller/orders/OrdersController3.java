@@ -26,13 +26,12 @@ public class OrdersController3 {
     // if not exist - get Not Found http status, with a custom message.
     @PostMapping("/orders3")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        int customerId = order.getCustomerByCustomerId().getCustomerId();
+        int customerId = order.getCustomerId();
         customersRepository.findById(customerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found customer with id = " + customerId));
 
-        byte orderStatusId = order.getOrderStatusByStatus().getOrderStatusId();
-        orderStatusesRepository.findById(orderStatusId)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found status with id = " + orderStatusId));
+        orderStatusesRepository.findById(order.getStatus())
+                .orElseThrow(() -> new ResourceNotFoundException("Not found status with id = " + order.getStatus()));
 
         Order orderNew = ordersRepository.save(order);
 

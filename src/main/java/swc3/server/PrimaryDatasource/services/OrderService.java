@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class OrderService {
 
-    //OrderStatus newOrderStatus;
+    private static final byte NEW_ORDER_STATUS = (byte)4;
 
     OrderRepository ordersRepository;
     ShippedOrderViewRepository shippedOrderViewRepository;
@@ -31,9 +31,6 @@ public class OrderService {
         this.shippedOrderViewRepository = shippedOrderViewRepository;
         this.orderItemRepository = orderItemRepository;
         this.orderItemNoteRepository = orderItemNoteRepository;
-
-//        this.newOrderStatus = new OrderStatus();
-//        this.newOrderStatus.setOrderStatusId((byte)4); //new order
     }
 
     public ResponseEntity<List<Order>> getAllOrders() {
@@ -54,17 +51,17 @@ public class OrderService {
         return new ResponseEntity<>(shippedOrders, HttpStatus.OK);
     }
 
-    public ResponseEntity<Order> createOrder(Order order) {
-//        Order newOrder = new Order();
-//        newOrder.setComments(order.getComments());
-//        newOrder.setCustomerByCustomerId(order.getCustomerByCustomerId());
-//        newOrder.setOrderDate(new Date(new java.util.Date().getTime()));
-//        newOrder.setOrderStatusByStatus(newOrderStatus);
-//        newOrder.setOrderItemsByOrderId(order.getOrderItemsByOrderId());
+    public ResponseEntity<Order> createOrder(OrderPojo order) {
+        Order newOrder = new Order();
+        newOrder.setComments(order.getComments());
+        newOrder.setCustomerId(order.getCustomerId());
+        newOrder.setOrderDate(new Date(new java.util.Date().getTime()));
+        newOrder.setStatus(NEW_ORDER_STATUS);
+        newOrder.setOrderItems(order.getOrderItems());
 
-        Order savedOrder = ordersRepository.save(order);
+        Order savedOrder = ordersRepository.save(newOrder);
 
-        Collection<OrderItem> orderItems = savedOrder.getOrderItemsByOrderId();
+        Collection<OrderItem> orderItems = savedOrder.getOrderItems();
         for (OrderItem orderItem:orderItems) {
             orderItem.setOrderId(savedOrder.getOrderId());
             Collection<OrderItemNote> orderItemNotes = orderItem.getOrderItemNotes();
@@ -72,7 +69,8 @@ public class OrderService {
             OrderItem savedOrderItem = orderItemRepository.save(orderItem);
 
             for (OrderItemNote orderItemNote:orderItemNotes) {
-                orderItemNote.setOrderItems(savedOrderItem);
+                orderItemNote.setOrderId(savedOrderItem.getOrderId());
+                orderItemNote.setProductId(savedOrderItem.getProductId());
                 orderItemNoteRepository.save(orderItemNote);
             }
         }

@@ -32,7 +32,7 @@ public class OrderController {
 
     //TODO Replace this persistent entity with a simple POJO or DTO object
     @PostMapping("/orders")
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> createOrder(@RequestBody OrderPojo order) {
         return orderService.createOrder(order);
     }
 }
