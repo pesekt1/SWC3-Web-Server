@@ -35,11 +35,11 @@ class PrimaryDatasourceIntegrationTests {
         repository.deleteAll();
     }
 
-//    @Test
-//    void should_find_no_tutorials_if_repository_is_empty() {
-//        Iterable<Tutorial> tutorials = repository.findAll();
-//        assertThat(tutorials).isEmpty();
-//    }
+    @Test
+    void should_find_no_tutorials_if_repository_is_empty() {
+        Iterable<Tutorial> tutorials = repository.findAll();
+        assertThat(tutorials).isEmpty();
+    }
 //
 //    @Test
 //    void should_store_a_tutorial() {
