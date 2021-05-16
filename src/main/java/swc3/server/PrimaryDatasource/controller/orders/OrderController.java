@@ -7,6 +7,7 @@ import java.util.List;
 
 import swc3.server.PrimaryDatasource.models.Order;
 import swc3.server.PrimaryDatasource.models.ShippedOrderView;
+import swc3.server.PrimaryDatasource.pojo.OrderPojo;
 import swc3.server.PrimaryDatasource.services.OrderService;
 
 @RestController

@@ -19,13 +19,16 @@ public class Tutorial {
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Basic@Column(name = "description")
+    @Basic
+    @Column(name = "description")
     private String description;
 
-    @Basic@Column(name = "published")
+    @Basic
+    @Column(name = "published")
     private Boolean published;
 
-    @Basic@Column(name = "title", nullable = false)
+    @Basic
+    @Column(name = "title", nullable = false)
     private String title;
 
     public Tutorial(String title, String description, boolean published) {
