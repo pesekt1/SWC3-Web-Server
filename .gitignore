@@ -41,5 +41,5 @@ build/
 ### todo list ###
 /toDoList.txt
 
-
-META-INF/
+/META-INF/
+/old actions/
