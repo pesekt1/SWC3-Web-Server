@@ -1,12 +1,8 @@
 package swc3.server.PrimaryDatasource.services.invoice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import swc3.server.PrimaryDatasource.models.Invoice;
-import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.InvoiceRepository;
 import swc3.server.exception.ResourceNotFoundException;
 
@@ -15,7 +11,7 @@ import java.util.List;
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
     private String errorMessage(long id){
-        return "Not found Tutorial with id = " + id;
+        return "Not found invoice with id = " + id;
     }
     private final InvoiceRepository invoiceRepository;
 
@@ -44,6 +40,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public void create(Invoice invoice) {
         invoiceRepository.save(invoice);
+    }
+
+    @Override
+    public void update(Invoice invoice, int id) {
+        //TODO fill the body of this method
     }
 
     @Override

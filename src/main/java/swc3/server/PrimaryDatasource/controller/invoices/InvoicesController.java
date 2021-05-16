@@ -1,6 +1,8 @@
 package swc3.server.PrimaryDatasource.controller.invoices;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swc3.server.PrimaryDatasource.models.Invoice;
 import swc3.server.PrimaryDatasource.services.invoice.InvoiceService;
@@ -8,10 +10,13 @@ import swc3.server.PrimaryDatasource.services.invoice.InvoiceService;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/invoices")
 public class InvoicesController implements InvoiceOperations {
 
     private final InvoiceService invoiceService; //interface
 
+
+    @Autowired
     // @Qualifier - select implementation of the interface
     public InvoicesController(@Qualifier("invoiceServiceImpl") InvoiceService invoiceService) {
         this.invoiceService = invoiceService;
@@ -30,6 +35,11 @@ public class InvoicesController implements InvoiceOperations {
     @Override
     public List<Invoice> getByOrderId(int id) {
         return invoiceService.getByOrderId(id);
+    }
+
+    @Override
+    public void update(Invoice invoice, int id) {
+        //TODO fill the body of this method
     }
 
     @Override

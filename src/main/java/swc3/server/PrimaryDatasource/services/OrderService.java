@@ -37,7 +37,7 @@ public class OrderService {
             ShippedOrderViewRepository shippedOrderViewRepository,
             OrderItemRepository orderItemRepository,
             OrderItemNoteRepository orderItemNoteRepository,
-            @Qualifier("invoiceServiceImpl") InvoiceService invoiceService
+            @Qualifier("invoiceServiceImpl") InvoiceService invoiceService //select implementation
     ) {
             this.ordersRepository = ordersRepository;
             this.shippedOrderViewRepository = shippedOrderViewRepository;
@@ -47,7 +47,7 @@ public class OrderService {
     }
 
     public ResponseEntity<List<Order>> getAllOrders() {
-        List<Order> orders = new ArrayList<>(ordersRepository.findAll());
+        var orders = new ArrayList<>(ordersRepository.findAll());
 
         if (orders.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -66,25 +66,17 @@ public class OrderService {
 
     public ResponseEntity<Order> createOrder(OrderPojo order) {
         long invoicePriceSum = 0;
-        //BigDecimal orderItemPriceSum = BigDecimal.ZERO;
-        Order newOrder = new Order();
-        newOrder.setComments(order.getComments());
-        newOrder.setCustomerId(order.getCustomerId());
-        newOrder.setOrderDate(LocalDate.now());
-        newOrder.setStatus(NEW_ORDER_STATUS);
-        newOrder.setOrderItems(order.getOrderItems());
+        var savedOrder = ordersRepository.save(newOrderFromPojo(order));
 
-        Order savedOrder = ordersRepository.save(newOrder);
-
-        Collection<OrderItem> orderItems = savedOrder.getOrderItems();
+        var orderItems = savedOrder.getOrderItems();
         for (OrderItem orderItem:orderItems) {
-
             invoicePriceSum += orderItem.getUnitPrice() * orderItem.getQuantity();
 
             orderItem.setOrderId(savedOrder.getOrderId());
-            Collection<OrderItemNote> orderItemNotes = orderItem.getOrderItemNotes();
 
-            OrderItem savedOrderItem = orderItemRepository.save(orderItem);
+            var orderItemNotes = orderItem.getOrderItemNotes();
+
+            var savedOrderItem = orderItemRepository.save(orderItem);
 
             for (OrderItemNote orderItemNote:orderItemNotes) {
                 orderItemNote.setOrderId(savedOrderItem.getOrderId());
@@ -93,16 +85,30 @@ public class OrderService {
             }
         }
 
+        createInvoice(invoicePriceSum, savedOrder);
+
+        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+    }
+
+    private void createInvoice(long invoicePriceSum, Order savedOrder) {
         var invoice = new Invoice();
         invoice.setNumber(ObjectId.get().toString());
         invoice.setInvoiceTotal(invoicePriceSum);
         invoice.setPaymentTotal(0);
-        invoice.setInvoiceDate(newOrder.getOrderDate());
-        invoice.setDueDate(newOrder.getOrderDate().plusDays(INVOICE_DUE_PERIOD));
-        invoice.setOrderId(newOrder.getOrderId());
+        invoice.setInvoiceDate(savedOrder.getOrderDate());
+        invoice.setDueDate(savedOrder.getOrderDate().plusDays(INVOICE_DUE_PERIOD));
+        invoice.setOrderId(savedOrder.getOrderId());
 
         invoiceService.create(invoice);
+    }
 
-        return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
+    private Order newOrderFromPojo(OrderPojo order) {
+        Order newOrder = new Order();
+        newOrder.setComments(order.getComments());
+        newOrder.setCustomerId(order.getCustomerId());
+        newOrder.setOrderDate(LocalDate.now());
+        newOrder.setStatus(NEW_ORDER_STATUS);
+        newOrder.setOrderItems(order.getOrderItems());
+        return newOrder;
     }
 }

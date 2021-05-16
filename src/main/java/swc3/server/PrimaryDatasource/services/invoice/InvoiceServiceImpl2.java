@@ -37,6 +37,11 @@ public class InvoiceServiceImpl2 implements InvoiceService {
     }
 
     @Override
+    public void update(Invoice invoice, int id) {
+
+    }
+
+    @Override
     public void delete(int id) {
 
     }

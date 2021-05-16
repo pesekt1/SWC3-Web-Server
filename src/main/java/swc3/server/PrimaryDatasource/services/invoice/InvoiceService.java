@@ -9,5 +9,6 @@ public interface InvoiceService {
     Invoice getById(int id);
     List<Invoice> getByOrderId(int id);
     void create(Invoice invoice);
+    void update(Invoice invoice, int id);
     void delete(int id);
 }
