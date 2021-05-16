@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -28,23 +28,23 @@ public class Invoice {
 
     @Basic
     @Column(name = "invoice_total", nullable = false, precision = 2)
-    private BigDecimal invoiceTotal;
+    private long invoiceTotal;
 
     @Basic
     @Column(name = "payment_total", nullable = false, precision = 2)
-    private BigDecimal paymentTotal;
+    private long paymentTotal;
 
     @Basic
     @Column(name = "invoice_date", nullable = false)
-    private Date invoiceDate;
+    private LocalDate invoiceDate;
 
     @Basic
     @Column(name = "due_date", nullable = false)
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @Basic
     @Column(name = "payment_date", nullable = true)
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @Basic
     @Column(name = "order_id", nullable = false)

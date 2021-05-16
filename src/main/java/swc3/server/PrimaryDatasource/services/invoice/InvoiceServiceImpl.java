@@ -42,6 +42,11 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
+    public void create(Invoice invoice) {
+        invoiceRepository.save(invoice);
+    }
+
+    @Override
     public void delete(int id) {
         if (!invoiceRepository.existsById(id)) throw new ResourceNotFoundException(errorMessage(id));
         invoiceRepository.deleteById(id);

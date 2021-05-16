@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 
 @EqualsAndHashCode
@@ -27,7 +27,7 @@ public class Order {
 
     @Basic
     @Column(name = "order_date", nullable = false)
-    private Date orderDate;
+    private LocalDate orderDate;
 
     @Basic
     @Column(name = "status", nullable = false)
@@ -39,7 +39,7 @@ public class Order {
 
     @Basic
     @Column(name = "shipped_date", nullable = true)
-    private Date shippedDate;
+    private LocalDate shippedDate;
 
     @Basic
     @Column(name = "shipper_id", nullable = true)

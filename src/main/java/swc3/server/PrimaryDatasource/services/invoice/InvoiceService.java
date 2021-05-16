@@ -8,5 +8,6 @@ public interface InvoiceService {
     List<Invoice> getAll();
     Invoice getById(int id);
     List<Invoice> getByOrderId(int id);
+    void create(Invoice invoice);
     void delete(int id);
 }

@@ -30,7 +30,7 @@ public class OrderItem {
 
     @Basic
     @Column(name = "unit_price", nullable = false, precision = 2)
-    private BigDecimal unitPrice;
+    private long unitPrice;
 
     @OneToMany(mappedBy = "orderItems")
     private Collection<OrderItemNote> orderItemNotes;
