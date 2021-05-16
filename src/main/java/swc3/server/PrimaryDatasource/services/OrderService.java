@@ -80,8 +80,6 @@ public class OrderService {
         for (OrderItem orderItem:orderItems) {
 
             invoicePriceSum += orderItem.getUnitPrice() * orderItem.getQuantity();
-            //BigDecimal orderItemPrice = orderItem.getUnitPrice().multiply(new BigDecimal(orderItem.getQuantity()));
-            //orderItemPriceSum = orderItemPriceSum.add(orderItemPrice);
 
             orderItem.setOrderId(savedOrder.getOrderId());
             Collection<OrderItemNote> orderItemNotes = orderItem.getOrderItemNotes();
