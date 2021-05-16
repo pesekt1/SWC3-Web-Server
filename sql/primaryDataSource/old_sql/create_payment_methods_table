@@ -1,0 +1,7 @@
+create table payment_methods
+(
+    payment_method_id tinyint auto_increment
+        primary key,
+    name varchar(50) not null
+);
+
