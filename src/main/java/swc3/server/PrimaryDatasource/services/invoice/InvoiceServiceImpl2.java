@@ -3,6 +3,7 @@ package swc3.server.PrimaryDatasource.services.invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swc3.server.PrimaryDatasource.models.Invoice;
+import swc3.server.PrimaryDatasource.models.InvoiceStatus;
 import swc3.server.PrimaryDatasource.repository.InvoiceRepository;
 
 import java.util.List;
@@ -32,12 +33,12 @@ public class InvoiceServiceImpl2 implements InvoiceService {
     }
 
     @Override
-    public void create(Invoice invoice) {
-
+    public List<Invoice> getByStatus(InvoiceStatus status) {
+        return null;
     }
 
     @Override
-    public void update(Invoice invoice, int id) {
+    public void create(Invoice invoice) {
 
     }
 

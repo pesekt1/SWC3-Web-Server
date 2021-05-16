@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Setter
@@ -49,4 +48,10 @@ public class Invoice {
     @Basic
     @Column(name = "order_id", nullable = false)
     private int orderId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private InvoiceStatus status;
+
+
 }

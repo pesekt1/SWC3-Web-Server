@@ -7,5 +7,4 @@ public class PaymentPojo {
     private int invoiceId;
     private long amount;
     private byte paymentMethod;
-
 }

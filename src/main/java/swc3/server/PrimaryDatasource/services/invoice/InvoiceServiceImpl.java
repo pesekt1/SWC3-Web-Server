@@ -3,6 +3,7 @@ package swc3.server.PrimaryDatasource.services.invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swc3.server.PrimaryDatasource.models.Invoice;
+import swc3.server.PrimaryDatasource.models.InvoiceStatus;
 import swc3.server.PrimaryDatasource.repository.InvoiceRepository;
 import swc3.server.exception.ResourceNotFoundException;
 
@@ -38,13 +39,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public void create(Invoice invoice) {
-        invoiceRepository.save(invoice);
+    public List<Invoice> getByStatus(InvoiceStatus status) {
+        return invoiceRepository.findByStatus(status);
     }
 
     @Override
-    public void update(Invoice invoice, int id) {
-        //TODO fill the body of this method
+    public void create(Invoice invoice) {
+        invoiceRepository.save(invoice);
     }
 
     @Override
