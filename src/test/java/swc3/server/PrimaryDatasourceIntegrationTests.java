@@ -50,15 +50,15 @@ class PrimaryDatasourceIntegrationTests {
 //            .hasFieldOrPropertyWithValue("published", true);
 //    }
 
-    @Test
-    void should_find_all_tutorials() {
-        Tutorial tut1 = new Tutorial("Tut#1", "Desc#1", true);
-        Tutorial tut2 = new Tutorial("Tut#2", "Desc#2", false);
-        Tutorial tut3 = new Tutorial("Tut#3", "Desc#3", true);
-
-        repository.saveAll(Arrays.asList(tut1, tut2, tut3));
-        assertThat(repository.findAll()).hasSize(3).contains(tut1, tut2, tut3);
-    }
+//    @Test
+//    void should_find_all_tutorials() {
+//        Tutorial tut1 = new Tutorial("Tut#1", "Desc#1", true);
+//        Tutorial tut2 = new Tutorial("Tut#2", "Desc#2", false);
+//        Tutorial tut3 = new Tutorial("Tut#3", "Desc#3", true);
+//
+//        repository.saveAll(Arrays.asList(tut1, tut2, tut3));
+//        assertThat(repository.findAll()).hasSize(3).contains(tut1, tut2, tut3);
+//    }
 //
 //    @Test
 //    void should_find_tutorial_by_id() {
