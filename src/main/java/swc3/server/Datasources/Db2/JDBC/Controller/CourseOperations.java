@@ -1,8 +1,8 @@
-package swc3.server.PrimaryDatasource.controller.JDBC.Controller;
+package swc3.server.Datasources.Db2.JDBC.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import swc3.server.PrimaryDatasource.controller.JDBC.Model.Course;
+import swc3.server.Datasources.Db2.JDBC.Model.Course;
 
 import javax.validation.Valid;
 import java.util.List;

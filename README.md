@@ -421,6 +421,33 @@ private BigDecimal price;
 private String imageUrl;
 ```
 
+## Hibernate
+At its core, Hibernate is an object-relational mapping tool that provides an implementation of JPA (Java Persistence API).
+
+### @Id
+Three different strategies for generation an Id:
+
+- IDENTITY
+- SEQUENCE
+- TABLE
+- AUTO
+
+This will pick TABLE:
+```java
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
+```
+
+This will pick IDENTITY:
+```java
+@Id
+@GeneratedValue(strategy= GenerationType.AUTO, generator="native")
+@GenericGenerator(name = "native", strategy = "native")
+```
+
+
+
+
 ## APIs
 
 ### Thymeleaf 

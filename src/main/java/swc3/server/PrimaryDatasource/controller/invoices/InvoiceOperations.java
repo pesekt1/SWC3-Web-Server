@@ -12,6 +12,9 @@ public interface InvoiceOperations {
     @GetMapping
     List<Invoice> getAll();
 
+    @GetMapping("/check-overdue")
+    void checkOverdue();
+
     @GetMapping("/{id}")
     Invoice getById(@PathVariable int id);
 

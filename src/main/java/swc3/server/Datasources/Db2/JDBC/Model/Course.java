@@ -1,4 +1,4 @@
-package swc3.server.PrimaryDatasource.controller.JDBC.Model;
+package swc3.server.Datasources.Db2.JDBC.Model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

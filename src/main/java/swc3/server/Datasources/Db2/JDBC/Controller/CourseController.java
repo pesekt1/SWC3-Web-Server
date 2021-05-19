@@ -1,4 +1,4 @@
-package swc3.server.PrimaryDatasource.controller.JDBC.Controller;
+package swc3.server.Datasources.Db2.JDBC.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
-import swc3.server.PrimaryDatasource.controller.JDBC.DAO.DAO;
-import swc3.server.PrimaryDatasource.controller.JDBC.Model.Course;
+import swc3.server.Datasources.Db2.JDBC.DAO.DAO;
+import swc3.server.Datasources.Db2.JDBC.Model.Course;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +21,11 @@ public class CourseController implements CourseOperations{
     private final DAO<Course> dao;
 
     @Autowired
-    public CourseController(@Qualifier("courseDAO") DAO<Course> dao) {
+    public CourseController(@Qualifier("courseDAO") DAO<Course> dao) { // Qualifier - select the implementation class
         this.dao = dao;
     }
 
+    //for showing an sql injection vulnerability
     @GetMapping("/vulnerable")
     public List<Course> getAllVulnerable(@RequestParam String filter) {
         return dao.getAllVulnerable(filter);

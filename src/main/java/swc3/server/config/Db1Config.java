@@ -3,6 +3,7 @@ package swc3.server.config;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -10,11 +11,16 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 @Primary
 @Configuration
@@ -24,6 +30,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         transactionManagerRef = "transactionManager",
         basePackages = {"swc3.server.PrimaryDatasource.repository", "swc3.server.PrimaryDatasource.nativequeries"})
 public class Db1Config {
+
+    @Autowired
+    private Environment env;
 
     @Primary
     @Bean(name = "dataSource")
@@ -36,6 +45,7 @@ public class Db1Config {
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
+
         return builder
                 .dataSource(dataSource)
                 .packages("swc3.server.PrimaryDatasource.models", "swc3.server.PrimaryDatasource.nativequeries")

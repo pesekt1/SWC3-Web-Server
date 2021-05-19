@@ -10,6 +10,7 @@ public interface InvoiceService {
     Invoice getById(int id);
     List<Invoice> getByOrderId(int id);
     List<Invoice> getByStatus(InvoiceStatus status);
+    void checkOverdue();
     void create(Invoice invoice);
     void delete(int id);
 }

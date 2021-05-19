@@ -28,6 +28,11 @@ public class InvoicesController implements InvoiceOperations {
     }
 
     @Override
+    public void checkOverdue() {
+        invoiceService.checkOverdue();
+    }
+
+    @Override
     public Invoice getById(int id) {
         return invoiceService.getById(id);
     }

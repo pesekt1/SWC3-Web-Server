@@ -14,6 +14,8 @@ import javax.persistence.*;
 @Table(name = "tutorials")
 public class Tutorial {
     @Id
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
+//    @SequenceGenerator(name = "seqGen", sequenceName = "hibernate_sequence", initialValue = 1)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)

@@ -1,4 +1,4 @@
-package swc3.server.PrimaryDatasource.controller.JDBC.DAO;
+package swc3.server.Datasources.Db2.JDBC.DAO;
 
 
 import org.slf4j.Logger;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import swc3.server.PrimaryDatasource.controller.JDBC.Model.Course;
+import swc3.server.Datasources.Db2.JDBC.Model.Course;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +18,7 @@ public class CourseDAO implements DAO<Course> {
 
     private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
 
+    //here we select the data source JdbcTemplate
     @Qualifier("jdbcTemplateDb2")
     private final JdbcTemplate jdbcTemplate;
 
@@ -29,17 +30,6 @@ public class CourseDAO implements DAO<Course> {
     @Override
     public List<Course> getAll() {
         String sql = "SELECT course_id,title,description,link from courses";
-        return jdbcTemplate.query(sql, new CourseRowMapper());
-    }
-
-    //This endpoint is vulnerable, it allows SQL injection
-    //use this as an argument:
-        //"http://google.com" OR 1 = 1
-        //"http://google.com"; DELETE from courses
-        //"http://google.com"; DROP table courses
-    @Override
-    public List<Course> getAllVulnerable(String filter) {
-        String sql = "SELECT course_id, title, description, link from courses WHERE link =" + filter;
         return jdbcTemplate.query(sql, new CourseRowMapper());
     }
 
@@ -82,4 +72,14 @@ public class CourseDAO implements DAO<Course> {
         }
     }
 
+    //This endpoint is vulnerable, it allows SQL injection
+    //use this as an argument:
+    //"http://google.com" OR 1 = 1
+    //"http://google.com"; DELETE from courses
+    //"http://google.com"; DROP table courses
+    @Override
+    public List<Course> getAllVulnerable(String filter) {
+        String sql = "SELECT course_id, title, description, link from courses WHERE link =" + filter;
+        return jdbcTemplate.query(sql, new CourseRowMapper());
+    }
 }

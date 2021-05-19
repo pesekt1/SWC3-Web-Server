@@ -1,8 +1,8 @@
-package swc3.server.PrimaryDatasource.controller.JDBC.DAO;
+package swc3.server.Datasources.Db2.JDBC.DAO;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import swc3.server.PrimaryDatasource.controller.JDBC.Model.Course;
+import swc3.server.Datasources.Db2.JDBC.Model.Course;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

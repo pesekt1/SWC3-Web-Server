@@ -134,5 +134,16 @@
       "name": "db6.jpa.properties.hibernate.dialect",
       "type": "java.lang.String",
       "description": "Description for db6.jpa.properties.hibernate.dialect."
+    },
+    {
+      "name": "db4.jpa.properties.hibernate.jdbc.batch_size",
+      "type": "java.lang.String",
+      "description": "Description for db4.jpa.properties.hibernate.jdbc.batch_size."
+    },
+    {
+      "name": "db4.jpa.properties.hibernate.order_inserts",
+      "type": "java.lang.String",
+      "description": "Description for db4.jpa.properties.hibernate.order_inserts."
     }
-  ] }
+  ]
+}

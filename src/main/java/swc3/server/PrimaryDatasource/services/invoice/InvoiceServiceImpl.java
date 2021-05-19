@@ -7,6 +7,7 @@ import swc3.server.PrimaryDatasource.models.InvoiceStatus;
 import swc3.server.PrimaryDatasource.repository.InvoiceRepository;
 import swc3.server.exception.ResourceNotFoundException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +42,21 @@ public class InvoiceServiceImpl implements InvoiceService {
     @Override
     public List<Invoice> getByStatus(InvoiceStatus status) {
         return invoiceRepository.findByStatus(status);
+    }
+
+    @Override
+    public void checkOverdue() {
+        List<Invoice> updatedInvoices = new ArrayList<>();
+
+        invoiceRepository.findByStatus(InvoiceStatus.OPEN)
+            .forEach(invoice -> {
+                if (invoice.getDueDate().isBefore(invoice.getInvoiceDate())){
+                    invoice.setStatus(InvoiceStatus.OVERDUE);
+                    updatedInvoices.add(invoice);
+                }
+            });
+
+        invoiceRepository.saveAll(updatedInvoices); //better performance then to save(invoice) in a loop
     }
 
     @Override

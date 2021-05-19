@@ -160,6 +160,11 @@
             <version>4.5.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.ttddyy</groupId>
+            <artifactId>datasource-proxy</artifactId>
+            <version>1.7</version>
+        </dependency>
 
     </dependencies>
 

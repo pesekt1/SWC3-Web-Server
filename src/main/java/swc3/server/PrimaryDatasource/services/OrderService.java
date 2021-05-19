@@ -81,8 +81,9 @@ public class OrderService {
             for (OrderItemNote orderItemNote:orderItemNotes) {
                 orderItemNote.setOrderId(savedOrderItem.getOrderId());
                 orderItemNote.setProductId(savedOrderItem.getProductId());
-                orderItemNoteRepository.save(orderItemNote);
+                //orderItemNoteRepository.save(orderItemNote);
             }
+            orderItemNoteRepository.saveAll(orderItemNotes);
         }
 
         createInvoice(invoicePriceSum, savedOrder);

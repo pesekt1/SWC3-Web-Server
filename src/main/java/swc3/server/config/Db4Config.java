@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
@@ -38,10 +40,20 @@ public class Db4Config {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSourceDb4") DataSource dataSource) {
 
+        //mapping properties from the application.properties file
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.jdbc.batch_size",
+                env.getProperty("db4.jpa.properties.hibernate.jdbc.batch_size"));
+        properties.put("hibernate.order_inserts",
+                env.getProperty("db4.jpa.properties.hibernate.order_inserts"));
+        properties.put("hibernate.order_updates",
+                env.getProperty("db4.jpa.properties.hibernate.order_updates"));
+
         return builder
                 .dataSource(dataSource)
                 .packages("swc3.server.Datasources.Db4.models")
                 .persistenceUnit("db4")
+                .properties(properties) //assigning the properties map
                 .build();
     }
 
