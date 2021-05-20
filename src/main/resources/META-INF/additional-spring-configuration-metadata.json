@@ -144,6 +144,11 @@
       "name": "db4.jpa.properties.hibernate.order_inserts",
       "type": "java.lang.String",
       "description": "Description for db4.jpa.properties.hibernate.order_inserts."
+    },
+    {
+      "name": "db4.jpa.properties.hibernate.order_updates",
+      "type": "java.lang.String",
+      "description": "Description for db4.jpa.properties.hibernate.order_updates."
     }
   ]
 }
