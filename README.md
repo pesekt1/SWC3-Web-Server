@@ -54,6 +54,11 @@
 
 # Spring Boot Web Server
 
+## Versions and Technologies
+
+- Spring Boot 2
+- Spring Framework 5
+- Java 11
 
 ## App structure
 ![app structure](src/main/resources/static/appStructure.png)
