@@ -792,14 +792,7 @@ The response will look like this:
 }
 ```
 
-### JDBC example - db connection without the ORM, just using POJOs
-![jdbc](src/main/resources/static/jdbc.png)
-- Model Course is a POJO - not a mapping class of a table.
-- DAO interface - a generic interface defining how an implementing class should look like
-- CourseDAO - A class implementing DAO interface contains CRUD methods which use sql queries to query from courses table.
-- CourseRowMapper is used to build the Course object from the result set.
-
-### SQL injection
+### SQL injection when using JDBC
 - One endpoint in CourseDAO is vulnerable to SQL injections (it uses string concatenation):
 ```java
     public List<Course> listVulnerable(String filter) {
@@ -911,9 +904,9 @@ Now We have an extra route: <http://localhost:3000/resources/2005>
 httpRequests.http file:
 
 - registration: 
-    - POST <http://localhost:5557/api/auth/signup>, provide username, password, email, (array of roles)
+    - POST <http://localhost:5557/api/auth/signup>, provide user name, password, email, (array of roles)
 - login (getting JWT) 
-    - POST <http://localhost:5557/api/auth/signin>, provide username, password 
+    - POST <http://localhost:5557/api/auth/signin>, provide user name, password 
 - authorized request (using acquired JWT)
 - tests:
 
@@ -1271,11 +1264,17 @@ public class CourseController implements CourseOperations{
     }
 ```
 
-## JDBC - Java Database Connectivity
+## JDBC - Java Database Connectivity, db connection without the ORM, just using POJOs
 
 [tutorial](https://www.baeldung.com/spring-jdbc-jdbctemplate)
 
-Example: Multiple data sources. We need to specify which jdbcTemplate we want to use. 
+![jdbc](src/main/resources/static/jdbc.png)
+- Model Course is a POJO - not a mapping class of a table.
+- DAO interface - a generic interface defining how an implementing class should look like
+- CourseDAO - A class implementing DAO interface contains CRUD methods which use sql queries to query from courses table.
+- CourseRowMapper is used to build the Course object from the result set.
+
+Example: If we have multiple data sources, we need to specify which jdbcTemplate we want to use. 
 If not specified, the primary data source will be used.
 
 ```java
@@ -1308,5 +1307,17 @@ jdbcTemplate is defined in a config file with the data source:
     }
 ```
 
+## Git
 
+Removing a file from git repo:
 
+.gitignore will not work if a file was already committed.
+```git
+git rm --cached -f <FILE_PATH>
+```
+
+## Optimization
+
+- Bulk / Batch inserts and updates:
+
+Instead of running separate inserts or updates in separate transactions we want to run them in batches - this is faster.

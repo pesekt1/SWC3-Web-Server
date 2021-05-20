@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.NotEmpty;
 
+//POJO - Plain old java object
 @NoArgsConstructor
 @Getter
 @Setter

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -52,8 +53,15 @@ public class Db2Config {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
+    //for JDBC communication
     @Bean(name = "jdbcTemplateDb2")
     public JdbcTemplate jdbcTemplateDb2(@Qualifier("dataSourceDb2") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    //for JDBC communication
+    @Bean(name = "NamedParameterJdbcTemplateDb2")
+    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(@Qualifier("dataSourceDb2") DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
     }
 }
