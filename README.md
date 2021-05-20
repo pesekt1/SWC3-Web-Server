@@ -58,7 +58,12 @@
 
 - Spring Boot 2
 - Spring Framework 5
-- Java 11
+- Java 14
+
+If you need to upgrade Java version, you need to set it up in few places:
+- pom.xml:
+
+- .github/workflows
 
 ## App structure
 ![app structure](src/main/resources/static/appStructure.png)
