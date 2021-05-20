@@ -1332,3 +1332,9 @@ git rm --cached -f <FILE_PATH>
 - Bulk / Batch inserts and updates:
 
 Instead of running separate inserts or updates in separate transactions we want to run them in batches - this is faster.
+
+## Heroku
+
+- Database resources on Heroku:
+    - max_connections_error - free resources have max 10 connections. 
+    If you get the error, you can go to Heroku and execure "Restart all dynos". This should kill all the connections.

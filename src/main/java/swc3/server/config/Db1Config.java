@@ -46,10 +46,16 @@ public class Db1Config {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
 
+        //mapping properties from the application.properties file
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("hikari.maximum-pool-size",
+                env.getProperty("db1.datasource.hikari.maximum-pool-size"));
+
         return builder
                 .dataSource(dataSource)
                 .packages("swc3.server.PrimaryDatasource.models", "swc3.server.PrimaryDatasource.nativequeries")
                 .persistenceUnit("db1")
+                .properties(properties)
                 .build();
     }
 

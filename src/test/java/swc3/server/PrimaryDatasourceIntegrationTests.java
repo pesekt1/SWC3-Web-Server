@@ -2,7 +2,10 @@ package swc3.server;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,6 +17,7 @@ import swc3.server.config.Db1Config;
 import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.TutorialRepository;
 
+import javax.sql.DataSource;
 import java.util.Arrays;
 
 // integration tests for persistence unit db1 - first data source,
@@ -26,7 +30,12 @@ import java.util.Arrays;
 @Transactional("transactionManager")
 class PrimaryDatasourceIntegrationTests {
 
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     //repo for tutorial table from db1
+    @Qualifier("dataSource")
+    DataSource ds;
+
     @Autowired
     private TutorialRepository repository;
 
