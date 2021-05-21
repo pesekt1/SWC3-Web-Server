@@ -6,6 +6,7 @@ import swc3.server.Datasources.Db2.JDBC.Model.Course;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class CourseRowMapper implements RowMapper<Course> {
 
@@ -18,5 +19,4 @@ public class CourseRowMapper implements RowMapper<Course> {
         course.setLink(resultSet.getString("link"));
         return course;
     }
-
 }

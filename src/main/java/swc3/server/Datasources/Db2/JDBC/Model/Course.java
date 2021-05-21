@@ -1,12 +1,15 @@
 package swc3.server.Datasources.Db2.JDBC.Model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 //POJO - Plain old java object
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter

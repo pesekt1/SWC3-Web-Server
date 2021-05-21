@@ -30,12 +30,6 @@ import java.util.Arrays;
 @Transactional("transactionManager")
 class PrimaryDatasourceIntegrationTests {
 
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    //repo for tutorial table from db1
-    @Qualifier("dataSource")
-    DataSource ds;
-
     @Autowired
     private TutorialRepository repository;
 

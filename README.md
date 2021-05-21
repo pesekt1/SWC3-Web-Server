@@ -1335,6 +1335,8 @@ Instead of running separate inserts or updates in separate transactions we want 
 
 ## Heroku
 
-- Database resources on Heroku:
-    - max_connections_error - free resources have max 10 connections. 
+### Databases on Heroku
+- max_connections_error - free resources have max 10 connections. 
     If you get the error, you can go to Heroku and execure "Restart all dynos". This should kill all the connections.
+
+
