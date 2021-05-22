@@ -7,7 +7,7 @@ import java.util.List;
 
 import swc3.server.PrimaryDatasource.models.Order;
 import swc3.server.PrimaryDatasource.models.ShippedOrderView;
-import swc3.server.PrimaryDatasource.pojo.OrderPojo;
+import swc3.server.PrimaryDatasource.dto.OrderDto;
 import swc3.server.PrimaryDatasource.services.OrderService;
 
 @RestController
@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderPojo order) {
+    public ResponseEntity<Order> createOrder(@RequestBody OrderDto order) {
         return orderService.createOrder(order);
     }
 }

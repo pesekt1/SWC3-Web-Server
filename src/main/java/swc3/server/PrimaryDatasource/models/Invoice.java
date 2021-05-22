@@ -27,11 +27,11 @@ public class Invoice {
 
     @Basic
     @Column(name = "invoice_total", nullable = false, precision = 2)
-    private long invoiceTotal;
+    private double invoiceTotal;
 
     @Basic
     @Column(name = "payment_total", nullable = false, precision = 2)
-    private long paymentTotal;
+    private double paymentTotal;
 
     @Basic
     @Column(name = "invoice_date", nullable = false)
@@ -52,6 +52,4 @@ public class Invoice {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private InvoiceStatus status;
-
-
 }

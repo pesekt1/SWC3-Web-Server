@@ -3,7 +3,7 @@ package swc3.server.PrimaryDatasource.services.payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import swc3.server.PrimaryDatasource.models.Payment;
-import swc3.server.PrimaryDatasource.pojo.PaymentPojo;
+import swc3.server.PrimaryDatasource.dto.PaymentDto;
 import swc3.server.PrimaryDatasource.repository.InvoiceRepository;
 import swc3.server.PrimaryDatasource.repository.OrderRepository;
 import swc3.server.PrimaryDatasource.repository.PaymentRepository;
@@ -45,7 +45,7 @@ public class PaymentServiceImpl implements PaymentService{
     }
 
     @Override
-    public void create(PaymentPojo payment) {
+    public void create(PaymentDto payment) {
         Payment newPayment = createPaymentFromPojo(payment);
         paymentRepository.save(newPayment);
     }
@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService{
         paymentRepository.deleteById(id);
     }
 
-    private Payment createPaymentFromPojo(PaymentPojo payment) {
+    private Payment createPaymentFromPojo(PaymentDto payment) {
         var newPayment = new Payment();
         newPayment.setAmount(payment.getAmount());
         newPayment.setInvoiceId(payment.getInvoiceId());

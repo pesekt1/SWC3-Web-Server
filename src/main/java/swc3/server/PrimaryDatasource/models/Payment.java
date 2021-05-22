@@ -3,7 +3,6 @@ package swc3.server.PrimaryDatasource.models;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,8 +14,7 @@ import java.time.LocalDate;
 @Table(name = "payments", schema = "swc3_springboot")
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id", nullable = false)
     private int paymentId;
 

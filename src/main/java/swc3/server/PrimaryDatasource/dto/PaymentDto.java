@@ -1,9 +1,11 @@
-package swc3.server.PrimaryDatasource.pojo;
+package swc3.server.PrimaryDatasource.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class PaymentPojo {
+@Setter
+public class PaymentDto {
     private int invoiceId;
     private long amount;
     private byte paymentMethod;

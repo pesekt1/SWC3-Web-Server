@@ -8,11 +8,11 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Collection;
 
-@Setter
 @Getter
+@Setter
 @EqualsAndHashCode
 @Entity
-@Table(name = "order_items")
+@Table(name = "order_items", schema = "swc3_springboot")
 @IdClass(OrderItemPK.class)
 public class OrderItem {
     @Id
@@ -29,7 +29,7 @@ public class OrderItem {
 
     @Basic
     @Column(name = "unit_price", nullable = false, precision = 2)
-    private long unitPrice;
+    private double unitPrice;
 
     @OneToMany(mappedBy = "orderItems")
     private Collection<OrderItemNote> orderItemNotes;
@@ -43,4 +43,8 @@ public class OrderItem {
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable=false, updatable=false)
     private Product product;
 
+    @Transient
+    public double getTotalPrice() {
+        return getUnitPrice() * getQuantity();
+    }
 }

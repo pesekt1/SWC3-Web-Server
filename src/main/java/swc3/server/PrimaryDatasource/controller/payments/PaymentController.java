@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import swc3.server.PrimaryDatasource.models.Payment;
-import swc3.server.PrimaryDatasource.pojo.PaymentPojo;
+import swc3.server.PrimaryDatasource.dto.PaymentDto;
 import swc3.server.PrimaryDatasource.services.payment.PaymentService;
 
 import javax.validation.Valid;
@@ -39,7 +39,7 @@ public class PaymentController implements PaymentOperations{
     }
 
     @Override
-    public void create(@Valid PaymentPojo payment) {
+    public void create(@Valid PaymentDto payment) {
         paymentService.create(payment);
     }
 

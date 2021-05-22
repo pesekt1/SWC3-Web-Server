@@ -11,14 +11,16 @@ import javax.persistence.*;
 @NoArgsConstructor
 
 @Entity
-@Table(name = "tutorials")
+@Table(name = "tutorials", schema = "swc3_springboot")
 public class Tutorial {
-    @Id
+
+//if we want batch inserts and updates we need to use SEQUENCE which is not implemented in MySQL - we need an extra table for that.
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
 //    @SequenceGenerator(name = "seqGen", sequenceName = "hibernate_sequence", initialValue = 1)
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false) //refers to the table column
     private long id;
 
     @Basic
@@ -29,6 +31,7 @@ public class Tutorial {
     @Column(name = "published")
     private Boolean published;
 
+    //@Basic(optional = false, fetch = FetchType.LAZY) - refers to the JPA entity
     @Basic
     @Column(name = "title", nullable = false)
     private String title;

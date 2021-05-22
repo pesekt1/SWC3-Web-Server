@@ -828,6 +828,9 @@ The response will look like this:
 ## Http communication
 
 ### HttpClient
+Usually we concentrate on REST controllers that serve http requests that come from a web client. 
+Here we are discussing how to send http requests from the web server.
+
 - Showing how to send an http request and how to handle the response
 - library: java.net.http.HttpClient
 - using a public API to get some data: [regres.in](https://reqres.in/api/users)
@@ -836,6 +839,44 @@ The response will look like this:
     - Mapping response string into an object: 
 ```java
         Data data = mapper.readValue(response.body(), new TypeReference<Data>() {});
+```
+
+Building http requests:
+
+```java
+    private HttpRequest buildGetRequest(String api){
+
+        return HttpRequest.newBuilder()
+                .GET()
+                .header("accept", "application/json")
+                .uri(URI.create(api))
+                .build();
+    }
+
+    private HttpRequest buildPostRequest(String api, String requestBody){
+
+        return HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .uri(URI.create(api))
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+    }
+```
+
+Sending http requests and receiving http response:
+
+```java
+    private final HttpClient client = HttpClient.newHttpClient();
+
+    public ResponseEntity<List<Album>> getAlbums() throws IOException, InterruptedException {
+
+        HttpRequest request = buildGetRequest(API_JSONPLACEHOLDER + "albums");
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        List<Album> albums = new ObjectMapper().readValue(response.body(), new TypeReference<List<Album>>() {});
+
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+    }
 ```
 
 ### Json-server

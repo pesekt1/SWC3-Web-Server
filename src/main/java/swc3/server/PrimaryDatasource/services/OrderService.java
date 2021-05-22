@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import swc3.server.PrimaryDatasource.models.*;
-import swc3.server.PrimaryDatasource.pojo.OrderPojo;
+import swc3.server.PrimaryDatasource.dto.OrderDto;
 import swc3.server.PrimaryDatasource.repository.OrderItemNoteRepository;
 import swc3.server.PrimaryDatasource.repository.OrderItemRepository;
 import swc3.server.PrimaryDatasource.repository.OrderRepository;
@@ -16,7 +16,6 @@ import swc3.server.PrimaryDatasource.services.invoice.InvoiceService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -64,46 +63,40 @@ public class OrderService {
         return new ResponseEntity<>(shippedOrders, HttpStatus.OK);
     }
 
-    public ResponseEntity<Order> createOrder(OrderPojo order) {
-        long invoicePriceSum = 0;
-        var savedOrder = ordersRepository.save(newOrderFromPojo(order));
+    public ResponseEntity<Order> createOrder(OrderDto order) {
+        var savedOrder = ordersRepository.save(newOrderFromDto(order));
 
         var orderItems = savedOrder.getOrderItems();
         for (OrderItem orderItem:orderItems) {
-            invoicePriceSum += orderItem.getUnitPrice() * orderItem.getQuantity();
-
             orderItem.setOrderId(savedOrder.getOrderId());
-
             var orderItemNotes = orderItem.getOrderItemNotes();
-
             var savedOrderItem = orderItemRepository.save(orderItem);
 
             for (OrderItemNote orderItemNote:orderItemNotes) {
                 orderItemNote.setOrderId(savedOrderItem.getOrderId());
                 orderItemNote.setProductId(savedOrderItem.getProductId());
-                //orderItemNoteRepository.save(orderItemNote);
             }
             orderItemNoteRepository.saveAll(orderItemNotes);
         }
-
-        createInvoice(invoicePriceSum, savedOrder);
+        createInvoice(savedOrder);
 
         return new ResponseEntity<>(savedOrder, HttpStatus.CREATED);
     }
 
-    private void createInvoice(long invoicePriceSum, Order savedOrder) {
+    private void createInvoice(Order savedOrder) {
         var invoice = new Invoice();
         invoice.setNumber(ObjectId.get().toString());
-        invoice.setInvoiceTotal(invoicePriceSum);
+        invoice.setInvoiceTotal(savedOrder.getTotalOrderPrice());
         invoice.setPaymentTotal(0);
         invoice.setInvoiceDate(savedOrder.getOrderDate());
         invoice.setDueDate(savedOrder.getOrderDate().plusDays(INVOICE_DUE_PERIOD));
         invoice.setOrderId(savedOrder.getOrderId());
+        invoice.setStatus(InvoiceStatus.OPEN);
 
         invoiceService.create(invoice);
     }
 
-    private Order newOrderFromPojo(OrderPojo order) {
+    private Order newOrderFromDto(OrderDto order) {
         Order newOrder = new Order();
         newOrder.setComments(order.getComments());
         newOrder.setCustomerId(order.getCustomerId());

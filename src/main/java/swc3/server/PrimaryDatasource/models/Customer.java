@@ -12,7 +12,7 @@ import java.sql.Date;
 @EqualsAndHashCode
 @Getter
 @Entity
-@Table(name = "customers")
+@Table(name = "customers", schema = "swc3_springboot")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")

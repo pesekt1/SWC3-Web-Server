@@ -3,7 +3,6 @@ package swc3.server.PrimaryDatasource.models;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,8 +15,7 @@ import java.util.Collection;
 @Table(name = "orders", schema = "swc3_springboot")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
     private int orderId;
 
@@ -26,6 +24,7 @@ public class Order {
     private int customerId;
 
     @Basic
+    //@JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
@@ -47,4 +46,23 @@ public class Order {
 
     @OneToMany(mappedBy = "ordersByOrderId")
     private Collection<OrderItem> orderItems;
+
+    //Hibernate will ignore this field
+    @Transient
+    public Double getTotalOrderPrice() {
+        double sum = 0;
+        for (OrderItem oi : getOrderItems()) {
+            sum += oi.getTotalPrice();
+        }
+        return sum;
+    }
+
+    @Transient
+    public int getProductsNumber(){
+        int sum = 0;
+        for (OrderItem oi : getOrderItems()){
+            sum += oi.getQuantity();
+        }
+        return sum;
+    }
 }
