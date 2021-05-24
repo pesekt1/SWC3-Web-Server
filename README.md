@@ -456,7 +456,11 @@ This will pick IDENTITY:
 @GenericGenerator(name = "native", strategy = "native")
 ```
 
+### Persistence unit
 
+- Spring Boot does not work with persistence.xml.
+- If we have one data source, we only need to provide properties in application.properties file. 
+We can also do it via @Configuration class.
 
 
 ## APIs

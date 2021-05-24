@@ -29,4 +29,5 @@ public class Product {
     @Column(name = "unit_price", nullable = false, precision = 2)
     private double unitPrice;
 
+
 }

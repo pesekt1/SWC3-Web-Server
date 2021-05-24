@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 @Primary
 @Configuration
