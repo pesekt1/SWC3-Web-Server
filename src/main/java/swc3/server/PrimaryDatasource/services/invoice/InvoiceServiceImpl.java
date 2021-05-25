@@ -12,14 +12,14 @@ import java.util.List;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
-    private String errorMessage(long id){
-        return "Not found invoice with id = " + id;
-    }
     private final InvoiceRepository invoiceRepository;
-
     @Autowired
     public InvoiceServiceImpl(InvoiceRepository invoiceRepository) {
         this.invoiceRepository = invoiceRepository;
+    }
+
+    private String errorMessage(long id){
+        return "Not found invoice with id = " + id;
     }
 
     @Override

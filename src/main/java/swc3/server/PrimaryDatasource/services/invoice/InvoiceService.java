@@ -2,7 +2,6 @@ package swc3.server.PrimaryDatasource.services.invoice;
 
 import swc3.server.PrimaryDatasource.models.Invoice;
 import swc3.server.PrimaryDatasource.models.InvoiceStatus;
-import swc3.server.PrimaryDatasource.models.Order;
 
 import java.util.List;
 
