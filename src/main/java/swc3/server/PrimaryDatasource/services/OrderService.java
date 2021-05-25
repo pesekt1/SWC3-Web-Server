@@ -97,7 +97,7 @@ public class OrderService {
     }
 
     private Order newOrderFromDto(OrderDto order) {
-        Order newOrder = new Order();
+        var newOrder = new Order();
         newOrder.setComments(order.getComments());
         newOrder.setCustomerId(order.getCustomerId());
         newOrder.setOrderDate(LocalDate.now());
