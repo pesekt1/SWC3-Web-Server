@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public void create(PaymentDto payment) {
-        Payment newPayment = createPaymentFromPojo(payment);
+        var newPayment = createPaymentFromDto(payment);
         paymentRepository.save(newPayment);
     }
 
@@ -56,7 +56,7 @@ public class PaymentServiceImpl implements PaymentService{
         paymentRepository.deleteById(id);
     }
 
-    private Payment createPaymentFromPojo(PaymentDto payment) {
+    private Payment createPaymentFromDto(PaymentDto payment) {
         var newPayment = new Payment();
         newPayment.setAmount(payment.getAmount());
         newPayment.setInvoiceId(payment.getInvoiceId());
