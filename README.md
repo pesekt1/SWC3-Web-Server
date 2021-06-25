@@ -21,7 +21,7 @@
     + [Persistence unit](#persistence-unit)
   * [APIs](#apis)
     + [Thymeleaf](#thymeleaf)
-    + [Rest Controllers: REST APIs](#rest-controllers--rest-apis)
+    + [Rest Controllers - REST APIs](#rest-controllers---rest-apis)
     + [Service Layer](#service-layer)
     + [CORS](#cors)
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
@@ -523,7 +523,7 @@ listAdvanced.html: we can access the data provided by the controller:
 
 ![Thymeleaf](src/main/resources/static/thymeleaf.png)
 
-### Rest Controllers: REST APIs
+### Rest Controllers - REST APIs
 - <http://localhost:5557/api/tutorials>
 - <http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc>
 - <http://localhost:5557/thymeleaf/tutorialsAdvanced>
