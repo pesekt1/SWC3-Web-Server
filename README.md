@@ -1,4 +1,5 @@
 - [Spring Boot Web Server](#spring-boot-web-server)
+  * [Versions and Technologies](#versions-and-technologies)
   * [App structure](#app-structure)
     + [Features](#features)
     + [Model Classes (Domain):](#model-classes--domain--)
@@ -15,6 +16,9 @@
     + [Working with SQLite](#working-with-sqlite)
     + [Changing the data source](#changing-the-data-source)
     + [Spring Data](#spring-data)
+  * [Hibernate](#hibernate)
+    + [@Id](#-id)
+    + [Persistence unit](#persistence-unit)
   * [APIs](#apis)
     + [Thymeleaf](#thymeleaf)
     + [Rest Controllers: REST APIs](#rest-controllers--rest-apis)
@@ -28,8 +32,7 @@
     + [Maven Profiles](#maven-profiles)
   * [Security](#security)
     + [Spring security](#spring-security)
-    + [JDBC example - db connection without the ORM, just using POJOs](#jdbc-example---db-connection-without-the-orm--just-using-pojos)
-    + [SQL injection](#sql-injection)
+    + [SQL injection when using JDBC](#sql-injection-when-using-jdbc)
   * [Http communication](#http-communication)
     + [HttpClient](#httpclient)
     + [Json-server](#json-server)
@@ -47,7 +50,11 @@
   * [Web client app](#web-client-app)
   * [DAO - Data Access Object](#dao---data-access-object)
   * [Multiple implementation classes](#multiple-implementation-classes)
-  * [JDBC - Java Database Connectivity](#jdbc---java-database-connectivity)
+  * [JDBC - Java Database Connectivity, db connection without the ORM, just using POJOs](#jdbc---java-database-connectivity--db-connection-without-the-orm--just-using-pojos)
+  * [Git](#git)
+  * [Optimization](#optimization)
+  * [Heroku](#heroku)
+    + [Databases on Heroku](#databases-on-heroku)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
@@ -516,7 +523,7 @@ listAdvanced.html: we can access the data provided by the controller:
 
 ![Thymeleaf](src/main/resources/static/thymeleaf.png)
 
-### Rest Controllers: REST APIs (Endpoints providing data in JSON format)
+### Rest Controllers: REST APIs
 - <http://localhost:5557/api/tutorials>
 - <http://localhost:5557/api4/tutorials-all-sorted?sort=id,desc&sort=title,asc>
 - <http://localhost:5557/thymeleaf/tutorialsAdvanced>
