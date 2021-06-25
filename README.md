@@ -17,7 +17,7 @@
     + [Spring Data](#spring-data)
   * [APIs](#apis)
     + [Thymeleaf](#thymeleaf)
-    + [Rest Controllers: REST APIs (Endpoints providing data in JSON format)](#rest-controllers--rest-apis--endpoints-providing-data-in-json-format)
+    + [Rest Controllers: REST APIs](#rest-controllers--rest-apis)
     + [Service Layer](#service-layer)
     + [CORS](#cors)
     + [spring-boot-starter-data-rest](#spring-boot-starter-data-rest)
