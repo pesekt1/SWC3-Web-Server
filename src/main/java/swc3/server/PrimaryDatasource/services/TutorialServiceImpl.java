@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TutorialService {
+public class TutorialServiceImpl {
     TutorialRepository tutorialRepository;
 
 //    @PersistenceContext(name = "entityManagerFactory")
 //    EntityManager em;
 
     @Autowired
-    public TutorialService(TutorialRepository tutorialRepository){
+    public TutorialServiceImpl(TutorialRepository tutorialRepository){
         this.tutorialRepository = tutorialRepository;
     }
 

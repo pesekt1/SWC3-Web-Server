@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.TutorialRepository;
-import swc3.server.PrimaryDatasource.services.TutorialService;
+import swc3.server.PrimaryDatasource.services.TutorialServiceImpl;
 
 @RestController
 @RequestMapping("/api4")
@@ -25,7 +25,7 @@ public class TutorialControllerPagination {
     TutorialRepository tutorialRepository;
 
     @Autowired
-    TutorialService tutorialService;
+    TutorialServiceImpl tutorialService;
 
     //retrieve paginated tutorials
     @GetMapping("/tutorials")

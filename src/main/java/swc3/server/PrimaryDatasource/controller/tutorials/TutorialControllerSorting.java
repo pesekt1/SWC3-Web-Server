@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.TutorialRepository;
-import swc3.server.PrimaryDatasource.services.TutorialService;
+import swc3.server.PrimaryDatasource.services.TutorialServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -27,7 +27,7 @@ public class TutorialControllerSorting {
     TutorialRepository tutorialRepository;
 
     @Autowired
-    TutorialService tutorialService;
+    TutorialServiceImpl tutorialService;
 
     //method retrieving the Sort.Direction enum
     private Sort.Direction getSortDirection(String direction) {

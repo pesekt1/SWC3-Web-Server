@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import swc3.server.PrimaryDatasource.models.Tutorial;
-import swc3.server.PrimaryDatasource.services.TutorialService;
+import swc3.server.PrimaryDatasource.services.TutorialServiceImpl;
 
 @RestController
 @RequestMapping("/api3")
 public class TutorialController {
-	TutorialService tutorialService;
+	TutorialServiceImpl tutorialService;
 
 	@Autowired
-	public TutorialController(TutorialService tutorialService){
+	public TutorialController(TutorialServiceImpl tutorialService){
 		this.tutorialService = tutorialService;
 	}
 

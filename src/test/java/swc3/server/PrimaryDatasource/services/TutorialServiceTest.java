@@ -24,7 +24,7 @@ class TutorialServiceTest {
 
     //private final TutorialRepository tutorialRepository = Mockito.mock(TutorialRepository.class); //mock
     @Mock private TutorialRepository tutorialRepository; //mock annotation instead of = Mockito.mock(TutorialRepository.class);
-    private TutorialService tutorialService;
+    private TutorialServiceImpl tutorialService;
     long FAKE_TUTORIAL_ID = 1;
 
     @BeforeAll
@@ -36,7 +36,7 @@ class TutorialServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this); //we need to initialize mocks
-        tutorialService = new TutorialService(tutorialRepository); //using tutorialRepository mock
+        tutorialService = new TutorialServiceImpl(tutorialRepository); //using tutorialRepository mock
     }
 
     @AfterEach

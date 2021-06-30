@@ -18,8 +18,9 @@ public class Tutorial {
 //    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqGen")
 //    @SequenceGenerator(name = "seqGen", sequenceName = "hibernate_sequence", initialValue = 1)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
+    //@GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
+    //@GenericGenerator(name = "native", strategy = "native")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false) //refers to the table column
     private long id;
 
