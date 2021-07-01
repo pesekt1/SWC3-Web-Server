@@ -1,28 +1,30 @@
 package swc3.server.PrimaryDatasource.controller.tutorials;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//TODO introduce DTO - data transfer object, so that controller does not know the Tutorial model class.
 import swc3.server.PrimaryDatasource.models.Tutorial;
-import swc3.server.PrimaryDatasource.services.TutorialServiceImpl;
+import swc3.server.PrimaryDatasource.services.tutorial.TutorialService;
 
 @RestController
 @RequestMapping("/api3")
 public class TutorialController {
-	TutorialServiceImpl tutorialService;
+	TutorialService tutorialService;
 
 	@Autowired
-	public TutorialController(TutorialServiceImpl tutorialService){
+	public TutorialController(@Qualifier("tutorialServiceImpl") TutorialService tutorialService){
 		this.tutorialService = tutorialService;
 	}
 
 	@GetMapping("/tutorials")
 	public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
-		return tutorialService.getAllTutorials(title);
+		return tutorialService.getAll(title);
 	}
 
 	//testing if we can create a vulnerable endpoint
@@ -37,27 +39,27 @@ public class TutorialController {
 
 	@GetMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
-		return tutorialService.getTutorialById(id);
+		return tutorialService.getById(id);
 	}
 
 	@PostMapping("/tutorials")
 	public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
-		return tutorialService.createTutorial(tutorial);
+		return tutorialService.create(tutorial);
 	}
 
 	@PutMapping("/tutorials/{id}")
 	public ResponseEntity<Tutorial> updateTutorial(@PathVariable("id") long id, @RequestBody Tutorial tutorial) {
-		return tutorialService.updateTutorial(id, tutorial);
+		return tutorialService.update(id, tutorial);
 	}
 
 	@DeleteMapping("/tutorials/{id}")
 	public ResponseEntity<HttpStatus> deleteTutorial(@PathVariable("id") long id) {
-		return tutorialService.deleteTutorial(id);
+		return tutorialService.delete(id);
 	}
 
 	@DeleteMapping("/tutorials")
 	public ResponseEntity<HttpStatus> deleteAllTutorials() {
-		return tutorialService.deleteAllTutorials();
+		return tutorialService.deleteAll();
 	}
 
 	@GetMapping("/tutorials/published")

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.TutorialRepository;
+import swc3.server.PrimaryDatasource.services.tutorial.TutorialServiceImpl;
 import swc3.server.exception.ResourceNotFoundException;
 
 import java.util.*;
@@ -54,7 +55,7 @@ class TutorialServiceTest {
             Mockito.when(tutorialRepository.findByTitleContaining(title1)).thenReturn(listFilteredTutorials); //return tut1
 
             //when
-            var response = tutorialService.getAllTutorials(title1);
+            var response = tutorialService.getAll(title1);
 
             //then
             Assertions.assertThat(response.getBody()).isEqualTo(listFilteredTutorials);
@@ -70,7 +71,7 @@ class TutorialServiceTest {
             Mockito.when(tutorialRepository.findByTitleContaining(title1)).thenReturn(new ArrayList<>()); //empty list
 
             //when
-            var response = tutorialService.getAllTutorials(title1);
+            var response = tutorialService.getAll(title1);
 
             //then
             Assertions.assertThat(response).isEqualTo(new ResponseEntity<>(HttpStatus.NO_CONTENT));
@@ -84,7 +85,7 @@ class TutorialServiceTest {
             Mockito.when(tutorialRepository.findAll()).thenReturn(fakeTutorials); //return fake tutorials list
 
             //when
-            var response = tutorialService.getAllTutorials(null);
+            var response = tutorialService.getAll(null);
 
             //then
             Assertions.assertThat(response.getBody()).isEqualTo(fakeTutorials);
@@ -99,7 +100,7 @@ class TutorialServiceTest {
             Mockito.when(tutorialRepository.findAll()).thenReturn(new ArrayList<>()); //empty list
 
             //when
-            var response = tutorialService.getAllTutorials(null);
+            var response = tutorialService.getAll(null);
 
             //then
             Assertions.assertThat(response).isEqualTo(new ResponseEntity<>(HttpStatus.NO_CONTENT));
@@ -120,7 +121,7 @@ class TutorialServiceTest {
             Mockito.when(tutorialRepository.findById(fakeTutorial.getId())).thenReturn(Optional.of(fakeTutorial)); //mock the method
 
             //when
-            var response = tutorialService.getTutorialById(fakeTutorial.getId()); //testing the service
+            var response = tutorialService.getById(fakeTutorial.getId()); //testing the service
 
             //then
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -137,7 +138,7 @@ class TutorialServiceTest {
 
             //then
             Assertions.assertThatThrownBy(
-                    () -> tutorialService.getTutorialById(FAKE_TUTORIAL_ID) //when
+                    () -> tutorialService.getById(FAKE_TUTORIAL_ID) //when
             ).isInstanceOf(ResourceNotFoundException.class);
         }
 
@@ -156,25 +157,25 @@ class TutorialServiceTest {
 
         @Test
         void should_call_TutorialRepository_save_method(){
-            tutorialService.createTutorial(newTutorial); //when
+            tutorialService.create(newTutorial); //when
             Mockito.verify(tutorialRepository, Mockito.times(1)).save(ArgumentMatchers.any(Tutorial.class)); //then
         }
 
         @Test
         void should_return_response_with_new_tutorial() {
-            var response = tutorialService.createTutorial(newTutorial); //when
+            var response = tutorialService.create(newTutorial); //when
             Assertions.assertThat(response.getBody()).isEqualTo(newTutorial); //then
         }
 
         @Test
         void should_return_response_with_status_created(){
-            var response = tutorialService.createTutorial(newTutorial); //when
+            var response = tutorialService.create(newTutorial); //when
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         }
 
         @Test
         void should_return_response_with_tutorial_and_status_created(){
-            var response = tutorialService.createTutorial(newTutorial); //when
+            var response = tutorialService.create(newTutorial); //when
             Assertions.assertThat(response).isEqualTo(new ResponseEntity<>(newTutorial, HttpStatus.CREATED)); //then
         }
     }
@@ -200,19 +201,19 @@ class TutorialServiceTest {
 
         @Test
         void should_call_TutorialRepository_save_method() {
-            tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
+            tutorialService.update(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Mockito.verify(tutorialRepository, Mockito.times(1)).save(ArgumentMatchers.any(Tutorial.class)); //then
         }
 
         @Test
         void should_send_response_with_updated_tutorial() {
-            var response = tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
+            var response = tutorialService.update(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Assertions.assertThat(response.getBody()).isEqualTo(updatedTutorial); //then
         }
 
         @Test
         void should_send_response_with_statusOK() {
-            var response = tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial); //when
+            var response = tutorialService.update(FAKE_TUTORIAL_ID, updatedTutorial); //when
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK); //then
         }
 
@@ -225,7 +226,7 @@ class TutorialServiceTest {
 
             //then
             Assertions.assertThatThrownBy(
-                    () -> tutorialService.updateTutorial(FAKE_TUTORIAL_ID, updatedTutorial) //when
+                    () -> tutorialService.update(FAKE_TUTORIAL_ID, updatedTutorial) //when
             ).isInstanceOf(ResourceNotFoundException.class);
         }
     }
@@ -240,19 +241,19 @@ class TutorialServiceTest {
 
         @Test
         void should_return_response_with_status_no_content() {
-            var response = tutorialService.deleteTutorial(FAKE_TUTORIAL_ID); //when
+            var response = tutorialService.delete(FAKE_TUTORIAL_ID); //when
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
         }
 
         @Test
         void should_return_response_with_empty_body() {
-            var response = tutorialService.deleteTutorial(FAKE_TUTORIAL_ID); //when
+            var response = tutorialService.delete(FAKE_TUTORIAL_ID); //when
             Assertions.assertThat(response.getBody()).isNull();
         }
 
         @Test
         void should_call_repository_deleteById_method(){
-            tutorialService.deleteTutorial(FAKE_TUTORIAL_ID); //when
+            tutorialService.delete(FAKE_TUTORIAL_ID); //when
             Mockito.verify(tutorialRepository, Mockito.times(1)).deleteById(FAKE_TUTORIAL_ID); //then
         }
 
@@ -265,10 +266,10 @@ class TutorialServiceTest {
 
             //then
             Assertions.assertThatThrownBy(
-                    () -> tutorialService.deleteTutorial(NON_EXISTING_TUTORIAL_ID) //when
+                    () -> tutorialService.delete(NON_EXISTING_TUTORIAL_ID) //when
             ).isInstanceOf(ResourceNotFoundException.class);
 
-            org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> tutorialService.deleteTutorial(FAKE_TUTORIAL_ID));
+            org.junit.jupiter.api.Assertions.assertDoesNotThrow(() -> tutorialService.delete(FAKE_TUTORIAL_ID));
         }
     }
 
@@ -277,19 +278,19 @@ class TutorialServiceTest {
 
         @Test
         void should_return_response_with_status_no_content() {
-            var response = tutorialService.deleteAllTutorials(); //when
+            var response = tutorialService.deleteAll(); //when
             Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT); //then
         }
 
         @Test
         void should_return_response_with_empty_body() {
-            var response = tutorialService.deleteAllTutorials(); //when
+            var response = tutorialService.deleteAll(); //when
             Assertions.assertThat(response.getBody()).isNull(); //then
         }
 
         @Test
         void should_call_repository_deleteById_method(){
-            tutorialService.deleteAllTutorials(); //when
+            tutorialService.deleteAll(); //when
             Mockito.verify(tutorialRepository, Mockito.times(1)).deleteAll(); //then
         }
 

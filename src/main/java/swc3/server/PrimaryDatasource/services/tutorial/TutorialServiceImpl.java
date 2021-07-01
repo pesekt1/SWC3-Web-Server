@@ -1,4 +1,4 @@
-package swc3.server.PrimaryDatasource.services;
+package swc3.server.PrimaryDatasource.services.tutorial;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TutorialServiceImpl {
+public class TutorialServiceImpl implements TutorialService{
     TutorialRepository tutorialRepository;
 
 //    @PersistenceContext(name = "entityManagerFactory")
@@ -27,14 +27,16 @@ public class TutorialServiceImpl {
         return "Not found Tutorial with id = " + id;
     }
 
-    public ResponseEntity<Tutorial> getTutorialById(long id) {
-        Tutorial tutorial = tutorialRepository.findById(id)
+    @Override
+    public ResponseEntity<Tutorial> getById(long id) {
+        var tutorial = tutorialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id))); //this will be caught by our ControllerExceptionHandler
 
         return new ResponseEntity<>(tutorial, HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Tutorial>> getAllTutorials(String title) {
+    @Override
+    public ResponseEntity<List<Tutorial>> getAll(String title) {
         List<Tutorial> tutorials = new ArrayList<>();
 
         if (title == null)
@@ -48,13 +50,15 @@ public class TutorialServiceImpl {
         return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 
-    public ResponseEntity<Tutorial> createTutorial(Tutorial tutorial) {
-        Tutorial newTutorial = tutorialRepository
+    @Override
+    public ResponseEntity<Tutorial> create(Tutorial tutorial) {
+        var newTutorial = tutorialRepository
                 .save(new Tutorial(tutorial.getTitle(),tutorial.getDescription(), false));
         return new ResponseEntity<>(newTutorial, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<Tutorial> updateTutorial(long id, Tutorial tutorial) {
+    @Override
+    public ResponseEntity<Tutorial> update(long id, Tutorial tutorial) {
         var updatedTutorial = tutorialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id)));
 
@@ -65,7 +69,8 @@ public class TutorialServiceImpl {
         return new ResponseEntity<>(tutorialRepository.save(updatedTutorial), HttpStatus.OK);
     }
 
-    public ResponseEntity<HttpStatus> deleteTutorial(long id) {
+    @Override
+    public ResponseEntity<HttpStatus> delete(long id) {
         if (!tutorialRepository.existsById(id)) throw new ResourceNotFoundException(errorMessage(id));
 
         tutorialRepository.deleteById(id);
@@ -73,11 +78,13 @@ public class TutorialServiceImpl {
         //we could return the deleted object
     }
 
-    public ResponseEntity<HttpStatus> deleteAllTutorials() {
+    @Override
+    public ResponseEntity<HttpStatus> deleteAll() {
         tutorialRepository.deleteAll();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @Override
     public ResponseEntity<List<Tutorial>> findByPublished(boolean published) {
         List<Tutorial> tutorials = tutorialRepository.findByPublished(published);
 

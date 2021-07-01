@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import swc3.server.exception.ResourceNotFoundException;
 import swc3.server.PrimaryDatasource.models.Tutorial;
 import swc3.server.PrimaryDatasource.repository.TutorialRepository;
-import swc3.server.PrimaryDatasource.services.TutorialServiceImpl;
+import swc3.server.PrimaryDatasource.services.tutorial.TutorialServiceImpl;
 
 @RestController
 @RequestMapping("/api4")
@@ -82,7 +82,7 @@ public class TutorialControllerPagination {
     @GetMapping("/tutorials/{id}")
     public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
         //example of using a service instead of directly calling the repository
-        return tutorialService.getTutorialById(id);
+        return tutorialService.getById(id);
     }
 
     @PostMapping("/tutorials")
