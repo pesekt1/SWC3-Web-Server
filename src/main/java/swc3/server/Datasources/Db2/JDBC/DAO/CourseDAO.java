@@ -17,13 +17,10 @@ import java.util.Optional;
 public class CourseDAO implements DAO<Course> {
 
     private static final Logger log = LoggerFactory.getLogger(CourseDAO.class);
-
-    //here we select the data source JdbcTemplate
-    @Qualifier("jdbcTemplateDb2")
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public CourseDAO(JdbcTemplate jdbcTemplate) {
+    public CourseDAO(@Qualifier("jdbcTemplateDb2") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

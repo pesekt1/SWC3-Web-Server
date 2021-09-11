@@ -55,7 +55,7 @@ public class Db2Config {
 
     //for JDBC communication
     @Bean(name = "jdbcTemplateDb2")
-    public JdbcTemplate jdbcTemplateDb2(@Qualifier("dataSourceDb2") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(@Qualifier("dataSourceDb2") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 

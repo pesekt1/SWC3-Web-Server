@@ -2,6 +2,7 @@ package swc3.server.Datasources.Db2.JDBC.DAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ public class CourseDAO2 implements DAO<Course> {
     private static final Logger log = LoggerFactory.getLogger(CourseDAO2.class);
     private final JdbcTemplate jdbcTemplate;
 
-    public CourseDAO2(JdbcTemplate jdbcTemplate) {
+    public CourseDAO2(@Qualifier("jdbcTemplateDb2") JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

@@ -42,7 +42,7 @@ public class TutorialControllerSorting {
     //retrieve all tutorials sorted
     @GetMapping("/tutorials-all-sorted")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(defaultValue = "id,desc") String[] sort) {
-        List<Order> orders = new ArrayList<Order>();
+        List<Order> orders = new ArrayList<>(); //class Sort.Order
 
         if (sort[0].contains(",")) {
             // will sort more than 2 fields
@@ -63,7 +63,7 @@ public class TutorialControllerSorting {
         return new ResponseEntity<>(tutorials, HttpStatus.OK);
     }
 
-    //retrieve filtered, paginated, sorted, and tutorials
+    //retrieve filtered (by title), paginated, sorted tutorials
     @GetMapping("/tutorials")
     public ResponseEntity<Map<String, Object>> getAllTutorialsPageSorting(
             @RequestParam(required = false) String title,
@@ -71,7 +71,7 @@ public class TutorialControllerSorting {
             @RequestParam(defaultValue = "3") int size,
             @RequestParam(defaultValue = "title,asc") String[] sort) {
 
-        List<Order> orders = new ArrayList<Order>();
+        List<Order> orders = new ArrayList<>();
 
         if (sort[0].contains(",")) {
             // will sort more than 2 fields

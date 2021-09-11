@@ -24,7 +24,7 @@ public class TutorialServiceImpl2 implements TutorialService2{
 
     @Override
     public Tutorial getById(long id) {
-        return tutorialRepository.findById(id)
+        return tutorialRepository.findById(id) //returns Optional class
                 .orElseThrow(() -> new ResourceNotFoundException(errorMessage(id)));
     }
 
@@ -62,7 +62,6 @@ public class TutorialServiceImpl2 implements TutorialService2{
     @Override
     public void delete(long id) {
         if (!tutorialRepository.existsById(id)) throw new ResourceNotFoundException(errorMessage(id));
-
         tutorialRepository.deleteById(id);
     }
 

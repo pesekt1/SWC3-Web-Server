@@ -95,7 +95,6 @@ public class TutorialControllerWithoutExceptionHandler {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 
     @GetMapping("/tutorials/published")
