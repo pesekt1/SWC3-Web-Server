@@ -3,7 +3,7 @@
 - When you are importing your database to the cloud, first you need to export your development database:
     - you can use mysql dump
 
-- Ofter there are issues with:
+- Often there are issues with:
     - collation
     - user privileges to create triggers, stored routines, views
     
