@@ -237,7 +237,7 @@ If you get an error because of the timezone, run the following command in MySQL 
 ### Multiple data sources
 
 Adding different database technologies as data sources to our project.
-- First we need to connect to the database servers from IntelliJ:
+- First we need to connect to the database servers from IntelliJ:.
 
     ![data sources](src/main/resources/static/dataSources.png)
 
