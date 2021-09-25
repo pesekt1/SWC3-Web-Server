@@ -46,7 +46,7 @@ public class CourseDAO implements DAO<Course> {
         try {
             course = jdbcTemplate.queryForObject(sql, new Object[]{id}, new CourseRowMapper());
         }catch (DataAccessException ex) {
-            log.info("Course not found: " + id);
+            log.info(String.format("Course not found: %s", "id"));
         }
         return Optional.ofNullable(course);
     }

@@ -44,6 +44,7 @@ public class Order {
     @Column(name = "shipper_id", nullable = true)
     private Short shipperId;
 
+    //@OneToMany(mappedBy = "ordersByOrderId", cascade = CascadeType.ALL, orphanRemoval = true)
     @OneToMany(mappedBy = "ordersByOrderId")
     private Collection<OrderItem> orderItems;
 

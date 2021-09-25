@@ -1,7 +1,6 @@
 package swc3.server.PrimaryDatasource.models;
 
 import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 //lombok project - replace equals, hashCode, setters, getters, noArgsConstructor with these annotations:

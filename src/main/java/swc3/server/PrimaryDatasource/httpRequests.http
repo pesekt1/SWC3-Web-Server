@@ -1,5 +1,5 @@
 ### registration of a new user -> users table
-POST http://localhost:5557/api/auth/signup
+POST http://{{host}}/api/auth/signup
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### login with credentials, we get a JWT and save it in client.global - session variable auth_token
-POST http://localhost:5557/api/auth/signin
+POST http://{{host}}/api/auth/signin
 Content-Type: application/json
 
 {
@@ -27,7 +27,7 @@ client.test("JWT acquired successfully", function() {
 %}
 
 ### request with JWT authorizaton, we need to login and then use the JWT
-GET http://localhost:5557//api/tutorials HTTP/1.1
+GET http://{{host}}//api/tutorials HTTP/1.1
 Authorization: Bearer {{auth_token}}
 
 > {%

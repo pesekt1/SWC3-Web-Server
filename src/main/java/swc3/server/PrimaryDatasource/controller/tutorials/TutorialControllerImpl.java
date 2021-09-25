@@ -22,7 +22,7 @@ public class TutorialControllerImpl implements TutorialOperations{
 	ModelMapper modelMapper; // for entity <--> DTO conversion
 
 	@Autowired //dependency injection via constructor
-	public TutorialControllerImpl(@Qualifier("tutorialServiceImpl2") TutorialService2 tutorialService){
+	public TutorialControllerImpl(TutorialService2 tutorialService){
 		this.tutorialService = tutorialService;
 		this.modelMapper = new ModelMapper();
 	}

@@ -26,7 +26,7 @@ public class ControllerExceptionHandler {
       return new ResponseEntity<>(createErrorMessage(httpStatus, ex, request), httpStatus);
   }
 
-  @ExceptionHandler({ AccessDeniedException.class })
+  @ExceptionHandler( AccessDeniedException.class )
   public ResponseEntity<ErrorMessage> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
       var httpStatus = HttpStatus.FORBIDDEN;
       return new ResponseEntity<>(createErrorMessage(httpStatus, ex, request), httpStatus);
