@@ -6,8 +6,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TutorialDto {
-    //private long id;
     private String description;
     private Boolean published;
     private String title;
 }
+
+//new way - using record:
+//public record TutorialDto (String name, String address) {}
