@@ -1281,6 +1281,57 @@ This is for Heroku cloud - it tells is to use java 11 buildpack.
     - Show customers (from MySQL DB customers table) - only for users with ADMIN role
 - Communication is done using axios library.
 
+## DTO - Data Transfer Object
+
+- Web client should not know the domain classes of the web server. For the communication we use DTOs - plain java classes.
+- REST API will work with DTOs, that means we need a conversion back and forth.
+
+DTO class:
+
+```java
+@Setter
+@Getter
+public class OrderDto {
+    private String comments;
+    private Collection<OrderItem> orderItems;
+    private int customerId;
+}
+```
+
+Conversion between the entity and DTO using ModelMapper class in the controller:
+
+```java
+@RestController
+@RequestMapping("/api7/tutorials")
+public class TutorialControllerImpl implements TutorialOperations{
+TutorialService2 tutorialService;
+ModelMapper modelMapper; // for entity <--> DTO conversion
+
+	@Autowired //dependency injection via constructor
+	public TutorialControllerImpl(TutorialService2 tutorialService){
+		this.tutorialService = tutorialService;
+		this.modelMapper = new ModelMapper();
+	}
+
+	private TutorialDto convertToDto(Tutorial tutorial) {
+		return modelMapper.map(tutorial, TutorialDto.class);
+	}
+
+	private Tutorial convertToEntity(TutorialDto tutorialDto) {
+		return modelMapper.map(tutorialDto, Tutorial.class);
+	}
+
+	@Override
+	public TutorialDto getById(long id) {
+		return convertToDto(tutorialService.getById(id));
+	}
+
+	@Override
+	public void create(TutorialDto tutorialDto) {
+		tutorialService.create(convertToEntity(tutorialDto));
+	}
+```
+
 ## DAO - Data Access Object
 
 The Data Access Object (DAO) pattern is a structural pattern that allows us to isolate the application/business layer 

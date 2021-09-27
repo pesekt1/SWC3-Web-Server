@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import swc3.server.PrimaryDatasource.dto.TutorialDto;
 import swc3.server.PrimaryDatasource.models.Tutorial;
+import swc3.server.PrimaryDatasource.records.TutorialRecord;
 import swc3.server.PrimaryDatasource.services.tutorial.TutorialService2;
 
 import java.util.List;
@@ -75,6 +76,12 @@ public class TutorialControllerImpl implements TutorialOperations{
 				.stream()
 				.map(this::convertToDto)
 				.collect(Collectors.toList());
+	}
+
+	//TODO: this does not work - records are not supported by ModelMapper, use MapStruct instead
+	@GetMapping("/record/{id}")
+	public TutorialRecord getByIdRecord(@PathVariable("id") long id) {
+		return modelMapper.map(tutorialService.getById(id), TutorialRecord.class);
 	}
 }
 
