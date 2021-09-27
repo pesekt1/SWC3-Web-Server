@@ -56,6 +56,7 @@ public class PaymentServiceImpl implements PaymentService{
         paymentRepository.deleteById(id);
     }
 
+    //TODO change this - use the Mapper class
     private Payment createPaymentFromDto(PaymentDto payment) {
         var newPayment = new Payment();
         newPayment.setAmount(payment.getAmount());

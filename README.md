@@ -50,7 +50,7 @@
   * [Web client app](#web-client-app)
   * [DAO - Data Access Object](#dao---data-access-object)
   * [Multiple implementation classes](#multiple-implementation-classes)
-  * [JDBC - Java Database Connectivity, db connection without the ORM, just using POJOs](#jdbc---java-database-connectivity--db-connection-without-the-orm--just-using-pojos)
+  * [JDBC - Java Database Connectivity, db connection without the ORM, just using POJOs](#jdbc---java-database-connectivity---db-connection-without-the-orm---just-using-pojos)
   * [Git](#git)
   * [Optimization](#optimization)
   * [Heroku](#heroku)
@@ -1327,7 +1327,7 @@ public class CourseController implements CourseOperations{
     }
 ```
 
-## JDBC - Java Database Connectivity, db connection without the ORM, just using POJOs
+## JDBC - Java Database Connectivity - db connection without the ORM - just using POJOs
 
 [tutorial](https://www.baeldung.com/spring-jdbc-jdbctemplate)
 
