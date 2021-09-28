@@ -1,4 +1,4 @@
-package swc3.server.PrimaryDatasource.controller.clientApi.models;
+package swc3.server.PrimaryDatasource.clientApi.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

@@ -1,11 +1,11 @@
-package swc3.server.PrimaryDatasource.controller.clientApi;
+package swc3.server.PrimaryDatasource.clientApi;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import swc3.server.PrimaryDatasource.controller.clientApi.models.*;
+import swc3.server.PrimaryDatasource.clientApi.models.*;
 
 import java.io.IOException;
 import java.net.URI;

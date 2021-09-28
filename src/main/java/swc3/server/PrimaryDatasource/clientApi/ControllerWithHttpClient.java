@@ -1,9 +1,9 @@
-package swc3.server.PrimaryDatasource.controller.clientApi;
+package swc3.server.PrimaryDatasource.clientApi;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import swc3.server.PrimaryDatasource.controller.clientApi.models.*;
+import swc3.server.PrimaryDatasource.clientApi.models.*;
 
 import java.io.IOException;
 import java.util.List;
