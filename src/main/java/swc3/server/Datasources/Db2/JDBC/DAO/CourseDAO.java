@@ -70,10 +70,10 @@ public class CourseDAO implements DAO<Course> {
     }
 
     //This endpoint is vulnerable, it allows SQL injection
-    //use this as an argument:
-    //"http://google.com" OR 1 = 1
-    //"http://google.com"; DELETE from courses
-    //"http://google.com"; DROP table courses
+    //try this:
+    //http://localhost:5557/api/courses/vulnerable?filter="http://google.com" OR 1 = 1
+    //http://localhost:5557/api/courses/vulnerable?filter="http://google.com"; DELETE from courses
+    //http://localhost:5557/api/courses/vulnerable?filter="http://google.com"; DROP table courses
     @Override
     public List<Course> getAllVulnerable(String filter) {
         String sql = "SELECT course_id, title, description, link from courses WHERE link =" + filter;
