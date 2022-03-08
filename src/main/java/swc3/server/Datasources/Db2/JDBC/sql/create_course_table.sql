@@ -1,3 +1,5 @@
+USE swc3_springboot2;
+
 CREATE TABLE courses (
                         course_id int NOT NULL AUTO_INCREMENT,
                         title varchar(80) NOT NULL,         -- Course Title

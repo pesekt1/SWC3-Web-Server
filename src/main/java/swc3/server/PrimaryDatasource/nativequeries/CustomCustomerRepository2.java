@@ -8,5 +8,5 @@ import java.util.Set;
 
 @Repository
 public interface CustomCustomerRepository2 {
-    List<Customer> findCustomersByCities(Set<String> emails);
+    List<Customer> findCustomersByCities(Set<String> cities);
 }

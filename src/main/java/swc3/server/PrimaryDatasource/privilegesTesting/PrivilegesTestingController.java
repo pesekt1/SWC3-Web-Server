@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.web.bind.annotation.*;
 
-//testing the priviledges of the application
+//testing the privileges of the application
 //remove CREATE privilege from the application login and try to execute the endpoint.
 @RestController
 @RequestMapping("/privileges")
