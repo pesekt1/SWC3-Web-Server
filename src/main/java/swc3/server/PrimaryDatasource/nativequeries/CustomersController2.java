@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+//connection string:
+//...?sessionVariables=transaction_isolation='READ COMMITTED'
+
 @RestController
 @RequestMapping("/extra")
 public class CustomersController2 {
