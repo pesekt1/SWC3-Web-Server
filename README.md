@@ -726,7 +726,7 @@ To disable the Spring security, go to WebSecurityConfig and use permitAll() on a
         ...
 ```
 
-- During the registration the password is encrypted. During the login, it is decrypted.
+- During the registration the password is hashed. During the login, the hashed password is compared with the hash of the provided password.
 ```java
     org.springframework.security.crypto.password.PasswordEncoder;
     PasswordEncoder encoder.encode("mypassword");
