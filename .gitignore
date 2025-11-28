@@ -42,3 +42,7 @@ build/
 
 /META-INF/
 /old-actions/
+
+# Ignore generated application.properties file
+/target/classes/application.properties
+
