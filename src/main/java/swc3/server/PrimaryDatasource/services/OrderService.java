@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import swc3.server.PrimaryDatasource.models.*;
 import swc3.server.PrimaryDatasource.dto.OrderDto;
 import swc3.server.PrimaryDatasource.repository.OrderItemNoteRepository;
@@ -62,7 +65,10 @@ public class OrderService {
 
         return new ResponseEntity<>(shippedOrders, HttpStatus.OK);
     }
-
+@Transactional(
+        isolation = Isolation.READ_COMMITTED,
+        propagation= Propagation.REQUIRED
+)
     public ResponseEntity<Order> createOrder(OrderDto order) {
         var savedOrder = ordersRepository.save(newOrderFromDto(order));
 
