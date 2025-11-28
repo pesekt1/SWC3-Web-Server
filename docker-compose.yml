@@ -1,0 +1,53 @@
+# IMPORTANT:
+# If the MySQL volume already exists, the init scripts and dump files will NOT be executed again.
+# To re-initialize the database, remove the volume first:
+#   docker-compose down -v
+# Then start again:
+#   docker-compose up
+
+services:
+  mysqldb:
+    image: mysql:8
+    container_name: mysqldb
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: swc3_springboot
+      MYSQL_USER: swc3-server
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mysql_data_swc3:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d # init.sql runs automatically on first startup with a new volume
+      - ./sql/primaryDataSource/Dump20210922.sql:/docker-entrypoint-initdb.d/01_dump_swc3_springboot.sql
+      - ./sql/Db2/swc3_springboot2_20210502.sql:/docker-entrypoint-initdb.d/02_dump_swc3_springboot2.sql
+
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data_swc3:/data/db
+
+  swc3-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysqldb
+      - mongo
+    environment:
+      DATABASE_URL: jdbc:mysql://mysqldb:3306/swc3_springboot?user=swc3-server&password=123456&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+      DB2_URL: jdbc:mysql://mysqldb:3306/swc3_springboot2?user=swc3-server&password=123456&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+      DB6_URL: jdbc:sqlite:sql/sqlite/swc3_sqlite.db
+      MONGO_URL: mongodb://mongo:27017/swc3_db
+      SECRET_KEY: secretkey
+    volumes:
+      - ./sql/sqlite:/app/sql/sqlite # Mount local sqlite folder if needed
+    ports:
+      - "5557:5557" # Change to your app's port
+
+volumes:
+  mysql_data_swc3:
+  mongo_data_swc3:
