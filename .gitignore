@@ -43,6 +43,5 @@ build/
 /META-INF/
 /old-actions/
 
-# Ignore generated application.properties file
-/target/classes/application.properties
-
+# Ignore all files in target/classes (including application.properties)
+/target/classes/
