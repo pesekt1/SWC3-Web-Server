@@ -65,13 +65,18 @@
 
 - Spring Boot 2
 - Spring Framework 5
-- Java 14
+- Java 17
 
 
 If you need to upgrade Java version, you need to set it up in few places:
 - pom.xml:
 
 - .github/workflows
+
+## Running the system
+```
+docker compose up -d --build
+```
 
 ## App structure
 ![app structure](src/main/resources/static/appStructure.png)
@@ -1266,11 +1271,6 @@ db1.datasource.hikari.maximum-pool-size=5
 ### system.properties
     java.runtime.version=11
 This is for Heroku cloud - it tells is to use java 11 buildpack.
-
-### Docker
-- Docker allows us to containerize our application - We will have a docker image or our app.
-- This is useful for scaling - We can use Kubernetes orchestration tool to run our containerized app in the cloud.
-- more info coming soon....
 
 ## Web client app
 
