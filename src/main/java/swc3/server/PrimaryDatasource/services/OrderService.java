@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import swc3.server.PrimaryDatasource.models.*;
 import swc3.server.PrimaryDatasource.dto.OrderDto;
 import swc3.server.PrimaryDatasource.repository.OrderItemNoteRepository;
@@ -16,6 +18,10 @@ import swc3.server.PrimaryDatasource.repository.OrderItemRepository;
 import swc3.server.PrimaryDatasource.repository.OrderRepository;
 import swc3.server.PrimaryDatasource.repository.ShippedOrderViewRepository;
 import swc3.server.PrimaryDatasource.services.invoice.InvoiceService;
+import swc3.server.exception.ResourceNotFoundException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,6 +29,8 @@ import java.util.List;
 
 @Service
 public class OrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     private static final byte NEW_ORDER_STATUS = (byte)4;
     private static final int INVOICE_DUE_PERIOD = 30;
@@ -71,6 +79,20 @@ public class OrderService {
 )
     public ResponseEntity<Order> createOrder(OrderDto order) {
         var savedOrder = ordersRepository.save(newOrderFromDto(order));
+
+    TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+        @Override
+        public void afterCompletion(int status) {
+            if (status == TransactionSynchronization.STATUS_ROLLED_BACK) {
+                logger.warn("Transaction rolled back for order id={}", savedOrder.getOrderId());
+            } else {
+                logger.info("Transaction committed for order id={}", savedOrder.getOrderId());
+            }
+        }
+    });
+
+    //simulate exception
+    if (true) throw new ResourceNotFoundException("Simulated exception");
 
         var orderItems = savedOrder.getOrderItems();
         for (OrderItem orderItem:orderItems) {
